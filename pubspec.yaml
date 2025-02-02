@@ -1,0 +1,44 @@
+name: client_book_flutter
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.5.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  flutter_localizations:
+    sdk: flutter
+
+  logger: ^2.5.0
+
+  # state
+  flutter_bloc: ^9.0.0
+
+  # db packages
+  drift: ^2.20.0
+  drift_flutter: ^0.2.0
+  path_provider: ^2.1.4
+  path: ^1.9.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+  build_runner: ^2.4.11
+  drift_dev: ^2.20.1
+
+flutter:
+  uses-material-design: true
+  generate: true
+  
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: fonts/Montserrat-SemiBold.ttf
+        - asset: fonts/Montserrat-Bold.ttf
+        - asset: fonts/Montserrat-Italic.ttf

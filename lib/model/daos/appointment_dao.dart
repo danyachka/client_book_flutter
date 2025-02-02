@@ -10,6 +10,9 @@ part 'appointment_dao.g.dart'; // Generated code
 class AppointmentDao extends DatabaseAccessor<AppDatabase> with _$AppointmentDaoMixin {
   AppointmentDao(super.attachedDatabase);
 
+
+  static const loadingItemsCount = 50;
+
   // Insert methods
   Future<void> insertAll(List<Appointment> appointments) async {
     return await batch((batch) {
@@ -41,7 +44,7 @@ class AppointmentDao extends DatabaseAccessor<AppDatabase> with _$AppointmentDao
     return await (select(appointments)
           ..where((t) => t.startTime.isSmallerThanValue(startTime) & t.clientId.equals(clientId))
           ..orderBy([(t) => OrderingTerm.desc(t.startTime)])
-          ..limit(50))
+          ..limit(loadingItemsCount))
         .get();
   }
 
@@ -50,7 +53,7 @@ class AppointmentDao extends DatabaseAccessor<AppDatabase> with _$AppointmentDao
     return await (select(appointments)
           ..where((t) => t.startTime.isBiggerThanValue(startTime) & t.clientId.equals(clientId))
           ..orderBy([(t) => OrderingTerm.asc(t.startTime)])
-          ..limit(50))
+          ..limit(loadingItemsCount))
         .get();
   }
 
@@ -172,7 +175,7 @@ class AppointmentDao extends DatabaseAccessor<AppDatabase> with _$AppointmentDao
     final query = (select(appointments)
       ..where((t) => t.startTime.isSmallerThanValue(startTime))
       ..orderBy([(t) => OrderingTerm.desc(t.startTime)])
-      ..limit(50)
+      ..limit(loadingItemsCount)
     ).join([
       innerJoin(clients, clients.id.equalsExp(appointments.clientId)),
     ]);
@@ -191,7 +194,7 @@ class AppointmentDao extends DatabaseAccessor<AppDatabase> with _$AppointmentDao
     final query = (select(appointments)
       ..where((t) => t.startTime.isBiggerThanValue(startTime))
       ..orderBy([(t) => OrderingTerm.asc(t.startTime)])
-      ..limit(50)
+      ..limit(loadingItemsCount)
     ).join([
       innerJoin(clients, clients.id.equalsExp(appointments.clientId)),
     ]);

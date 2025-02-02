@@ -4,6 +4,13 @@ import 'package:client_book_flutter/model/app_database.dart';
 
 abstract class AppointmentListBlockEvent {}
 
+class ScrollToDateAppointmentListBlockEvent extends AppointmentListBlockEvent {
+
+  final int time;
+
+  ScrollToDateAppointmentListBlockEvent({required this.time});
+}
+
 class OldestScrolledAppointmentListBlockEvent extends AppointmentListBlockEvent {
 
   final int lastAppointmentTime;

@@ -20,17 +20,19 @@ class _MainPageState extends State<MainPage> {
 
   late final PageController pageController;
 
-  late final ScrollController mainListScrollController;
-
   late final MainAppointmentListBlock mainAppointmentListBlock;
 
   final currentFragment = ValueNotifier(MainPageFragment.list);
 
   @override
   void initState() {
-    pageController = PageController();
-    pageController.jumpToPage(currentFragment.value.pageIndex);
-    mainListScrollController = ScrollController();
+    pageController = PageController(initialPage: currentFragment.value.pageIndex);
+    pageController.addListener(() {
+      final page = (pageController.page?? 0).round();
+      if (page == currentFragment.value.pageIndex) return;
+
+      currentFragment.value = MainPageFragment.values[page];
+    });
 
     mainAppointmentListBlock = MainAppointmentListBlock(scrollToIndexInList);
 
@@ -40,7 +42,6 @@ class _MainPageState extends State<MainPage> {
   @override
   void dispose() {
     pageController.dispose();
-    mainListScrollController.dispose();
 
     mainAppointmentListBlock.close();
 
@@ -83,7 +84,7 @@ class _MainPageState extends State<MainPage> {
           children: [
             CalendarFragment(changeFragmentCallBack: scrollToPage),
 
-            ListFragment(scrollController: mainListScrollController),
+            const ListFragment(),
 
             const StatsFragment()
           ]
@@ -100,15 +101,21 @@ class _MainPageState extends State<MainPage> {
             indicatorColor: Colors.transparent,
             animationDuration: const Duration(milliseconds: 0),
             backgroundColor: AppColors.darkLighter,
-            onDestinationSelected: (int index) => currentFragment.value = MainPageFragment.values[index],
+            onDestinationSelected: (int index) {
+              if (index == currentFragment.value.pageIndex) return;
+
+              final newFragment = MainPageFragment.values[index];
+              currentFragment.value = newFragment;
+              scrollToPage(newFragment);
+            },
             selectedIndex: currentFragment.value.pageIndex,
             destinations: const <Widget>[
               _NavigationDestination(
-                  Icon(Icons.calendar_month_rounded, size: 22)),
+                  Icon(Icons.calendar_month_rounded, size: 30)),
               _NavigationDestination(
-                  Icon(Icons.list_rounded, size: 22)),
+                  Icon(Icons.list_rounded, size: 30)),
               _NavigationDestination(
-                  Icon(Icons.scatter_plot_rounded, size: 22))
+                  Icon(Icons.scatter_plot_rounded, size: 30))
             ],
           ),
         )
@@ -128,14 +135,14 @@ class _NavigationDestination extends StatelessWidget {
     return NavigationDestination(
       icon: ColorFiltered(
         colorFilter: const ColorFilter.mode(
-          AppColors.white,
+          AppColors.grayLight,
           BlendMode.srcIn,
         ),
         child: icon,
       ),
       selectedIcon: ColorFiltered(
         colorFilter: const ColorFilter.mode(
-          AppColors.grayLight,
+          AppColors.white,
           BlendMode.srcIn,
         ),
         child: icon,

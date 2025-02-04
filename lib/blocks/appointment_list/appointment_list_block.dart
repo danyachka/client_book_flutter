@@ -1,6 +1,7 @@
 
 import 'dart:math';
 
+import 'package:client_book_flutter/blocks/appointment_list/entity.dart';
 import 'package:client_book_flutter/blocks/appointment_list/events/appointment_list_block_events.dart';
 import 'package:client_book_flutter/blocks/appointment_list/loader/appointment_loaders.dart';
 import 'package:client_book_flutter/blocks/appointment_list/states/appointment_list_block_states.dart';
@@ -17,11 +18,11 @@ abstract class AppointmentListBlock
 
   final AppointmentLoader _loader;
 
-  final ScrollTo scrollTo;
+  List<AppointmentListItem> get _list => (state as ListAppointmentListBlockState).list;
 
-  List<AppointmentClient> get _list => (state as ListAppointmentListBlockState).list; 
+  final ScrollTo _scrollTo;
   
-  AppointmentListBlock(AppointmentLoader loader, this.scrollTo)
+  AppointmentListBlock(AppointmentLoader loader, this._scrollTo)
   : _loader = loader, 
     super(LoadingAppointmentListBlockState()) {
 
@@ -64,7 +65,7 @@ abstract class AppointmentListBlock
     if (list.isEmpty) return;
 
     // in case scroll only
-    if (list.first.appointment.startTime <= time && time <= list.last.appointment.startTime) {
+    if (list.first.data.appointment.startTime <= time && time <= list.last.data.appointment.startTime) {
       _scrollToTime(time, list);
       return;
     }
@@ -85,28 +86,31 @@ abstract class AppointmentListBlock
       ..add(centerItem)
       ..addAll(lists[1]);
     
-    emit(ListAppointmentListBlockState(list: itemsList));
-    scrollTo(centerItemIndex);
+    emit(ListAppointmentListBlockState(
+      list: itemsList.map((e) => AppointmentListItem(data: e)).toList()
+    ));
+    _scrollTo(centerItemIndex);
   }
 
-  void _scrollToTime(int time, List<AppointmentClient> list) {
+  void _scrollToTime(int time, List<AppointmentListItem> list) {
     for (int i = 0; i < list.length; i++) {
-      if (list[i].appointment.startTime < time) continue;
+      if (list[i].data.appointment.startTime < time) continue;
 
-      scrollTo(max(0, i - 1));
+      _scrollTo(max(0, i - 1));
     }
   }
 
   void _onNewestScrolled(int time, Emitter<AppointmentListBlockState> emit) async {
-    final newItems = await _loader.loadNewer(time);
+    final newData = await _loader.loadNewer(time);
 
-    if (newItems.isEmpty) return;
+    if (newData.isEmpty) return;
+    final newItems = newData.map((e) => AppointmentListItem(data: e)).toList();
 
     final oldList = _list;
 
     oldList.addAll(newItems);
 
-    List<AppointmentClient> newList;
+    List<AppointmentListItem> newList;
     if (oldList.length > maxItemsInList) {
       newList = oldList.sublist(0, AppointmentDao.loadingItemsCount);
     } else {
@@ -117,15 +121,16 @@ abstract class AppointmentListBlock
   }
 
   void _onOldestScrolled(int time, Emitter<AppointmentListBlockState> emit) async {
-    final newItems = await _loader.loadOlder(time);
+    final newData = await _loader.loadOlder(time);
 
-    if (newItems.isEmpty) return;
+    if (newData.isEmpty) return;
+    final newItems = newData.map((e) => AppointmentListItem(data: e)).toList();
 
     final oldList = _list;
 
     oldList.addAll(newItems);
 
-    List<AppointmentClient> newList;
+    List<AppointmentListItem> newList;
     if (oldList.length > maxItemsInList) {
       newList = oldList.sublist(maxItemsInList - AppointmentDao.loadingItemsCount);
     } else {
@@ -143,9 +148,14 @@ abstract class AppointmentListBlock
     for (int i = 0; i < list.length; i++) {
       final ac = list[i];
 
-      if (ac.appointment.id != appointment.id) continue;
+      if (ac.data.appointment.id != appointment.id) continue;
 
-      list[i] = AppointmentClient(appointment: appointment, client: ac.client);
+      final newItem = AppointmentListItem(
+        data: AppointmentClient(appointment: appointment, client: ac.data.client)
+      );
+      newItem.key = ac.key;
+
+      list[i] = newItem;
       emit(ListAppointmentListBlockState(list: list));
       return;
     }
@@ -159,9 +169,11 @@ abstract class AppointmentListBlock
     for (int i = 0; i < list.length; i++) {
       final ac = list[i];
 
-      if (ac.client.id != client.id) continue;
+      if (ac.data.client.id != client.id) continue;
 
-      list[i] = AppointmentClient(appointment: ac.appointment, client: client);
+      list[i] = AppointmentListItem(
+        data: AppointmentClient(appointment: ac.data.appointment, client: client)
+      );
       hasChangedAny = true;
     }
 
@@ -174,7 +186,7 @@ abstract class AppointmentListBlock
     bool isRemoved = false;
 
     _list.removeWhere((ac) {
-      final remove = ac.appointment.id == removedAppointment.id;
+      final remove = ac.data.appointment.id == removedAppointment.id;
 
       if (remove) isRemoved = true;
       return remove;

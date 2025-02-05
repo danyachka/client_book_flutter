@@ -1,9 +1,9 @@
 
 import 'package:client_book_flutter/blocks/appointment_list/appointment_list_block.dart';
 import 'package:client_book_flutter/blocks/appointment_list/states/appointment_list_block_states.dart';
-import 'package:client_book_flutter/ui/main_page/fragments/calendar_fragment.dart';
-import 'package:client_book_flutter/ui/main_page/fragments/list_fragment.dart';
-import 'package:client_book_flutter/ui/main_page/fragments/stats_fragment.dart';
+import 'package:client_book_flutter/ui/pages/main_page/fragments/calendar_fragment.dart';
+import 'package:client_book_flutter/ui/pages/main_page/fragments/list_fragment.dart';
+import 'package:client_book_flutter/ui/pages/main_page/fragments/stats_fragment.dart';
 import 'package:client_book_flutter/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -15,7 +15,8 @@
   "create_client": "Create client",
   "create_appointment": "Create appointment",
 
-  
+  "yes": "yes",
+  "no": "no",
 
   "january": "january",
   "february": "february",

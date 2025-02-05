@@ -2,8 +2,8 @@
 import 'package:client_book_flutter/blocks/appointment_list/appointment_list_block.dart';
 import 'package:client_book_flutter/blocks/appointment_list/events/appointment_list_block_events.dart';
 import 'package:client_book_flutter/blocks/appointment_list/states/appointment_list_block_states.dart';
-import 'package:client_book_flutter/ui/app_progress/app_progress.dart';
-import 'package:client_book_flutter/ui/appointment_list/appointment_widget.dart';
+import 'package:client_book_flutter/ui/widgets/app_progress/app_progress.dart';
+import 'package:client_book_flutter/ui/widgets/appointment_list/appointment_widget.dart';
 import 'package:client_book_flutter/utils/app_font.dart';
 import 'package:client_book_flutter/utils/colors.dart';
 import 'package:client_book_flutter/utils/s.dart';

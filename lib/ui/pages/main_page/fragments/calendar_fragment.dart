@@ -1,6 +1,6 @@
 
 
-import 'package:client_book_flutter/ui/main_page/main_page.dart';
+import 'package:client_book_flutter/ui/pages/main_page/main_page.dart';
 import 'package:flutter/material.dart';
 
 class CalendarFragment extends StatelessWidget {

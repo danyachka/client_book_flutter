@@ -1,5 +1,5 @@
 
-import 'package:client_book_flutter/ui/main_page/main_page.dart';
+import 'package:client_book_flutter/ui/pages/main_page/main_page.dart';
 import 'package:client_book_flutter/utils/colors.dart';
 import 'package:client_book_flutter/utils/s.dart';
 import 'package:flutter/material.dart';

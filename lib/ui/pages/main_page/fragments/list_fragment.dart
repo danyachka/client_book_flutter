@@ -1,5 +1,5 @@
 
-import 'package:client_book_flutter/ui/appointment_list/appointment_list_widget.dart';
+import 'package:client_book_flutter/ui/widgets/appointment_list/appointment_list_widget.dart';
 import 'package:client_book_flutter/utils/app_font.dart';
 import 'package:client_book_flutter/utils/colors.dart';
 import 'package:client_book_flutter/utils/s.dart';

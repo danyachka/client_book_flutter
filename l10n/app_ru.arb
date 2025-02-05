@@ -13,6 +13,9 @@
   "create_client": "Создать клиента",
   "create_appointment": "Создать встречу",
 
+  "yes": "да",
+  "no": "нет",
+
   "january": "январь",
   "february": "февраль",
   "march": "март",

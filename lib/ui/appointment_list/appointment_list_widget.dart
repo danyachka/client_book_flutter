@@ -7,10 +7,14 @@ import 'package:client_book_flutter/ui/appointment_list/appointment_widget.dart'
 import 'package:client_book_flutter/utils/app_font.dart';
 import 'package:client_book_flutter/utils/colors.dart';
 import 'package:client_book_flutter/utils/s.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
 
 class AppointmentListWidget extends StatelessWidget {
+
+  static const _topInfoPadding = 200.0;
 
   final bool isClientList;
 
@@ -25,14 +29,16 @@ class AppointmentListWidget extends StatelessWidget {
     return BlocBuilder(
       bloc: bloc,
       builder: (context, state) {
+        if (kDebugMode) Logger().i("Rebuilding list with $state");
+
         if (state is! ListAppointmentListBlockState) {
-          return ListView(children: const [
+          return ListView(padding: const EdgeInsets.only(top: _topInfoPadding), children: const [
             Center(child: AppProgressWidget(strokeWidth: 5, size: 40))
           ]);
         }
 
         if (state.list.isEmpty) {
-          return ListView(children: [
+          return ListView(padding: const EdgeInsets.only(top: 200), children: [
             Center(child: Text(
               S.of(context).nothing_yet,
               style: const TextStyle(

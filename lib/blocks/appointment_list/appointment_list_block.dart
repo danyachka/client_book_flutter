@@ -12,7 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 abstract class AppointmentListBlock 
-  extends Bloc<AppointmentListBlockEvent, AppointmentListBlockState> {
+    extends Bloc<AppointmentListBlockEvent, AppointmentListBlockState> {
 
   static const maxItemsInList = 200;
 
@@ -59,15 +59,17 @@ abstract class AppointmentListBlock
 
   void _onScrollToEvent(int time, Emitter<AppointmentListBlockState> emit) async {
     final currentState = state;
-    if (currentState is! ListAppointmentListBlockState) return;
-    final list = currentState.list;
-
-    if (list.isEmpty) return;
-
+    
     // in case scroll only
-    if (list.first.data.appointment.startTime <= time && time <= list.last.data.appointment.startTime) {
-      _scrollToTime(time, list);
-      return;
+    if (currentState is ListAppointmentListBlockState) {
+      final list = currentState.list;
+      if (list.isNotEmpty) {
+        if (list.first.data.appointment.startTime <= time && time <= list.last.data.appointment.startTime) {
+          _scrollToTime(time, list);
+          return;
+        }
+      } 
+
     }
 
     // in case nothing in db

@@ -3,6 +3,7 @@ import 'package:client_book_flutter/blocs/appointment_creation/events/appointmen
 import 'package:client_book_flutter/blocs/appointment_creation/states/appointments_creation_states.dart';
 import 'package:client_book_flutter/model/app_database.dart';
 import 'package:client_book_flutter/model/daos/appointment_dao.dart';
+import 'package:client_book_flutter/model/models/appointment_client.dart';
 import 'package:drift/drift.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -69,7 +70,12 @@ class AppointmentCreationBloc
         appointmentText: event.text
       );
 
-      emit(DoneAppointmentCreationState(createdAppointment: appointment));
+      emit(DoneAppointmentCreationState(
+        createdAC: AppointmentClient(
+          appointment: appointment, 
+          client: event.client!
+        )
+      ));
     } catch (e) {
       emit(CreationAppointmentCreationState.unknownError(e.toString()));
     }

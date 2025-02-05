@@ -42,6 +42,10 @@ abstract class AppointmentListBloc
       (event, emit) => _onAppointmentChanged(event.changedAppointment, emit)
     );
 
+    on<AppointmentAddedAppointmentListBlocEvent>(
+      (event, emit) => _onAppointmentAdded(event.newAppointment, emit)
+    );
+
     on<ClientChangedAppointmentListBlocEvent>(
       (event, emit) => _onClientChanged(event.changedClient, emit)
     );
@@ -141,6 +145,35 @@ abstract class AppointmentListBloc
 
     emit(ListAppointmentListBlocState(list: newList));
     
+  }
+
+  void _onAppointmentAdded(AppointmentClient ac, Emitter<AppointmentListBlocState> emit) async {
+    final appointment = ac.appointment;
+    if (!needToCheckEvent(appointment.clientId)) return;
+
+    final list = _list;
+    if (_list.length > AppointmentDao.loadingItemsCount) {
+      if (ac.appointment.startTime < list.first.data.appointment.startTime
+          || list.last.data.appointment.startTime < ac.appointment.startTime) {
+        return;
+      }
+    }
+
+    if (list.isEmpty) {
+      list.add(AppointmentListItem(data: ac));
+    } else {
+      bool isInserted = false;
+      for (int i = 0; i < list.length; i++) {
+        if (list[i].data.appointment.startTime > ac.appointment.startTime) continue;
+        list.insert(i, AppointmentListItem(data: ac));
+        isInserted = true;
+        break;
+      }
+
+      if (!isInserted) list.add(AppointmentListItem(data: ac)); // in case last one
+    }
+
+    emit(ListAppointmentListBlocState(list: list));
   }
 
   void _onAppointmentChanged(Appointment appointment, Emitter<AppointmentListBlocState> emit) async {

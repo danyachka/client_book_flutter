@@ -1,14 +1,13 @@
 
 
-import 'package:client_book_flutter/model/app_database.dart';
 import 'package:client_book_flutter/model/models/appointment_client.dart';
 
 abstract class AppointmentCreationState {}
 
 class DoneAppointmentCreationState extends AppointmentCreationState {
-  final Appointment createdAppointment;
+  final AppointmentClient createdAC;
 
-  DoneAppointmentCreationState({required this.createdAppointment});
+  DoneAppointmentCreationState({required this.createdAC});
 }
 
 class LoadingAppointmentCreationState extends AppointmentCreationState {}

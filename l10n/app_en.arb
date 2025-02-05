@@ -13,7 +13,12 @@
   "find_client": "Find client",
 
   "create_client": "Create client",
+  "new_client": "New client",
+  "edit_clent": "Edit client",
+
   "create_appointment": "Create appointment",
+  "new_appointment": "New appointment",
+  "edit_appointment": "Edit appointment",
 
   "yes": "yes",
   "no": "no",

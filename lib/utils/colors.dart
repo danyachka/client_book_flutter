@@ -16,6 +16,7 @@ class AppColors {
   static const accentText = primary;
   static const accentTextLighter = primaryLight;
   static const accentTextDarker = primaryDarker;
+  static const editTextHint = gray;
 
   static const white = Colors.white;
   static const red = Colors.red;

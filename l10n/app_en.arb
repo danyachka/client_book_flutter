@@ -1,3 +1,50 @@
 {
+ 
+  "title": "Table",
+
+  "nothing_yet": "Nothing created yet",
+
+  "day_before_yesterday": "Day before yesterday",
+  "yesterday": "Yesterday",
+  "tomorrow": "Tomorrow",
+  "day_after_tomorrow": " Day after tomorrow",
+
+
+  "find_client": "Find client",
+
+  "create_client": "Create client",
+  "create_appointment": "Create appointment",
+
   
+
+  "january": "january",
+  "february": "february",
+  "march": "march",
+  "april": "april",
+  "may": "may",
+  "june": "june",
+  "july": "july",
+  "august": "august",
+  "september": "september",
+  "october": "october",
+  "november": "november",
+  "december": "december",
+  
+
+  
+  "monday": "Monday",
+  "tuesday": "Tuesday",
+  "wednesday": "Wednesday",
+  "thursday": "Thursday",
+  "friday": "Friday",
+  "saturday": "Saturday",
+  "sunday": "Sunday",
+
+  "monday_short": "Mon",
+  "tuesday_short": "Tue",
+  "wednesday_short": "Wed",
+  "thursday_short": "Thu",
+  "friday_short": "Fri",
+  "saturday_short": "Sat",
+  "sunday_short": "Sun"
 }

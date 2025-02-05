@@ -1,3 +1,44 @@
 {
-  
+  "title": "Таблица",
+
+  "nothing_yet": "Пока ничего не создано",
+
+  "day_before_yesterday": "Позавчера",
+  "yesterday": "Вчера",
+  "tomorrow": "Завтра",
+  "day_after_tomorrow": "Послезавтра",
+
+  "find_client": "Найти клиента",
+
+  "create_client": "Создать клиента",
+  "create_appointment": "Создать встречу",
+
+  "january": "январь",
+  "february": "февраль",
+  "march": "март",
+  "april": "апрель",
+  "may": "май",
+  "june": "июнь",
+  "july": "июль",
+  "august": "август",
+  "september": "сентябрь",
+  "october": "октябрь",
+  "november": "ноябрь",
+  "december": "декабрь",
+
+  "monday": "Понедельник",
+  "tuesday": "Вторник",
+  "wednesday": "Среда",
+  "thursday": "Четверг",
+  "friday": "Пятница",
+  "saturday": "Суббота",
+  "sunday": "Воскресенье",
+
+  "monday_short": "Пн",
+  "tuesday_short": "Вт",
+  "wednesday_short": "Ср",
+  "thursday_short": "Чт",
+  "friday_short": "Пт",
+  "saturday_short": "Сб",
+  "sunday_short": "Вс"
 }

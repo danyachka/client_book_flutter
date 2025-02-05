@@ -50,7 +50,7 @@ abstract class AppointmentListBlock
       (event, emit) => _onAppointmentRemoved(event.removedAppointment, emit)
     );
 
-    onEvent(
+    add(
       ScrollToDateAppointmentListBlockEvent(time: DateTime.now().millisecondsSinceEpoch)
     );
   }

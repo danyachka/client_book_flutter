@@ -1,67 +1,67 @@
 
 import 'dart:math';
 
-import 'package:client_book_flutter/blocks/appointment_list/entity.dart';
-import 'package:client_book_flutter/blocks/appointment_list/events/appointment_list_block_events.dart';
-import 'package:client_book_flutter/blocks/appointment_list/loader/appointment_loaders.dart';
-import 'package:client_book_flutter/blocks/appointment_list/states/appointment_list_block_states.dart';
+import 'package:client_book_flutter/blocs/appointment_list/entity.dart';
+import 'package:client_book_flutter/blocs/appointment_list/events/appointment_list_bloc_events.dart';
+import 'package:client_book_flutter/blocs/appointment_list/loader/appointment_loaders.dart';
+import 'package:client_book_flutter/blocs/appointment_list/states/appointment_list_bloc_states.dart';
 import 'package:client_book_flutter/model/app_database.dart';
 import 'package:client_book_flutter/model/daos/appointment_dao.dart';
 import 'package:client_book_flutter/model/models/appointment_client.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
-abstract class AppointmentListBlock 
-    extends Bloc<AppointmentListBlockEvent, AppointmentListBlockState> {
+abstract class AppointmentListBloc 
+    extends Bloc<AppointmentListBlocEvent, AppointmentListBlocState> {
 
   static const maxItemsInList = 200;
 
   final AppointmentLoader _loader;
 
-  List<AppointmentListItem> get _list => (state as ListAppointmentListBlockState).list;
+  List<AppointmentListItem> get _list => (state as ListAppointmentListBlocState).list;
 
   final ScrollTo _scrollTo;
   
-  AppointmentListBlock(AppointmentLoader loader, this._scrollTo)
+  AppointmentListBloc(AppointmentLoader loader, this._scrollTo)
   : _loader = loader, 
     super(LoadingAppointmentListBlockState()) {
 
-    on<ScrollToDateAppointmentListBlockEvent>(
+    on<ScrollToDateAppointmentListBlocEvent>(
       (event, emit) => _onScrollToEvent(event.time, emit)
     );
 
-    on<OldestScrolledAppointmentListBlockEvent>(
+    on<OldestScrolledAppointmentListBlocEvent>(
       (event, emit) => _onOldestScrolled(event.lastAppointmentTime, emit)
     );
 
-    on<NewestScrolledAppointmentListBlockEvent>(
+    on<NewestScrolledAppointmentListBlocEvent>(
       (event, emit) => _onNewestScrolled(event.newestAppointmentTime, emit)
     );
 
-    on<AppointmentChangedAppointmentListBlockEvent>(
+    on<AppointmentChangedAppointmentListBlocEvent>(
       (event, emit) => _onAppointmentChanged(event.changedAppointment, emit)
     );
 
-    on<ClientChangedAppointmentListBlockEvent>(
+    on<ClientChangedAppointmentListBlocEvent>(
       (event, emit) => _onClientChanged(event.changedClient, emit)
     );
 
-    on<AppointmentRemovedAppointmentListBlockEvent>(
+    on<AppointmentRemovedAppointmentListBlocEvent>(
       (event, emit) => _onAppointmentRemoved(event.removedAppointment, emit)
     );
 
     add(
-      ScrollToDateAppointmentListBlockEvent(time: DateTime.now().millisecondsSinceEpoch)
+      ScrollToDateAppointmentListBlocEvent(time: DateTime.now().millisecondsSinceEpoch)
     );
   }
 
   bool needToCheckEvent(int clientId);
 
-  void _onScrollToEvent(int time, Emitter<AppointmentListBlockState> emit) async {
+  void _onScrollToEvent(int time, Emitter<AppointmentListBlocState> emit) async {
     final currentState = state;
     
     // in case scroll only
-    if (currentState is ListAppointmentListBlockState) {
+    if (currentState is ListAppointmentListBlocState) {
       final list = currentState.list;
       if (list.isNotEmpty) {
         if (list.first.data.appointment.startTime <= time && time <= list.last.data.appointment.startTime) {
@@ -75,7 +75,7 @@ abstract class AppointmentListBlock
     // in case nothing in db
     final centerItem = await _loader.loadNear(time);
     if (centerItem == null) {
-      emit(ListAppointmentListBlockState(list: []));
+      emit(ListAppointmentListBlocState(list: []));
       return;
     }
 
@@ -88,7 +88,7 @@ abstract class AppointmentListBlock
       ..add(centerItem)
       ..addAll(lists[1]);
     
-    emit(ListAppointmentListBlockState(
+    emit(ListAppointmentListBlocState(
       list: itemsList.map((e) => AppointmentListItem(data: e)).toList()
     ));
     _scrollTo(centerItemIndex);
@@ -102,7 +102,7 @@ abstract class AppointmentListBlock
     }
   }
 
-  void _onNewestScrolled(int time, Emitter<AppointmentListBlockState> emit) async {
+  void _onNewestScrolled(int time, Emitter<AppointmentListBlocState> emit) async {
     final newData = await _loader.loadNewer(time);
 
     if (newData.isEmpty) return;
@@ -119,10 +119,10 @@ abstract class AppointmentListBlock
       newList = _list;
     }
 
-    emit(ListAppointmentListBlockState(list: newList));
+    emit(ListAppointmentListBlocState(list: newList));
   }
 
-  void _onOldestScrolled(int time, Emitter<AppointmentListBlockState> emit) async {
+  void _onOldestScrolled(int time, Emitter<AppointmentListBlocState> emit) async {
     final newData = await _loader.loadOlder(time);
 
     if (newData.isEmpty) return;
@@ -139,11 +139,11 @@ abstract class AppointmentListBlock
       newList = _list;
     }
 
-    emit(ListAppointmentListBlockState(list: newList));
+    emit(ListAppointmentListBlocState(list: newList));
     
   }
 
-  void _onAppointmentChanged(Appointment appointment, Emitter<AppointmentListBlockState> emit) async {
+  void _onAppointmentChanged(Appointment appointment, Emitter<AppointmentListBlocState> emit) async {
     if (!needToCheckEvent(appointment.clientId)) return;
 
     final list = _list;
@@ -158,12 +158,12 @@ abstract class AppointmentListBlock
       newItem.key = ac.key;
 
       list[i] = newItem;
-      emit(ListAppointmentListBlockState(list: list));
+      emit(ListAppointmentListBlocState(list: list));
       return;
     }
   }
 
-  void _onClientChanged(Client client, Emitter<AppointmentListBlockState> emit) async {
+  void _onClientChanged(Client client, Emitter<AppointmentListBlocState> emit) async {
     if (!needToCheckEvent(client.id)) return;
     bool hasChangedAny = false;
 
@@ -180,10 +180,10 @@ abstract class AppointmentListBlock
     }
 
     if (!hasChangedAny) return;
-    emit(ListAppointmentListBlockState(list: list));
+    emit(ListAppointmentListBlocState(list: list));
   }
 
-  void _onAppointmentRemoved(Appointment removedAppointment, Emitter<AppointmentListBlockState> emit) async {
+  void _onAppointmentRemoved(Appointment removedAppointment, Emitter<AppointmentListBlocState> emit) async {
     if (!needToCheckEvent(removedAppointment.clientId)) return;
     bool isRemoved = false;
 
@@ -195,24 +195,24 @@ abstract class AppointmentListBlock
     });
 
     if (!isRemoved) return;
-    emit(ListAppointmentListBlockState(list: _list));
+    emit(ListAppointmentListBlocState(list: _list));
   }
 
 }
 
-class MainAppointmentListBlock extends AppointmentListBlock {
-  MainAppointmentListBlock(ScrollTo scrollTo): super(MainAppointmentLoader(), scrollTo);
+class MainAppointmentListBloc extends AppointmentListBloc {
+  MainAppointmentListBloc(ScrollTo scrollTo): super(MainAppointmentLoader(), scrollTo);
 
   @override
   bool needToCheckEvent(int clientId) => true;
 
 }
 
-class SpecialClientAppointmentListBlock extends AppointmentListBlock {
+class SpecialClientAppointmentListBloc extends AppointmentListBloc {
 
   final int clientId;
 
-  SpecialClientAppointmentListBlock({
+  SpecialClientAppointmentListBloc({
     required this.clientId,
     required Client Function() getClient,
     required ScrollTo scrollTo

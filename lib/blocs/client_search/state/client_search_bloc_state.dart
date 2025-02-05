@@ -1,9 +1,9 @@
 
 
-import 'package:client_book_flutter/blocks/client_search/client_search_type.dart';
+import 'package:client_book_flutter/blocs/client_search/client_search_type.dart';
 import 'package:client_book_flutter/model/app_database.dart';
 
-class ClientSearchBlockState {
+class ClientSearchBlocState {
 
   final List<Client> list;
 
@@ -13,7 +13,7 @@ class ClientSearchBlockState {
 
   bool isBottomLoaded;
 
-  ClientSearchBlockState({
+  ClientSearchBlocState({
     required this.list, 
     required this.query,
     required this.searchType,

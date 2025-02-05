@@ -1,6 +1,6 @@
 
-import 'package:client_book_flutter/blocks/appointment_list/appointment_list_block.dart';
-import 'package:client_book_flutter/blocks/appointment_list/states/appointment_list_block_states.dart';
+import 'package:client_book_flutter/blocs/appointment_list/appointment_list_bloc.dart';
+import 'package:client_book_flutter/blocs/appointment_list/states/appointment_list_bloc_states.dart';
 import 'package:client_book_flutter/ui/pages/main_page/fragments/calendar_fragment.dart';
 import 'package:client_book_flutter/ui/pages/main_page/fragments/list_fragment.dart';
 import 'package:client_book_flutter/ui/pages/main_page/fragments/stats_fragment.dart';
@@ -20,7 +20,7 @@ class _MainPageState extends State<MainPage> {
 
   late final PageController pageController;
 
-  late final MainAppointmentListBlock mainAppointmentListBlock;
+  late final MainAppointmentListBloc mainAppointmentListBlock;
 
   final currentFragment = ValueNotifier(MainPageFragment.list);
 
@@ -34,7 +34,7 @@ class _MainPageState extends State<MainPage> {
       currentFragment.value = MainPageFragment.values[page];
     });
 
-    mainAppointmentListBlock = MainAppointmentListBlock(scrollToIndexInList);
+    mainAppointmentListBlock = MainAppointmentListBloc(scrollToIndexInList);
 
     super.initState();
   }
@@ -59,7 +59,7 @@ class _MainPageState extends State<MainPage> {
   void scrollToIndexInList(int index) {
     final state = mainAppointmentListBlock.state;
     
-    if (state is! ListAppointmentListBlockState) return;
+    if (state is! ListAppointmentListBlocState) return;
 
     final context = state.list[index].key?.currentContext;
 

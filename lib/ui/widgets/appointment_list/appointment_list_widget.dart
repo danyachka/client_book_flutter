@@ -1,7 +1,7 @@
 
-import 'package:client_book_flutter/blocks/appointment_list/appointment_list_block.dart';
-import 'package:client_book_flutter/blocks/appointment_list/events/appointment_list_block_events.dart';
-import 'package:client_book_flutter/blocks/appointment_list/states/appointment_list_block_states.dart';
+import 'package:client_book_flutter/blocs/appointment_list/appointment_list_bloc.dart';
+import 'package:client_book_flutter/blocs/appointment_list/events/appointment_list_bloc_events.dart';
+import 'package:client_book_flutter/blocs/appointment_list/states/appointment_list_bloc_states.dart';
 import 'package:client_book_flutter/ui/widgets/app_progress/app_progress.dart';
 import 'package:client_book_flutter/ui/widgets/appointment_list/appointment_widget.dart';
 import 'package:client_book_flutter/utils/app_font.dart';
@@ -22,16 +22,16 @@ class AppointmentListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AppointmentListBlock bloc = isClientList
-    ? BlocProvider.of<SpecialClientAppointmentListBlock>(context)
-    : BlocProvider.of<MainAppointmentListBlock>(context);
+    final AppointmentListBloc bloc = isClientList
+    ? BlocProvider.of<SpecialClientAppointmentListBloc>(context)
+    : BlocProvider.of<MainAppointmentListBloc>(context);
     
     return BlocBuilder(
       bloc: bloc,
       builder: (context, state) {
         if (kDebugMode) Logger().i("Rebuilding list with $state");
 
-        if (state is! ListAppointmentListBlockState) {
+        if (state is! ListAppointmentListBlocState) {
           return ListView(padding: const EdgeInsets.only(top: _topInfoPadding), children: const [
             Center(child: AppProgressWidget(strokeWidth: 5, size: 40))
           ]);
@@ -59,11 +59,11 @@ class AppointmentListWidget extends StatelessWidget {
             final item = state.list[index];
 
             if (index == 0) {
-              bloc.add(OldestScrolledAppointmentListBlockEvent(
+              bloc.add(OldestScrolledAppointmentListBlocEvent(
                 lastAppointmentTime: item.data.appointment.startTime)
               );
             } else if (index == state.list.length - 1) {
-              bloc.add(NewestScrolledAppointmentListBlockEvent(
+              bloc.add(NewestScrolledAppointmentListBlocEvent(
                 newestAppointmentTime: item.data.appointment.startTime)
               );
             }

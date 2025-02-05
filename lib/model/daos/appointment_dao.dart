@@ -20,7 +20,7 @@ class AppointmentDao extends DatabaseAccessor<AppDatabase> with _$AppointmentDao
     });
   }
 
-  Future<int> insertAppointment(Appointment appointment) async {
+  Future<int> insertAppointment(AppointmentsCompanion appointment) async {
     return await into(appointments).insert(appointment);
   }
 

@@ -17,7 +17,7 @@ class ClientDao extends DatabaseAccessor<AppDatabase> with _$ClientDaoMixin {
     });
   }
 
-  Future<int> insertClient(Client client) async {
+  Future<int> insertClient(ClientsCompanion client) async {
     return await into(clients).insert(client);
   }
 

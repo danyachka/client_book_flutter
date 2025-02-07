@@ -11,6 +11,8 @@ class NewQueryClientSearchBlocEvent extends ClientSearchBlocEvent {
   NewQueryClientSearchBlocEvent({required this.query});
 }
 
+class ClientUpdatedOrAddedClientSearchBlocEvent extends ClientSearchBlocEvent {}
+
 class SearchTypeSwitchedClientSearchBlocEvent extends ClientSearchBlocEvent {
 
   final ClientSearchType type;

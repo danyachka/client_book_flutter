@@ -17,6 +17,7 @@ class ClientSearchBloc extends Bloc<ClientSearchBlocEvent, ClientSearchBlocState
     query: ''
   )) {
     on<NewQueryClientSearchBlocEvent>((event, emit) => _onNewQuery(event.query, emit));
+    on<ClientUpdatedOrAddedClientSearchBlocEvent>((event, emit) => _onClientAddedOrUpdated(emit));
     on<SearchTypeSwitchedClientSearchBlocEvent>((event, emit) => _onSearchTypeSwitched(event.type, emit));
     on<LastScrolledClientSearchBlocEvent>((event, emit) => _onLastScrolled(event.clientId, emit));
   }
@@ -27,6 +28,13 @@ class ClientSearchBloc extends Bloc<ClientSearchBlocEvent, ClientSearchBlocState
     if (lastState.query == newQuery) return;
 
     final newList = await _loader.getLatest(newQuery);
+    emit(ClientSearchBlocState(list: newList, query: lastState.query, searchType: lastState.searchType));
+  }
+
+  void _onClientAddedOrUpdated(Emitter<ClientSearchBlocState> emit) async {
+    final lastState = state;
+
+    final newList = await _loader.getLatest(lastState.query);
     emit(ClientSearchBlocState(list: newList, query: lastState.query, searchType: lastState.searchType));
   }
 

@@ -1,7 +1,5 @@
 
 
-import 'package:client_book_flutter/blocs/client_search/client_search_type.dart';
-
 abstract class ClientSearchBlocEvent {}
 
 class NewQueryClientSearchBlocEvent extends ClientSearchBlocEvent {
@@ -13,12 +11,7 @@ class NewQueryClientSearchBlocEvent extends ClientSearchBlocEvent {
 
 class ClientUpdatedOrAddedClientSearchBlocEvent extends ClientSearchBlocEvent {}
 
-class SearchTypeSwitchedClientSearchBlocEvent extends ClientSearchBlocEvent {
-
-  final ClientSearchType type;
-
-  SearchTypeSwitchedClientSearchBlocEvent({required this.type});
-}
+class SearchTypeSwitchedClientSearchBlocEvent extends ClientSearchBlocEvent {}
 
 class LastScrolledClientSearchBlocEvent extends ClientSearchBlocEvent {
 

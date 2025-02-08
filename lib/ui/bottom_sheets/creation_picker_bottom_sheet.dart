@@ -16,29 +16,40 @@ class CreationPickerBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(mainAxisSize: MainAxisSize.min, children: [
-      Center(child: Container(
-        width: 40,
-        height: 14,
-        decoration: BoxDecoration(
-          color: AppColors.primary,
-          borderRadius: BorderRadius.circular(7)
-        )
-      )),
-
-      AppLargeButton(
-        onTapped: () => Navigator.push(context, MaterialPageRoute(
-          builder:(context) => AppointmentCreationPage(mainAppointmentListBloc: mainAppointmentListBloc))), 
-        text: S.of(context).create_appointment
+    return Container(
+      padding: const EdgeInsets.only(left: 12, right: 12, bottom: 24),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(32),
+        color: AppColors.darkBackground
       ),
-      
-      const SizedBox(height: 8),
-      
-      AppLargeButton(
-        onTapped: () => Navigator.push(context, MaterialPageRoute(
-          builder:(context) => ClientCreationPage(mainAppointmentListBloc: mainAppointmentListBloc))),
-        text: S.of(context).create_client
-      )
-    ]);
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        const SizedBox(height: 8),
+
+        Center(child: Container(
+          width: 40,
+          height: 14,
+          decoration: BoxDecoration(
+            color: AppColors.primary,
+            borderRadius: BorderRadius.circular(7)
+          )
+        )),
+
+        const SizedBox(height: 8),
+
+        AppLargeButton(
+          onTapped: () => Navigator.push(context, MaterialPageRoute(
+            builder:(context) => AppointmentCreationPage(mainAppointmentListBloc: mainAppointmentListBloc))), 
+          text: S.of(context).create_appointment
+        ),
+        
+        const SizedBox(height: 8),
+        
+        AppLargeButton(
+          onTapped: () => Navigator.push(context, MaterialPageRoute(
+            builder:(context) => ClientCreationPage(mainAppointmentListBloc: mainAppointmentListBloc))),
+          text: S.of(context).create_client
+        )
+      ])
+    );
   }
 }

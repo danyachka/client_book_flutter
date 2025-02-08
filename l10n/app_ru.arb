@@ -17,6 +17,8 @@
   "client_name": "Имя",
   "client_phone": "Телефон",
 
+  "client_name_error": "Уже существует клиент с таким именем",
+  "client_phone_error": "Уже существует клиент с таким номером телефона",
   
   "create_appointment": "Создать встречу",
   "new_appointment": "Новая запись",
@@ -26,6 +28,12 @@
   "appointment_value": "Стоимость",
   "appointment_start_time": "Время начала",
   "appointment_duration": "Продолжительность",
+  
+  "appointment_with_such_time_error": "У вас уже есть запись в это время",
+
+  "required_filed_error": "Обязательное поле",
+
+  "nothing_found": "Ничего не найдено",
 
 
   "yes": "да",

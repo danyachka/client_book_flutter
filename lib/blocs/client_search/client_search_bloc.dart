@@ -18,7 +18,7 @@ class ClientSearchBloc extends Bloc<ClientSearchBlocEvent, ClientSearchBlocState
   )) {
     on<NewQueryClientSearchBlocEvent>((event, emit) => _onNewQuery(event.query, emit));
     on<ClientUpdatedOrAddedClientSearchBlocEvent>((event, emit) => _onClientAddedOrUpdated(emit));
-    on<SearchTypeSwitchedClientSearchBlocEvent>((event, emit) => _onSearchTypeSwitched(event.type, emit));
+    on<SearchTypeSwitchedClientSearchBlocEvent>((event, emit) => _onSearchTypeSwitched(emit));
     on<LastScrolledClientSearchBlocEvent>((event, emit) => _onLastScrolled(event.clientId, emit));
   }
 
@@ -38,9 +38,9 @@ class ClientSearchBloc extends Bloc<ClientSearchBlocEvent, ClientSearchBlocState
     emit(ClientSearchBlocState(list: newList, query: lastState.query, searchType: lastState.searchType));
   }
 
-  void _onSearchTypeSwitched(ClientSearchType newType, Emitter<ClientSearchBlocState> emit) async {
+  void _onSearchTypeSwitched(Emitter<ClientSearchBlocState> emit) async {
     final lastState = state;
-    if (lastState.searchType == newType) return;
+    final newType = lastState.searchType == ClientSearchType.name? ClientSearchType.phone: ClientSearchType.name;
 
     if (newType == ClientSearchType.name) {
       _loader = NameClientSearchLoader();

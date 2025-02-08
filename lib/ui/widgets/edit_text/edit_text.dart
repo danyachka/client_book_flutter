@@ -1,4 +1,5 @@
 
+import 'package:client_book_flutter/utils/app_font.dart';
 import 'package:client_book_flutter/utils/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -65,7 +66,7 @@ class AppEditTextWidget extends StatelessWidget {
         hintStyle: TextStyle(
             color: AppColors.editTextHint,
             fontSize: fontSize,
-            fontFamily: 'Montserrat',
+            fontFamily: AppFont.m,
             fontWeight: FontWeight.bold),
         alignLabelWithHint: true,
         contentPadding: contentPadding,
@@ -74,7 +75,7 @@ class AppEditTextWidget extends StatelessWidget {
       style: TextStyle(
           color: AppColors.white,
           fontSize: fontSize,
-          fontFamily: 'Montserrat',
+          fontFamily: AppFont.m,
           fontWeight: FontWeight.bold),
     );
   }

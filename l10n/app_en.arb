@@ -33,7 +33,9 @@
 
   "appointment_with_such_time_error": "You already have an appointment at this time period",
 
-  "required_filed_error": "RequiredFiled",
+  "required_filed_error": "Required filed",
+
+  "nothing_found": "Nothing found",
 
   "yes": "yes",
   "no": "no",

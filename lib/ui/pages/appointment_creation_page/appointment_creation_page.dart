@@ -30,7 +30,7 @@ class AppointmentCreationPage extends StatelessWidget {
       lazy: false,
       child: BlocListener(
         bloc: BlocProvider.of<AppointmentCreationBloc>(context),
-        listener:(context, state) {
+        listener: (context, AppointmentCreationState state) {
           if (state is! DoneAppointmentCreationState) return;
 
           final event = (initialAppointment != null)

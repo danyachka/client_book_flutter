@@ -12,7 +12,11 @@ class DoneClientCreationState extends ClientCreationState {
 
 class LoadingClientCreationState extends ClientCreationState {}
 
-class UnknownErrorClientCreationState extends ClientCreationState {}
+class UnknownErrorClientCreationState extends ClientCreationState {
+  final String errorText;
+
+  UnknownErrorClientCreationState({required this.errorText});
+}
 
 class CreationClientCreationState extends ClientCreationState {
 

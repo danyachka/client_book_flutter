@@ -68,7 +68,7 @@ class ClientCreationBloc extends Bloc<ClientCreationEvent, ClientCreationState> 
         createdClient: client
       ));
     } catch (e) {
-      emit(UnknownErrorClientCreationState());
+      emit(UnknownErrorClientCreationState(errorText: e.toString()));
     }
     
   }

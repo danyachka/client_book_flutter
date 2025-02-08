@@ -7,15 +7,31 @@
   "yesterday": "Вчера",
   "tomorrow": "Завтра",
   "day_after_tomorrow": "Послезавтра",
+  
 
   "find_client": "Найти клиента",
-
+  
   "create_client": "Создать клиента",
+  "new_client": "Новый клиент",
+  "edit_client": "Редактирование клиента",
+  "client_name": "Имя",
+  "client_phone": "Телефон",
+
+  
   "create_appointment": "Создать встречу",
+  "new_appointment": "Новая запись",
+  "edit_appointment": "Редактирование записи",
+  "appointment_text": "Имя",
+  "appointment_time": "Телефон",
+  "appointment_value": "Стоимость",
+  "appointment_start_time": "Время начала",
+  "appointment_duration": "Продолжительность",
+
 
   "yes": "да",
   "no": "нет",
 
+  
   "january": "январь",
   "february": "февраль",
   "march": "март",

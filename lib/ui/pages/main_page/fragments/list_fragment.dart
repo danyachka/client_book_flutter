@@ -1,9 +1,12 @@
 
+import 'package:client_book_flutter/blocs/appointment_list/appointment_list_bloc.dart';
+import 'package:client_book_flutter/ui/bottom_sheets/creation_picker_bottom_sheet.dart';
 import 'package:client_book_flutter/ui/widgets/appointment_list/appointment_list_widget.dart';
 import 'package:client_book_flutter/utils/app_font.dart';
 import 'package:client_book_flutter/utils/colors.dart';
 import 'package:client_book_flutter/utils/s.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ListFragment extends StatelessWidget {
 
@@ -11,8 +14,13 @@ class ListFragment extends StatelessWidget {
 
   const ListFragment({super.key});
 
-  void onPlusTapped() {
-    // TODO: open bottomcheet to create clients or appointments
+  void onPlusTapped(BuildContext context) {
+    showModalBottomSheet(
+      context: context, 
+      builder:(context) => CreationPickerBottomSheet(
+        mainAppointmentListBloc: BlocProvider.of<MainAppointmentListBloc>(context) 
+      )
+    );
   }
 
   void onSettingsTapped() {
@@ -38,7 +46,7 @@ class ListFragment extends StatelessWidget {
           const Spacer(),
 
           GestureDetector(
-            onTap: onPlusTapped,
+            onTap: () => onPlusTapped(context),
             child: const Icon(Icons.add_rounded, color: AppColors.primary, size: 26)
           ),
 

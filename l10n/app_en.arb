@@ -12,13 +12,28 @@
 
   "find_client": "Find client",
 
+
   "create_client": "Create client",
   "new_client": "New client",
-  "edit_clent": "Edit client",
+  "edit_client": "Edit client",
+  "client_name": "Name",
+  "client_phone": "Phone",
+  
+  "client_name_error": "You already have a client with this name",
+  "client_phone_error": "You already have a client with this phone number",
 
   "create_appointment": "Create appointment",
   "new_appointment": "New appointment",
   "edit_appointment": "Edit appointment",
+  "appointment_text": "Name",
+  "appointment_time": "Phone",
+  "appointment_value": "Value",
+  "appointment_start_time": "Start time",
+  "appointment_duration": "Duration",
+
+  "appointment_with_such_time_error": "You already have an appointment at this time period",
+
+  "required_filed_error": "RequiredFiled",
 
   "yes": "yes",
   "no": "no",
@@ -36,7 +51,6 @@
   "november": "november",
   "december": "december",
   
-
   
   "monday": "Monday",
   "tuesday": "Tuesday",

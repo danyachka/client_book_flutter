@@ -17,8 +17,8 @@ class ListFragment extends StatelessWidget {
   void onPlusTapped(BuildContext context) {
     showModalBottomSheet(
       context: context, 
-      builder:(context) => CreationPickerBottomSheet(
-        mainAppointmentListBloc: BlocProvider.of<MainAppointmentListBloc>(context) 
+      builder:(newContext) => CreationPickerBottomSheet(
+        mainAppointmentListBloc: BlocProvider.of<MainAppointmentListBloc>(context)
       )
     );
   }

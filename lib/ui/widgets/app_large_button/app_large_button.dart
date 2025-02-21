@@ -16,20 +16,20 @@ class AppLargeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onTapped, 
+    return GestureDetector(
+      onTap: onTapped, 
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         decoration: BoxDecoration(
           color: AppColors.primaryLight,
-          borderRadius: BorderRadius.circular(32)
+          borderRadius: BorderRadius.circular(24)
         ),
         child: Row(children: [
           Text(text,
             style: const TextStyle(
               color: AppColors.accentTextDarker,
               fontFamily: AppFont.m,
-              fontSize: 12,
+              fontSize: 14,
               fontWeight: FontWeight.bold,
               overflow: TextOverflow.ellipsis
             )
@@ -41,7 +41,7 @@ class AppLargeButton extends StatelessWidget {
           const Icon(
             Icons.arrow_forward,
             color: AppColors.accentTextDarker,
-            size: 22
+            size: 28
           )
         ])
       )

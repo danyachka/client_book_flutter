@@ -15,6 +15,7 @@ class Application extends StatelessWidget {
       localizationsDelegates: S.localizationDelegates,
       theme: ThemeData(
         primaryColor: AppColors.primary,
+        scaffoldBackgroundColor: AppColors.darkBackground,
         appBarTheme: const AppBarTheme(
           iconTheme: IconThemeData(color: AppColors.white),
           color: AppColors.primary,

@@ -10,7 +10,7 @@ import 'package:client_book_flutter/ui/pages/client_creation_page/client_creatio
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ClientCreationPage extends StatelessWidget {
+class ClientCreationPage extends StatefulWidget {
 
   final Client? initialClient;
 
@@ -25,27 +25,47 @@ class ClientCreationPage extends StatelessWidget {
     this.clientSearchBloc
   });
 
+
+  @override
+  State<ClientCreationPage> createState() => _ClientCreationPageState();
+}
+
+class _ClientCreationPageState extends State<ClientCreationPage> {
+
+  late final ClientCreationBloc clientCreationBloc;
+
+  @override
+  void initState() {
+    clientCreationBloc = ClientCreationBloc();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    clientCreationBloc.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create:(context) => ClientCreationBloc(),
-      lazy: false,
+    return BlocProvider.value(
+      value: clientCreationBloc,
       child: BlocListener(
-        bloc: BlocProvider.of<ClientCreationBloc>(context),
+        bloc: clientCreationBloc,
         listener:(context, ClientCreationState state) {
           if (state is! DoneClientCreationState) return;
 
-          clientSearchBloc?.add(ClientUpdatedOrAddedClientSearchBlocEvent());
-          if (initialClient != null) { // if client update
+          widget.clientSearchBloc?.add(ClientUpdatedOrAddedClientSearchBlocEvent());
+          if (widget.initialClient != null) { // if client update
              final event = ClientChangedAppointmentListBlocEvent(changedClient: state.createdClient);
 
-             mainAppointmentListBloc.add(event);
-             clientAppointmentListBloc?.add(event);
+             widget.mainAppointmentListBloc.add(event);
+             widget.clientAppointmentListBloc?.add(event);
           }
 
           Navigator.pop(context); // close page after created 
         },
-        child: ClientCreationLayout(initialClient: initialClient)
+        child: ClientCreationLayout(initialClient: widget.initialClient)
       )
     );
   }

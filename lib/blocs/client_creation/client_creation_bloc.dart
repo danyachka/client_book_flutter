@@ -29,10 +29,17 @@ class ClientCreationBloc extends Bloc<ClientCreationEvent, ClientCreationState> 
 
     emit(LoadingClientCreationState());
 
-    final [sameNameClient, samePhoneClient] = await Future.wait([
-      dao.getByName(event.name),
-      dao.getByPhone(event.phone)
-    ]);
+    Client? sameNameClient, samePhoneClient;
+
+    if (event.phone.isNotEmpty) {
+      [sameNameClient, samePhoneClient] = await Future.wait([
+        dao.getByName(event.name),
+        dao.getByPhone(event.phone)
+      ]);
+    } else {
+      sameNameClient = await dao.getByName(event.name);
+      samePhoneClient = null;
+    }
 
     nameError = sameNameClient != null? ClientCreationErrorType.clientExists
       : ClientCreationErrorType.nothing;

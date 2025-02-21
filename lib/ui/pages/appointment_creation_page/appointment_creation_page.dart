@@ -10,7 +10,7 @@ import 'package:client_book_flutter/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AppointmentCreationPage extends StatelessWidget {
+class AppointmentCreationPage extends StatefulWidget {
 
   final AppointmentClient? initialAppointment;
 
@@ -24,26 +24,45 @@ class AppointmentCreationPage extends StatelessWidget {
   });
 
   @override
+  State<AppointmentCreationPage> createState() => _AppointmentCreationPageState();
+}
+
+class _AppointmentCreationPageState extends State<AppointmentCreationPage> {
+
+  late final AppointmentCreationBloc appointmentCreationBloc;
+
+  @override
+  void initState() {
+    appointmentCreationBloc = AppointmentCreationBloc();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    appointmentCreationBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create:(context) => AppointmentCreationBloc(),
-      lazy: false,
+    return BlocProvider.value(
+      value: appointmentCreationBloc,
       child: BlocListener(
-        bloc: BlocProvider.of<AppointmentCreationBloc>(context),
+        bloc: appointmentCreationBloc,
         listener: (context, AppointmentCreationState state) {
           if (state is! DoneAppointmentCreationState) return;
 
-          final event = (initialAppointment != null)
+          final event = (widget.initialAppointment != null)
           ? AppointmentChangedAppointmentListBlocEvent(changedAppointment: state.createdAC.appointment)
           : AppointmentAddedAppointmentListBlocEvent(newAppointment: state.createdAC); 
           
-          mainAppointmentListBloc.add(event);
+          widget.mainAppointmentListBloc.add(event);
 
           Navigator.pop(context); // close page after created 
         },
         child: Scaffold(
           backgroundColor: AppColors.darkBackground,
-          body: AppointmentCreationLayout(initialAC: initialAppointment)
+          body: SafeArea(child: AppointmentCreationLayout(initialAC: widget.initialAppointment))
         )
       )
     );

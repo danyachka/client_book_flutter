@@ -46,10 +46,11 @@ class _ClientCreationLayoutState extends State<ClientCreationLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: ElevatedButton(
-        onPressed: _onButtonPressed, 
+      backgroundColor: AppColors.darkBackground,
+      floatingActionButton: InkWell(
+        onTap: _onButtonPressed, 
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 20),
           decoration: BoxDecoration(
             color: AppColors.primary,
             borderRadius: BorderRadius.circular(20)
@@ -61,7 +62,7 @@ class _ClientCreationLayoutState extends State<ClientCreationLayout> {
           )
         )
       ),
-      body: Padding(padding: const EdgeInsets.symmetric(horizontal: 12), child: Column(children: [
+      body: SafeArea(child: Padding(padding: const EdgeInsets.symmetric(horizontal: 12), child: Column(children: [
         Padding(
           padding: const EdgeInsets.only(top: 8),
           child: Row(children: [
@@ -69,6 +70,8 @@ class _ClientCreationLayoutState extends State<ClientCreationLayout> {
               onTap: () => Navigator.pop(context),
               child: const Icon(Icons.arrow_back, color: AppColors.primary, size: 26),
             ),
+
+            const SizedBox(width: 6),
 
             Text(
               (widget.initialClient == null)
@@ -86,9 +89,9 @@ class _ClientCreationLayoutState extends State<ClientCreationLayout> {
           ])
         ),
 
-        ListView(padding: const EdgeInsets.only(top: 8), children: [
+        Expanded(child: ListView(padding: const EdgeInsets.only(top: 16), children: [
           AppEditTextWidget(
-            fontSize: 12,
+            fontSize: 14,
             controller: nameTextController, 
             hint: S.of(context).client_name
           ),
@@ -106,11 +109,11 @@ class _ClientCreationLayoutState extends State<ClientCreationLayout> {
             }
           ),
 
-          const SizedBox(height: 4),
+          const SizedBox(height: 8),
           
           AppEditTextWidget(
-            fontSize: 12,
-            controller: nameTextController, 
+            fontSize: 14,
+            controller: phoneTextController, 
             hint: S.of(context).client_phone
           ),
 
@@ -136,8 +139,8 @@ class _ClientCreationLayoutState extends State<ClientCreationLayout> {
               );
             }
           ),
-        ])
+        ]))
       ]))
-    );
+    ));
   }
 }

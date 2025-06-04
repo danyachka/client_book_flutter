@@ -1,0 +1,2 @@
+/home/kisik/projects/dart/client_book_flutter/android/app/.cxx/Debug/4t495w2p/x86/CMakeFiles/edit_cache.dir
+/home/kisik/projects/dart/client_book_flutter/android/app/.cxx/Debug/4t495w2p/x86/CMakeFiles/rebuild_cache.dir

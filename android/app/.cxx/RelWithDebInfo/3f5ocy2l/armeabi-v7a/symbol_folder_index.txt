@@ -1,0 +1,1 @@
+/home/kisik/projects/dart/client_book_flutter/build/app/intermediates/cxx/RelWithDebInfo/3f5ocy2l/obj/armeabi-v7a

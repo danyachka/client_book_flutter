@@ -10,6 +10,7 @@ import 'package:client_book_flutter/core/utils/s.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
 class AppointmentListWidget extends StatelessWidget {
@@ -24,7 +25,7 @@ class AppointmentListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final AppointmentListBloc bloc = isClientList
     ? BlocProvider.of<SpecialClientAppointmentListBloc>(context)
-    : BlocProvider.of<MainAppointmentListBloc>(context);
+    : GetIt.I<MainAppointmentListBloc>();
     
     return BlocBuilder(
       bloc: bloc,
@@ -42,7 +43,7 @@ class AppointmentListWidget extends StatelessWidget {
             Center(child: Text(
               S.of(context).nothing_yet,
               style: const TextStyle(
-                fontSize: 20,
+                fontSize: 14,
                 fontFamily: AppFont.m,
                 fontWeight: FontWeight.bold,
                 color: AppColors.accentText

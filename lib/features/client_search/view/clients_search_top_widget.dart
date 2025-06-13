@@ -1,5 +1,6 @@
 
 
+import 'package:client_book_flutter/core/widgets/app_clickable/app_button.dart';
 import 'package:client_book_flutter/features/client_search/viewmodel/client_search_bloc.dart';
 import 'package:client_book_flutter/features/client_search/viewmodel/client_search_type.dart';
 import 'package:client_book_flutter/features/client_search/viewmodel/events/client_search_bloc_events.dart';
@@ -46,48 +47,57 @@ class _ClientsSearchTopWidgetState extends State<ClientsSearchTopWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(height: 80, child: Row(children: [
-      Expanded(
-        child: Container(
-          decoration: BoxDecoration(
-            color: AppColors.primary,
-            borderRadius: BorderRadius.circular(40)
-          ),
-          child: BlocBuilder<ClientSearchBloc, ClientSearchBlocState>(
-            builder:(context, state) {
-              return AppEditTextWidget(
-                fontSize: 12,
-                controller: controller, 
-                hint: (state.searchType == ClientSearchType.name)
-                ? S.of(context).client_name: S.of(context).client_phone,
-                prefixIcon: const Icon(Icons.search_rounded, color: AppColors.white, size: 32),
-              );
-            }
-          )
-        )
-      ),
-
-      const SizedBox(width: 6),
-
-      AspectRatio(
-        aspectRatio: 1,
-        child: ElevatedButton(
-          onPressed: () => onTypeSwitchPressed(context), 
-          child: Container(
-            decoration: const BoxDecoration(
-              color: AppColors.primary,
-              shape: BoxShape.circle
-            ),
+    return SizedBox(
+      height: 46,
+      child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+        Expanded(
+          child: BlocListener<ClientSearchBloc, ClientSearchBlocState>(
+            listenWhen: (previous, current) => previous.searchType != current.searchType,
+            listener: (context, state) => controller.clear(),
             child: BlocBuilder<ClientSearchBloc, ClientSearchBlocState>(
-              builder:(context, state) => Icon(
-                (state.searchType == ClientSearchType.name)? Icons.person_rounded: Icons.phone_rounded,
-                color: AppColors.white,
-                size: 32
-              )
-            )
+              builder: (context, state) {
+                return AppEditTextWidget(
+                  fontSize: 12,
+                  radius: 80,
+                  expands: true,
+                  controller: controller,
+                  digitsOnly: state.searchType == ClientSearchType.phone,
+                  hint: (state.searchType == ClientSearchType.name)
+                      ? S.of(context).client_name
+                      : S.of(context).client_phone,
+                  prefixIcon: const Icon(Icons.search_rounded,
+                      color: AppColors.white, size: 24),
+                );
+              }
+            ),
           )
         ),
-      )
-    ]));
+      
+        const SizedBox(width: 6),
+      
+        SizedBox(
+          width: 46,
+          height: 46,
+          child: AppButton(
+            onClick: () => onTypeSwitchPressed(context),
+            color: AppColors.primary,
+            padding: EdgeInsets.zero,
+            child: Container(
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle
+              ),
+              alignment: Alignment.center,
+              child: BlocBuilder<ClientSearchBloc, ClientSearchBlocState>(
+                builder:(context, state) => Icon(
+                  (state.searchType == ClientSearchType.name)? Icons.person_rounded: Icons.phone_rounded,
+                  color: AppColors.primaryDark,
+                  size: 24
+                )
+              )
+            )
+          ),
+        )
+      ]),
+    );
   }
 }

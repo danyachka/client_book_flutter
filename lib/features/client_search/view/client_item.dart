@@ -3,17 +3,19 @@
 import 'package:client_book_flutter/core/model/app_database.dart';
 import 'package:client_book_flutter/core/utils/app_font.dart';
 import 'package:client_book_flutter/core/utils/colors.dart';
+import 'package:client_book_flutter/core/widgets/app_clickable/clickable.dart';
 import 'package:flutter/material.dart';
 
 class ClientItem extends StatelessWidget {
 
+  final void Function() onClick;
   final Client client;
   
-  const ClientItem({super.key, required this.client});
+  const ClientItem({super.key, required this.client, required this.onClick});
 
   @override
   Widget build(BuildContext context) {
-    final column = Row(children: [
+    final row = Row(children: [
       SizedBox(
         height: 48,
         child: AspectRatio(aspectRatio: 1, child: Container(
@@ -25,7 +27,9 @@ class ClientItem extends StatelessWidget {
         )
       )),
 
-      Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      const SizedBox(width: 12),
+
+      Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(client.name,
             style: const TextStyle(
                 fontFamily: AppFont.m,
@@ -45,14 +49,15 @@ class ClientItem extends StatelessWidget {
 
     ]);
 
-    return GestureDetector(
-      onTap: () {
-        // TODO: open client page
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 8),
-        child: column
-      )
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      child: Clickable(
+        onClick: onClick,
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: row
+        )
+      ),
     );
   }
 }

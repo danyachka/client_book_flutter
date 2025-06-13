@@ -6,7 +6,7 @@ import 'package:client_book_flutter/features/main/fragments/list_fragment.dart';
 import 'package:client_book_flutter/features/main/fragments/stats_fragment.dart';
 import 'package:client_book_flutter/core/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 class MainPage extends StatefulWidget {
   static const double mainPageNavigationBarHeight = 60;
@@ -20,8 +20,6 @@ class _MainPageState extends State<MainPage> {
 
   late final PageController pageController;
 
-  late final MainAppointmentListBloc mainAppointmentListBlock;
-
   final currentFragment = ValueNotifier(MainPageFragment.list);
 
   @override
@@ -34,7 +32,8 @@ class _MainPageState extends State<MainPage> {
       currentFragment.value = MainPageFragment.values[page];
     });
 
-    mainAppointmentListBlock = MainAppointmentListBloc(scrollToIndexInList);
+    final mainAppointmentListBlock = MainAppointmentListBloc(scrollToIndexInList);
+    GetIt.I.registerSingleton(mainAppointmentListBlock);
 
     super.initState();
   }
@@ -43,7 +42,8 @@ class _MainPageState extends State<MainPage> {
   void dispose() {
     pageController.dispose();
 
-    mainAppointmentListBlock.close();
+    GetIt.I<MainAppointmentListBloc>().close();
+    GetIt.I.reset();
 
     super.dispose();
   }
@@ -57,7 +57,7 @@ class _MainPageState extends State<MainPage> {
   }
   
   void scrollToIndexInList(int index) {
-    final state = mainAppointmentListBlock.state;
+    final state = GetIt.I<MainAppointmentListBloc>().state;
     
     if (state is! ListAppointmentListBlocState) return;
 
@@ -77,18 +77,15 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       backgroundColor: AppColors.darkBackground,
       extendBody: true,
-      body: BlocProvider.value(
-        value: mainAppointmentListBlock,
-        child: PageView(
-          controller: pageController,
-          children: [
-            CalendarFragment(changeFragmentCallBack: scrollToPage),
+      body: PageView(
+        controller: pageController,
+        children: [
+          CalendarFragment(changeFragmentCallBack: scrollToPage),
 
-            const ListFragment(),
+          const ListFragment(),
 
-            const StatsFragment()
-          ]
-        )
+          const StatsFragment()
+        ]
       ),
       bottomNavigationBar: ClipRRect(
         borderRadius: const BorderRadius.only(
@@ -98,9 +95,12 @@ class _MainPageState extends State<MainPage> {
           builder:(context, value, child) => NavigationBar(
             height: MainPage.mainPageNavigationBarHeight,
             labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-            indicatorColor: Colors.transparent,
-            animationDuration: const Duration(milliseconds: 0),
-            backgroundColor: AppColors.darkLighter,
+            indicatorColor: AppColors.primaryDarkTrans,
+            backgroundColor: AppColors.primaryDarkTrans,
+            shadowColor: Colors.transparent,
+            animationDuration: const Duration(),
+            // surfaceTintColor: AppColors.primary,к
+            selectedIndex: currentFragment.value.pageIndex,
             onDestinationSelected: (int index) {
               if (index == currentFragment.value.pageIndex) return;
 
@@ -108,14 +108,10 @@ class _MainPageState extends State<MainPage> {
               currentFragment.value = newFragment;
               scrollToPage(newFragment);
             },
-            selectedIndex: currentFragment.value.pageIndex,
             destinations: const <Widget>[
-              _NavigationDestination(
-                  Icon(Icons.calendar_month_rounded, size: 30)),
-              _NavigationDestination(
-                  Icon(Icons.list_rounded, size: 30)),
-              _NavigationDestination(
-                  Icon(Icons.scatter_plot_rounded, size: 30))
+              _NavigationDestination(Icons.calendar_month_rounded),
+              _NavigationDestination(Icons.list_rounded),
+              _NavigationDestination(Icons.scatter_plot_rounded)
             ],
           ),
         )
@@ -126,27 +122,15 @@ class _MainPageState extends State<MainPage> {
 
 class _NavigationDestination extends StatelessWidget {
 
-  final Widget icon;
+  final IconData icon;
 
   const _NavigationDestination(this.icon);
 
   @override
   Widget build(BuildContext context) {
     return NavigationDestination(
-      icon: ColorFiltered(
-        colorFilter: const ColorFilter.mode(
-          AppColors.grayLight,
-          BlendMode.srcIn,
-        ),
-        child: icon,
-      ),
-      selectedIcon: ColorFiltered(
-        colorFilter: const ColorFilter.mode(
-          AppColors.white,
-          BlendMode.srcIn,
-        ),
-        child: icon,
-      ),
+      icon: Icon(icon, color: AppColors.grayLight, size: 30),
+      selectedIcon: Icon(icon, color: AppColors.white, size: 30),
       label: "",
     );
   }

@@ -14,12 +14,14 @@ class ClientSearchBloc extends Bloc<ClientSearchBlocEvent, ClientSearchBlocState
   ClientSearchBloc(): super(ClientSearchBlocState(
     list: [],
     searchType: ClientSearchType.name,
-    query: ''
+    query: 'startQuery'
   )) {
     on<NewQueryClientSearchBlocEvent>((event, emit) => _onNewQuery(event.query, emit));
     on<ClientUpdatedOrAddedClientSearchBlocEvent>((event, emit) => _onClientAddedOrUpdated(emit));
     on<SearchTypeSwitchedClientSearchBlocEvent>((event, emit) => _onSearchTypeSwitched(emit));
     on<LastScrolledClientSearchBlocEvent>((event, emit) => _onLastScrolled(event.clientId, emit));
+
+    add(NewQueryClientSearchBlocEvent(query: ''));
   }
 
   void _onNewQuery(String newQuery, Emitter<ClientSearchBlocState> emit) async {

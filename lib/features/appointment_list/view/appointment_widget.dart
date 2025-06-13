@@ -6,6 +6,7 @@ import 'package:client_book_flutter/core/utils/app_font.dart';
 import 'package:client_book_flutter/core/utils/colors.dart';
 import 'package:client_book_flutter/core/utils/s.dart';
 import 'package:client_book_flutter/core/utils/time_utils.dart';
+import 'package:client_book_flutter/core/widgets/app_clickable/clickable.dart';
 import 'package:flutter/material.dart';
 
 class AppointmentWidget extends StatelessWidget {
@@ -121,8 +122,8 @@ class AppointmentWidget extends StatelessWidget {
       )
     ]);
 
-    return GestureDetector(
-      onTap: () => onTap(context),
+    return Clickable(
+      onClick: () => onTap(context),
       child: widget,
     );
   }

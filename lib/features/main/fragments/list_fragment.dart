@@ -1,12 +1,11 @@
 
-import 'package:client_book_flutter/features/appointment_list/viewmodel/appointment_list_bloc.dart';
+import 'package:client_book_flutter/core/widgets/app_clickable/clickable.dart';
 import 'package:client_book_flutter/features/main/other/creation_picker_bottom_sheet.dart';
 import 'package:client_book_flutter/features/appointment_list/view/appointment_list_widget.dart';
 import 'package:client_book_flutter/core/utils/app_font.dart';
 import 'package:client_book_flutter/core/utils/colors.dart';
 import 'package:client_book_flutter/core/utils/s.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ListFragment extends StatelessWidget {
 
@@ -17,9 +16,7 @@ class ListFragment extends StatelessWidget {
   void onPlusTapped(BuildContext context) {
     showModalBottomSheet(
       context: context, 
-      builder:(newContext) => CreationPickerBottomSheet(
-        mainAppointmentListBloc: BlocProvider.of<MainAppointmentListBloc>(context)
-      )
+      builder:(newContext) => const CreationPickerBottomSheet()
     );
   }
 
@@ -45,16 +42,24 @@ class ListFragment extends StatelessWidget {
 
           const Spacer(),
 
-          GestureDetector(
-            onTap: () => onPlusTapped(context),
-            child: const Icon(Icons.add_rounded, color: AppColors.primary, size: 26)
+          Clickable(
+            onClick: () => onPlusTapped(context),
+            rippleColor: AppColors.primaryDark,
+            child: const Padding(
+              padding: EdgeInsets.all(4), 
+              child: Icon(Icons.add_rounded, color: AppColors.primary, size: 26)
+            )
           ),
 
-          const SizedBox(width: 6),
+          const SizedBox(width: 4),
 
-          GestureDetector(
-            onTap: onSettingsTapped,
-            child: const Icon(Icons.settings_rounded, color: AppColors.primary, size: 26)
+          Clickable(
+            onClick: onSettingsTapped,
+            rippleColor: AppColors.primaryDark,
+            child: const Padding(
+              padding: EdgeInsets.all(4), 
+              child: Icon(Icons.settings_rounded, color: AppColors.primary, size: 26)
+            )
           )
         ])),
 

@@ -1,4 +1,5 @@
 
+import 'package:client_book_flutter/core/widgets/back_button/app_back_button.dart';
 import 'package:client_book_flutter/features/client_creation/viewmodel/client_creation_bloc.dart';
 import 'package:client_book_flutter/features/client_creation/viewmodel/events/client_creation_event.dart';
 import 'package:client_book_flutter/features/client_creation/viewmodel/states/client_creation_state.dart';
@@ -65,11 +66,8 @@ class _ClientCreationLayoutState extends State<ClientCreationLayout> {
       body: SafeArea(child: Padding(padding: const EdgeInsets.symmetric(horizontal: 12), child: Column(children: [
         Padding(
           padding: const EdgeInsets.only(top: 8),
-          child: Row(children: [
-            GestureDetector(
-              onTap: () => Navigator.pop(context),
-              child: const Icon(Icons.arrow_back, color: AppColors.primary, size: 26),
-            ),
+          child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+            const AppBackButton(),
 
             const SizedBox(width: 6),
 

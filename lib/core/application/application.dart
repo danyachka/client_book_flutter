@@ -16,6 +16,9 @@ class Application extends StatelessWidget {
       theme: ThemeData(
         primaryColor: AppColors.primary,
         scaffoldBackgroundColor: AppColors.darkBackground,
+        focusColor: AppColors.white,
+        highlightColor: AppColors.white,
+        splashColor: AppColors.white,
         appBarTheme: const AppBarTheme(
           iconTheme: IconThemeData(color: AppColors.white),
           color: AppColors.primary,

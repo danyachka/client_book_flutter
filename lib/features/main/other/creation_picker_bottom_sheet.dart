@@ -1,18 +1,15 @@
 
 
-import 'package:client_book_flutter/features/appointment_list/viewmodel/appointment_list_bloc.dart';
+import 'package:client_book_flutter/core/widgets/app_clickable/app_button.dart';
 import 'package:client_book_flutter/features/appointment_creation/view/appointment_creation_page.dart';
 import 'package:client_book_flutter/features/client_creation/view/client_creation_page.dart';
-import 'package:client_book_flutter/core/widgets/app_large_button/app_large_button.dart';
 import 'package:client_book_flutter/core/utils/colors.dart';
 import 'package:client_book_flutter/core/utils/s.dart';
 import 'package:flutter/material.dart';
 
 class CreationPickerBottomSheet extends StatelessWidget {
 
-  final MainAppointmentListBloc mainAppointmentListBloc;
-
-  const CreationPickerBottomSheet({super.key, required this.mainAppointmentListBloc});
+  const CreationPickerBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,39 +19,42 @@ class CreationPickerBottomSheet extends StatelessWidget {
         borderRadius: BorderRadius.only(topLeft: Radius.circular(26), topRight: Radius.circular(26)),
         color: AppColors.darkBackground
       ),
-      child: Column(mainAxisSize: MainAxisSize.min, children: [
-        const SizedBox(height: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch, 
+        mainAxisSize: MainAxisSize.min, 
+        children: [
+          const SizedBox(height: 16),
 
-        Center(child: Container(
-          width: 60,
-          height: 3,
-          decoration: BoxDecoration(
-            color: AppColors.primary,
-            borderRadius: BorderRadius.circular(7)
+          Center(child: Container(
+            width: 60,
+            height: 3,
+            decoration: BoxDecoration(
+              color: AppColors.primary,
+              borderRadius: BorderRadius.circular(7)
+            )
+          )),
+
+          const SizedBox(height: 12),
+
+          AppTextButton(
+            onClick: () {
+              Navigator.of(context).pop();
+              Navigator.push(context, MaterialPageRoute(
+                builder:(context) => const AppointmentCreationPage()));
+            } ,
+            text: S.of(context).create_appointment
+          ),
+          
+          const SizedBox(height: 8),
+          
+          AppTextButton(
+            onClick: () {
+              Navigator.of(context).pop();
+              Navigator.push(context, MaterialPageRoute(
+                builder:(context) => const ClientCreationPage()));
+            },
+            text: S.of(context).create_client
           )
-        )),
-
-        const SizedBox(height: 12),
-
-        AppLargeButton(
-          onTapped: () {
-            Navigator.of(context).pop();
-            Navigator.push(context, MaterialPageRoute(
-              builder:(context) => AppointmentCreationPage(mainAppointmentListBloc: mainAppointmentListBloc)));
-          } ,
-          text: S.of(context).create_appointment
-        ),
-        
-        const SizedBox(height: 8),
-        
-        AppLargeButton(
-          onTapped: () {
-            Navigator.of(context).pop();
-            Navigator.push(context, MaterialPageRoute(
-              builder:(context) => ClientCreationPage(mainAppointmentListBloc: mainAppointmentListBloc)));
-          },
-          text: S.of(context).create_client
-        )
       ])
     );
   }

@@ -9,20 +9,22 @@ import 'package:client_book_flutter/core/model/app_database.dart';
 import 'package:client_book_flutter/features/client_creation/view/client_creation_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 class ClientCreationPage extends StatefulWidget {
 
   final Client? initialClient;
 
-  final MainAppointmentListBloc mainAppointmentListBloc;
   final SpecialClientAppointmentListBloc? clientAppointmentListBloc;
   final ClientSearchBloc? clientSearchBloc;
 
+  final void Function(Client)? callback;
+
   const ClientCreationPage({super.key, 
-    required this.mainAppointmentListBloc, 
     this.clientAppointmentListBloc,
     this.initialClient, 
-    this.clientSearchBloc
+    this.clientSearchBloc,
+    this.callback
   });
 
 
@@ -59,9 +61,11 @@ class _ClientCreationPageState extends State<ClientCreationPage> {
           if (widget.initialClient != null) { // if client update
              final event = ClientChangedAppointmentListBlocEvent(changedClient: state.createdClient);
 
-             widget.mainAppointmentListBloc.add(event);
+             GetIt.I<MainAppointmentListBloc>().add(event);
              widget.clientAppointmentListBloc?.add(event);
           }
+
+          if (widget.callback != null) widget.callback!(state.createdClient);
 
           Navigator.pop(context); // close page after created 
         },

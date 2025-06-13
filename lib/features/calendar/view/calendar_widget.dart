@@ -1,5 +1,6 @@
 
 
+import 'package:client_book_flutter/core/widgets/app_clickable/app_button.dart';
 import 'package:client_book_flutter/features/calendar/viewmodel/calendar_cubit.dart';
 import 'package:client_book_flutter/features/calendar/viewmodel/calendar_state.dart';
 import 'package:client_book_flutter/features/calendar/view/calendar_date_item.dart';
@@ -47,7 +48,7 @@ class CalendarWidget extends StatelessWidget {
                     fontSize: 22,
                     fontFamily: AppFont.m,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.accentText
+                    color: AppColors.accentTextDarker
                   )
                 );
               }
@@ -69,7 +70,7 @@ class CalendarWidget extends StatelessWidget {
                   fontSize: 13,
                   fontFamily: AppFont.m,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.white
+                  color: AppColors.accentTextDarker
                 )
               )
             )))
@@ -87,6 +88,7 @@ class CalendarWidget extends StatelessWidget {
                 return Column(spacing: 3, children: List.generate(
                   weeksCount, 
                   (week) => Row(
+                    mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     spacing: 5,
                     children: List.generate(7, (day) => Expanded(child: CalendarDateItem(
@@ -116,12 +118,14 @@ class _MonthButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => onTap(context),
+    return AppButton(
+      onClick: () => onTap(context),
+      color: AppColors.primaryDark,
+      padding: EdgeInsets.zero,
+      radius: 10,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 5),
         decoration: BoxDecoration(
-          color: AppColors.darkGray,
           borderRadius: BorderRadius.circular(10)
         ),
         child: Icon(isNext? Icons.arrow_forward_rounded: Icons.arrow_back_rounded, 

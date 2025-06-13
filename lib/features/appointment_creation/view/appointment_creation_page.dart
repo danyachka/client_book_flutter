@@ -9,16 +9,15 @@ import 'package:client_book_flutter/features/appointment_creation/view/creation_
 import 'package:client_book_flutter/core/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 class AppointmentCreationPage extends StatefulWidget {
 
   final AppointmentClient? initialAppointment;
 
-  final MainAppointmentListBloc mainAppointmentListBloc;
   final SpecialClientAppointmentListBloc? clientAppointmentListBloc;
 
   const AppointmentCreationPage({super.key, 
-    required this.mainAppointmentListBloc, 
     this.clientAppointmentListBloc,
     this.initialAppointment
   });
@@ -56,7 +55,7 @@ class _AppointmentCreationPageState extends State<AppointmentCreationPage> {
           ? AppointmentChangedAppointmentListBlocEvent(changedAppointment: state.createdAC.appointment)
           : AppointmentAddedAppointmentListBlocEvent(newAppointment: state.createdAC); 
           
-          widget.mainAppointmentListBloc.add(event);
+          GetIt.I<MainAppointmentListBloc>().add(event);
 
           Navigator.pop(context); // close page after created 
         },

@@ -1,5 +1,6 @@
 
 
+import 'package:client_book_flutter/core/widgets/app_clickable/app_button.dart';
 import 'package:client_book_flutter/features/calendar/viewmodel/calendar_state.dart';
 import 'package:client_book_flutter/features/calendar/view/calendar_widget.dart';
 import 'package:client_book_flutter/core/utils/app_font.dart';
@@ -29,31 +30,32 @@ class CalendarDateItem extends StatelessWidget {
       )
     ));
 
-    Widget widget;
-    if (item.isSelectedDay) {
-      widget = Container(
+    Widget widget = item.isSelectedDay
+    ? Container(
         margin: const EdgeInsets.all(4),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: AppColors.primaryLighter
         ),
         child: textWidget 
-      );
-    } else {
-      widget = textWidget;
-    }
-
-
-    return GestureDetector(
-      onTap: () => onDatePicked(item.date),
-      child: Container(
-        padding: EdgeInsets.all(item.isSelectedDay? 1: 5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: item.sameMonth && !item.isSelectedDay? AppColors.primary: AppColors.primaryDark
-        ),
-        child: widget
       )
+    : textWidget;
+
+    final color = item.sameMonth && !item.isSelectedDay? AppColors.primary: AppColors.primaryDark;
+
+    return AppButton(
+        onClick: () => onDatePicked(item.date),
+        color: color,
+        padding: EdgeInsets.zero,
+        radius: 12,
+        child:  Container(
+          padding: EdgeInsets.all(item.isSelectedDay? 1: 5),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: color
+          ),
+          child: widget
+        )
     );
   }
 }

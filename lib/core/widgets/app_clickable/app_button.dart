@@ -34,7 +34,7 @@ class AppButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radius), // Corner radius
         ),
-        padding: padding ?? const EdgeInsets.all(24), // Button padding
+        padding: padding ?? const EdgeInsets.symmetric(horizontal: 24, vertical: 16), // Button padding
         elevation: 0,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         minimumSize: Size.zero
@@ -51,21 +51,37 @@ class AppTextButton extends StatelessWidget {
 
   final String text;
 
-  const AppTextButton({super.key, required this.onClick, required this.text});
+  final IconData? icon;
+
+  const AppTextButton({super.key, 
+    required this.onClick, 
+    required this.text, 
+    this.icon
+  });
 
   @override
   Widget build(BuildContext context) {
     return AppButton(
         onClick: onClick,
         color: AppColors.primaryLight,
-        child: Text(text,
-            style: const TextStyle(
-                color: AppColors.accentTextDarker,
-                fontFamily: AppFont.m,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                overflow: TextOverflow.ellipsis
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            if (icon != null) Icon(icon, size: 24, color: AppColors.primaryDarker),
+
+            if (icon != null) const SizedBox(width: 8),
+
+            Text(text,
+                style: const TextStyle(
+                    color: AppColors.accentTextDarker,
+                    fontFamily: AppFont.m,
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    overflow: TextOverflow.ellipsis
+                )
             )
+          ]
         )
     );
   }

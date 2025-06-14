@@ -85,12 +85,12 @@ abstract class AppointmentListBloc
 
     // usual case
     int centerItemTime = centerItem.appointment.startTime;
-    final lists = await Future.wait([_loader.loadNewer(centerItemTime), _loader.loadOlder(centerItemTime)]);
+    final [newer, older] = await Future.wait([_loader.loadNewer(centerItemTime), _loader.loadOlder(centerItemTime)]);
     
-    int centerItemIndex = lists[0].length;
-    final itemsList = lists[0]
+    int centerItemIndex = older.length;
+    final itemsList = older.reversed.toList()
       ..add(centerItem)
-      ..addAll(lists[1]);
+      ..addAll(newer);
     
     emit(ListAppointmentListBlocState(
       list: itemsList.map((e) => AppointmentListItem(data: e)).toList()
@@ -118,7 +118,7 @@ abstract class AppointmentListBloc
 
     List<AppointmentListItem> newList;
     if (oldList.length > maxItemsInList) {
-      newList = oldList.sublist(0, AppointmentDao.loadingItemsCount);
+      newList = oldList.sublist(AppointmentDao.loadingItemsCount);
     } else {
       newList = _list;
     }
@@ -130,17 +130,17 @@ abstract class AppointmentListBloc
     final newData = await _loader.loadOlder(time);
 
     if (newData.isEmpty) return;
-    final newItems = newData.map((e) => AppointmentListItem(data: e)).toList();
+    final newItems = newData.map((e) => AppointmentListItem(data: e)).toList().reversed;
 
     final oldList = _list;
 
-    oldList.addAll(newItems);
+    oldList.insertAll(0, newItems);
 
     List<AppointmentListItem> newList;
     if (oldList.length > maxItemsInList) {
-      newList = oldList.sublist(maxItemsInList - AppointmentDao.loadingItemsCount);
+      newList = oldList.sublist(0, maxItemsInList - AppointmentDao.loadingItemsCount);
     } else {
-      newList = _list;
+      newList = oldList;
     }
 
     emit(ListAppointmentListBlocState(list: newList));
@@ -164,7 +164,7 @@ abstract class AppointmentListBloc
     } else {
       bool isInserted = false;
       for (int i = 0; i < list.length; i++) {
-        if (list[i].data.appointment.startTime > ac.appointment.startTime) continue;
+        if (ac.appointment.startTime > list[i].data.appointment.startTime) continue;
         list.insert(i, AppointmentListItem(data: ac));
         isInserted = true;
         break;

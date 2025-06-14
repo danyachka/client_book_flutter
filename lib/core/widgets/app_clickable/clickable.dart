@@ -13,7 +13,7 @@ class Clickable extends StatelessWidget {
   const Clickable({
     super.key, 
     required this.onClick,
-    this.rippleColor = AppColors.primaryDark, 
+    this.rippleColor = AppColors.primaryDarkTrans, 
     this.radius = 32, 
     required this.child
   });
@@ -21,14 +21,17 @@ class Clickable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final borderRadius = BorderRadius.circular(radius);
-    return InkWell(
-      onTap: onClick,
-      hoverColor: rippleColor,
-      splashColor: rippleColor,
-      highlightColor: rippleColor,
-      focusColor: rippleColor,
-      borderRadius: borderRadius,
-      child: child
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onClick,
+        hoverColor: rippleColor,
+        splashColor: rippleColor,
+        highlightColor: rippleColor,
+        focusColor: rippleColor,
+        borderRadius: borderRadius,
+        child: child
+      )
     );
   }
 }

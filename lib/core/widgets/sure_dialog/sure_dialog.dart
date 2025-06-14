@@ -1,6 +1,8 @@
 
+import 'package:client_book_flutter/core/utils/app_font.dart';
 import 'package:client_book_flutter/core/utils/colors.dart';
 import 'package:client_book_flutter/core/utils/s.dart';
+import 'package:client_book_flutter/core/widgets/app_clickable/app_button.dart';
 import 'package:flutter/material.dart';
 
 class _AppAlertDialog extends StatelessWidget {
@@ -26,7 +28,7 @@ class _AppAlertDialog extends StatelessWidget {
           style: const TextStyle(
               color: AppColors.white,
               fontSize: 15,
-              fontFamily: 'Montserrat',
+              fontFamily: AppFont.m,
               fontWeight: FontWeight.bold),
         ),
         content: Text(
@@ -34,37 +36,37 @@ class _AppAlertDialog extends StatelessWidget {
           style: const TextStyle(
               color: AppColors.white,
               fontSize: 13,
-              fontFamily: 'Montserrat',
+              fontFamily: AppFont.m,
               fontWeight: FontWeight.bold),
         ),
         actions: <Widget>[
-          ElevatedButton(
-            onPressed: () {
+          AppButton(
+            onClick: () {
               Navigator.of(context).pop();
               callBack();
             },
-            style: TextButton.styleFrom(backgroundColor: AppColors.primary),
+            color: AppColors.primary,
             child: Text(
               S.of(context).yes,
               style: const TextStyle(
                   color: AppColors.white,
                   fontSize: 13,
-                  fontFamily: 'Montserrat',
+                  fontFamily: AppFont.m,
                   fontWeight: FontWeight.bold),
             ),
           ),
-          ElevatedButton(
-              onPressed: () {
+          AppButton(
+              onClick: () {
                 Navigator.of(context).pop();
                 if (noCallBack != null) noCallBack!();
               },
-              style: TextButton.styleFrom(backgroundColor: isNoLighted? AppColors.primary: AppColors.gray),
+              color: isNoLighted? AppColors.primary: AppColors.gray,
               child: Text(
                 S.of(context).no,
                 style: const TextStyle(
                     color: AppColors.white,
                     fontSize: 13,
-                    fontFamily: 'Montserrat',
+                    fontFamily: AppFont.m,
                     fontWeight: FontWeight.bold),
               ))
         ]);

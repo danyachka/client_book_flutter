@@ -1,11 +1,12 @@
 
 import 'package:client_book_flutter/core/widgets/back_button/app_back_button.dart';
+import 'package:client_book_flutter/core/widgets/text/hint_text.dart';
 import 'package:client_book_flutter/features/client_creation/viewmodel/client_creation_bloc.dart';
 import 'package:client_book_flutter/features/client_creation/viewmodel/events/client_creation_event.dart';
 import 'package:client_book_flutter/features/client_creation/viewmodel/states/client_creation_state.dart';
 import 'package:client_book_flutter/core/model/app_database.dart';
 import 'package:client_book_flutter/core/widgets/edit_text/edit_text.dart';
-import 'package:client_book_flutter/core/widgets/error_text/error_text_widget.dart';
+import 'package:client_book_flutter/core/widgets/text/error_text_widget.dart';
 import 'package:client_book_flutter/core/utils/app_font.dart';
 import 'package:client_book_flutter/core/utils/colors.dart';
 import 'package:client_book_flutter/core/utils/s.dart';
@@ -24,9 +25,16 @@ class ClientCreationLayout extends StatefulWidget {
 
 class _ClientCreationLayoutState extends State<ClientCreationLayout> {
 
-  final nameTextController = TextEditingController();
-  final phoneTextController = TextEditingController();
+  late final TextEditingController nameTextController;
+  late final TextEditingController phoneTextController;
 
+  @override
+  void initState() {
+    super.initState();
+
+    nameTextController = TextEditingController(text: widget.initialClient?.name);
+    phoneTextController = TextEditingController(text: widget.initialClient?.phoneNumber);
+  }
 
   @override
   void dispose() {
@@ -88,11 +96,10 @@ class _ClientCreationLayoutState extends State<ClientCreationLayout> {
         ),
 
         Expanded(child: ListView(padding: const EdgeInsets.only(top: 16), children: [
-          AppEditTextWidget(
-            fontSize: 14,
-            controller: nameTextController, 
-            hint: S.of(context).client_name
-          ),
+
+          HintText(text: S.of(context).client_name_title, icon: Icons.person_rounded),
+
+          const SizedBox(height: 4),
 
           BlocBuilder<ClientCreationBloc, ClientCreationState>(
             buildWhen: (previous, current) => current is CreationClientCreationState,
@@ -107,13 +114,19 @@ class _ClientCreationLayoutState extends State<ClientCreationLayout> {
             }
           ),
 
-          const SizedBox(height: 8),
-          
+          const SizedBox(height: 4),
+
           AppEditTextWidget(
             fontSize: 14,
-            controller: phoneTextController, 
-            hint: S.of(context).client_phone
+            controller: nameTextController, 
+            hint: S.of(context).client_name
           ),
+
+          const SizedBox(height: 12),
+
+          HintText(text: S.of(context).client_phone_title, icon: Icons.phone_rounded),
+
+          const SizedBox(height: 4),
 
           BlocBuilder<ClientCreationBloc, ClientCreationState>(
             buildWhen: (previous, current) => current is CreationClientCreationState,
@@ -126,6 +139,16 @@ class _ClientCreationLayoutState extends State<ClientCreationLayout> {
               );
             }
           ),
+
+          const SizedBox(height: 4),
+          
+          AppEditTextWidget(
+            fontSize: 14,
+            controller: phoneTextController, 
+            hint: S.of(context).client_phone
+          ),
+
+          const SizedBox(height: 12),
 
           BlocBuilder<ClientCreationBloc, ClientCreationState>(
             buildWhen: (previous, current) => (current is UnknownErrorClientCreationState || previous is UnknownErrorClientCreationState),

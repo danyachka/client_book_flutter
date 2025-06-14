@@ -52,7 +52,7 @@ class AppointmentCreationBloc
       final appointmentCompanion = AppointmentsCompanion.insert(
         clientId: event.client!.id, 
         startTime: startTime, 
-        endTime: duration, 
+        endTime: startTime + duration, 
         notificationStatus: Value(event.status), 
         value: Value(event.value!), 
         appointmentText: Value(event.text)

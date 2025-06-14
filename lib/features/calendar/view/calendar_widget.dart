@@ -14,7 +14,9 @@ class CalendarWidget extends StatelessWidget {
 
   final OnDatePicked onDatePicked;
 
-  const CalendarWidget({super.key, required this.onDatePicked});
+  final bool withOutBackLayout;
+
+  const CalendarWidget({super.key, this.withOutBackLayout = false, required this.onDatePicked});
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +24,8 @@ class CalendarWidget extends StatelessWidget {
       create:(context) => CalendarCubit(DateTime.now()),
       lazy: false,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-        decoration: BoxDecoration(
+        padding: withOutBackLayout? null : const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        decoration: withOutBackLayout? null : BoxDecoration(
           color: AppColors.primaryLight,
           borderRadius: BorderRadius.circular(16)
         ),

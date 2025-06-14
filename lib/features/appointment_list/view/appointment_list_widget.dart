@@ -59,14 +59,16 @@ class AppointmentListWidget extends StatelessWidget {
           itemBuilder:(context, index) {
             final item = state.list[index];
 
+            Logger().d("Building $index, ${DateTime.fromMillisecondsSinceEpoch(item.data.appointment.startTime)}");
+
             if (index == 0) {
               bloc.add(OldestScrolledAppointmentListBlocEvent(
-                lastAppointmentTime: item.data.appointment.startTime)
-              );
+                lastAppointmentTime: item.data.appointment.startTime
+              ));
             } else if (index == state.list.length - 1) {
               bloc.add(NewestScrolledAppointmentListBlocEvent(
-                newestAppointmentTime: item.data.appointment.startTime)
-              );
+                newestAppointmentTime: item.data.appointment.startTime
+              ));
             }
             
             item.key ??= GlobalKey();

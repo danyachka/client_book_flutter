@@ -43,7 +43,7 @@ class AppEditTextWidget extends StatelessWidget {
     required this.controller,
     required this.hint,
     this.isPassword = false,
-    this.contentPadding = const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
+    this.contentPadding = const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
     this.radius = 20,
     this.backgroundColor,
     this.textAlign = TextAlign.center,

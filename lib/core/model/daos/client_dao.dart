@@ -31,6 +31,12 @@ class ClientDao extends DatabaseAccessor<AppDatabase> with _$ClientDaoMixin {
     await delete(clients).delete(client);
   }
 
+  Future<void> deleteAll() async {
+    return await batch((batch) {
+      batch.deleteAll(clients);
+    });
+  }
+
   // Get by ID
   Future<Client?> getById(int id) async {
     return await (select(clients)..where((t) => t.id.equals(id))).getSingleOrNull();

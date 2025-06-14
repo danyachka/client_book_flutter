@@ -34,6 +34,12 @@ class AppointmentDao extends DatabaseAccessor<AppDatabase> with _$AppointmentDao
     await delete(appointments).delete(appointment);
   }
 
+  Future<void> deleteAll() async {
+    return await batch((batch) {
+      batch.deleteAll(appointments);
+    });
+  }
+
   // Get by ID
   Future<Appointment?> getById(int id) async {
     return await (select(appointments)..where((t) => t.id.equals(id))).getSingleOrNull();
@@ -81,7 +87,7 @@ class AppointmentDao extends DatabaseAccessor<AppDatabase> with _$AppointmentDao
   Future<AppointmentClient?> getBetween(int startTime, int endTime) async {
     final query = (select(appointments)
       ..where((t) =>
-          t.startTime.isBiggerThanValue(startTime) & t.endTime.isSmallerThanValue(endTime))
+          t.startTime.isSmallerThanValue(endTime) & t.endTime.isBiggerThanValue(startTime))
     ).join([
       innerJoin(clients, clients.id.equalsExp(appointments.clientId)),
     ]);

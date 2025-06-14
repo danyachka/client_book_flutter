@@ -1,6 +1,5 @@
 
 
-import 'package:client_book_flutter/core/model/models/appointment/notification_type.dart';
 import 'package:client_book_flutter/core/model/models/appointment_client.dart';
 import 'package:client_book_flutter/core/utils/app_font.dart';
 import 'package:client_book_flutter/core/utils/colors.dart';
@@ -33,56 +32,67 @@ class AppointmentWidget extends StatelessWidget {
 
     String? titleText = getAppointmentText(date, context);
 
-    final widget = Column(children: [
-      if (titleText != null) Text(
-        titleText,
-        maxLines: 1,
-        style: const TextStyle(
-          fontSize: 16,
-          overflow: TextOverflow.ellipsis,
-          fontFamily: AppFont.m,
-          fontWeight: FontWeight.bold,
-          color: AppColors.accentText
-        )
-      ),
+    final widget = Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start, 
+          children: [
+            if (titleText != null) Text(
+              titleText,
+              maxLines: 1,
+              style: const TextStyle(
+                fontSize: 16,
+                overflow: TextOverflow.ellipsis,
+                fontFamily: AppFont.m,
+                fontWeight: FontWeight.bold,
+                color: AppColors.accentText
+              )
+            ),
 
-      Text(
-        date.getTodayTimeInDuration().getFormattedTime(),
-        maxLines: 1,
-        style: const TextStyle(
-          fontSize: 14,
-          overflow: TextOverflow.ellipsis,
-          fontFamily: AppFont.m,
-          fontWeight: FontWeight.w600,
-          color: AppColors.accentTextLighter
+            Text(
+              date.getTodayTimeInDuration().getFormattedTime(),
+              maxLines: 1,
+              style: const TextStyle(
+                fontSize: 14,
+                overflow: TextOverflow.ellipsis,
+                fontFamily: AppFont.m,
+                fontWeight: FontWeight.w600,
+                color: AppColors.accentTextLighter
+              )
+            )
+          ]
         )
       ),
 
       Container(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         decoration: BoxDecoration(
           color: AppColors.primaryLight,
-          borderRadius: BorderRadius.circular(20)
+          borderRadius: BorderRadius.circular(24)
         ),
         child: Column(children: [
           Row(children: [
-            Text(
-              appointmentClient.appointment.appointmentText,
-              style: const TextStyle(
-                fontSize: 12,
-                overflow: TextOverflow.ellipsis,
-                fontFamily: AppFont.m,
-                fontWeight: FontWeight.w600,
-                color: AppColors.accentTextDarker
-              )
+            Expanded(
+              child: Text(
+                appointmentClient.appointment.appointmentText,
+                style: const TextStyle(
+                  fontSize: 12,
+                  overflow: TextOverflow.ellipsis,
+                  fontFamily: AppFont.m,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.accentTextDarker
+                )
+              ),
             ),
-            const Spacer(),
+            // const Spacer(),
 
-            Icon(
-              (appointmentClient.appointment.notificationStatus == NotificationStatus.enabled)
-              ? Icons.notifications_rounded: Icons.notifications_off_rounded, 
-              color: AppColors.accentTextDarker
-            )
+            // Icon(
+            //   (appointmentClient.appointment.notificationStatus == NotificationStatus.enabled)
+            //   ? Icons.notifications_rounded: Icons.notifications_off_rounded, 
+            //   color: AppColors.accentTextDarker,
+            //   size: 16,
+            // )
           ]),
           Row(children: [
             Text(
@@ -113,8 +123,9 @@ class AppointmentWidget extends StatelessWidget {
             const SizedBox(width: 2),
 
             const Icon(
-              Icons.money_rounded, 
-              color: AppColors.accentTextDarker
+              Icons.attach_money_rounded, 
+              color: AppColors.accentTextDarker,
+              size: 20,
             )
 
           ])
@@ -124,14 +135,18 @@ class AppointmentWidget extends StatelessWidget {
 
     return Clickable(
       onClick: () => onTap(context),
-      child: widget,
+      radius: 24,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
+        child: widget,
+      )
     );
   }
 
   String? getAppointmentText(DateTime date, BuildContext context) {
-    if (previousAppointmentClient == null) return null;
-    
-    final previousDate = DateTime.fromMillisecondsSinceEpoch(previousAppointmentClient!.appointment.startTime);
+    final previousDate = previousAppointmentClient != null
+      ? DateTime.fromMillisecondsSinceEpoch(previousAppointmentClient!.appointment.startTime)
+      : DateTime.fromMillisecondsSinceEpoch(0);
 
     if (date.isSameDay(previousDate)) return null;
 

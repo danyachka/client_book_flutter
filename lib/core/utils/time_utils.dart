@@ -67,13 +67,27 @@ extension AppDateTime on DateTime {
   Duration getTodayTimeInDuration() {
     return Duration(hours: hour, minutes: minute, seconds: second);
   }
+
+  String getAppointmentDateText(BuildContext context) 
+    => "${getDayName(context)}, $day ${getMonthName(context)} $year";
+  
+  String getFormattedDayTime() => formatDuration(hour, minute);
 }
 
 
 extension AppDuration on Duration {
-  String getFormattedTime() {
-    return "$inHours:$inMinutes";
-  }
+  String getFormattedTime() => formatDuration(inHours, inMinutes);
+}
+
+extension AppTimeOfDay on TimeOfDay {
+  String getFormattedTime() => formatDuration(hour, minute);
+}
+
+String formatDuration(int h, int m) {
+  String twoDigits(int n) => n.toString().padLeft(2, '0');
+  final hours = twoDigits(h);
+  final minutes = twoDigits(m % 60);
+  return '$hours:$minutes';
 }
 
 String getDayNameByNumber(BuildContext context, int weekday) {

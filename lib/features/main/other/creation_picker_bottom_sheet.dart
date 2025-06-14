@@ -13,49 +13,47 @@ class CreationPickerBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(left: 12, right: 12, bottom: 24),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(26), topRight: Radius.circular(26)),
-        color: AppColors.darkBackground
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch, 
-        mainAxisSize: MainAxisSize.min, 
+    final content = Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
         children: [
           const SizedBox(height: 16),
-
-          Center(child: Container(
-            width: 60,
-            height: 3,
-            decoration: BoxDecoration(
-              color: AppColors.primary,
-              borderRadius: BorderRadius.circular(7)
-            )
-          )),
-
+          Center(
+              child: Container(
+                  width: 60,
+                  height: 3,
+                  decoration: BoxDecoration(
+                      color: AppColors.primary,
+                      borderRadius: BorderRadius.circular(7)))),
           const SizedBox(height: 12),
-
           AppTextButton(
-            onClick: () {
-              Navigator.of(context).pop();
-              Navigator.push(context, MaterialPageRoute(
-                builder:(context) => const AppointmentCreationPage()));
-            } ,
-            text: S.of(context).create_appointment
-          ),
-          
+              onClick: () {
+                Navigator.of(context).pop();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AppointmentCreationPage()));
+              },
+              text: S.of(context).create_appointment),
           const SizedBox(height: 8),
-          
           AppTextButton(
-            onClick: () {
-              Navigator.of(context).pop();
-              Navigator.push(context, MaterialPageRoute(
-                builder:(context) => const ClientCreationPage()));
-            },
-            text: S.of(context).create_client
-          )
-      ])
+              onClick: () {
+                Navigator.of(context).pop();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ClientCreationPage()));
+              },
+              text: S.of(context).create_client)
+        ]);
+
+    return ClipRRect(
+      borderRadius: const BorderRadius.only(topLeft: Radius.circular(26), topRight: Radius.circular(26)),
+      child: Container(
+        padding: const EdgeInsets.only(left: 12, right: 12, bottom: 24),
+        color: AppColors.darkBackground,
+        child: content
+      )
     );
   }
 }

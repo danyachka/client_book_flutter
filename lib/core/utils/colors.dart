@@ -11,6 +11,7 @@ class AppColors {
   static const primaryDarker = Color.fromARGB(255, 62, 134, 103);
   static const primaryDark = Color.fromARGB(255, 48, 95, 73);
   static const primaryDarkTrans = Color.fromARGB(120, 48, 95, 73);
+  static const primarySuperDarkTrans = Color.fromARGB(240, 31, 54, 44);
 
   static const primaryLighter = Color.fromARGB(255, 59, 185, 129);
   static const primaryLight = Color.fromARGB(255, 117, 219, 173);

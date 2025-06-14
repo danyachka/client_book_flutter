@@ -50,11 +50,11 @@ class ClientItem extends StatelessWidget {
     ]);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Clickable(
         onClick: onClick,
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 8),
+          padding: const EdgeInsets.all(4),
           child: row
         )
       ),

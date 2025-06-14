@@ -95,8 +95,8 @@ class _MainPageState extends State<MainPage> {
           builder:(context, value, child) => NavigationBar(
             height: MainPage.mainPageNavigationBarHeight,
             labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-            indicatorColor: AppColors.primaryDarkTrans,
-            backgroundColor: AppColors.primaryDarkTrans,
+            indicatorColor: AppColors.primarySuperDarkTrans,
+            backgroundColor: AppColors.primarySuperDarkTrans,
             shadowColor: Colors.transparent,
             animationDuration: const Duration(),
             // surfaceTintColor: AppColors.primary,к

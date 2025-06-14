@@ -5,6 +5,7 @@ import 'package:client_book_flutter/features/appointment_list/view/appointment_l
 import 'package:client_book_flutter/core/utils/app_font.dart';
 import 'package:client_book_flutter/core/utils/colors.dart';
 import 'package:client_book_flutter/core/utils/s.dart';
+import 'package:client_book_flutter/features/settings_page/view/settings_page.dart';
 import 'package:flutter/material.dart';
 
 class ListFragment extends StatelessWidget {
@@ -20,8 +21,10 @@ class ListFragment extends StatelessWidget {
     );
   }
 
-  void onSettingsTapped() {
-    // TODO: open setting to update db
+  void onSettingsTapped(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(
+      builder: (context) => const SettingsPage() 
+    ));
   }
 
   @override
@@ -54,7 +57,7 @@ class ListFragment extends StatelessWidget {
           const SizedBox(width: 4),
 
           Clickable(
-            onClick: onSettingsTapped,
+            onClick: () => onSettingsTapped(context),
             rippleColor: AppColors.primaryDark,
             child: const Padding(
               padding: EdgeInsets.all(4), 

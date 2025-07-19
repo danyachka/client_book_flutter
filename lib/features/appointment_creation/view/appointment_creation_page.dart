@@ -56,6 +56,7 @@ class _AppointmentCreationPageState extends State<AppointmentCreationPage> {
           : AppointmentAddedAppointmentListBlocEvent(newAppointment: state.createdAC); 
           
           GetIt.I<MainAppointmentListBloc>().add(event);
+          widget.clientAppointmentListBloc?.add(event);
 
           Navigator.pop(context); // close page after created 
         },

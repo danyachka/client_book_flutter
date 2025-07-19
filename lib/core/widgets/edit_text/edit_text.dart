@@ -49,7 +49,7 @@ class AppEditTextWidget extends StatelessWidget {
     this.textAlign = TextAlign.center,
     this.prefixIcon,
     this.suffixIcon,
-    this.fontSize = 16,
+    this.fontSize = 14,
     this.maxLines = 1,
     this.focusNode,
     this.scrollPadding = const EdgeInsets.all(20),

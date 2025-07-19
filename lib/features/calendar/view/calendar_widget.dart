@@ -29,7 +29,7 @@ class CalendarWidget extends StatelessWidget {
           color: AppColors.primaryLight,
           borderRadius: BorderRadius.circular(16)
         ),
-        child: Column(children: [
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
           Row(children: [
             _MonthButton(
               onTap: (BuildContext context) => BlocProvider.of<CalendarCubit>(context).goToPreviousMonth(),
@@ -66,6 +66,7 @@ class CalendarWidget extends StatelessWidget {
           const SizedBox(height: 6),
 
           Row(
+            mainAxisSize: MainAxisSize.max,
             children: List.generate(7, (day) => Expanded(child: Center(child: Text(
                 getDayShortNameByNumber(context, day + 1),
                 style: const TextStyle(              
@@ -82,15 +83,15 @@ class CalendarWidget extends StatelessWidget {
 
           AnimatedSize(
             alignment: Alignment.topCenter,
-            curve: Curves.easeInOut,
+            curve: Curves.decelerate,
             duration: const Duration(milliseconds: 300),
             child: BlocBuilder<CalendarCubit, CalendarState>(
               builder: (context, state) {
                 final weeksCount = (state.list.length / 7).ceil(); 
-                return Column(spacing: 3, children: List.generate(
+                return Column(spacing: 3, mainAxisSize: MainAxisSize.min, children: List.generate(
                   weeksCount, 
                   (week) => Row(
-                    mainAxisSize: MainAxisSize.min,
+                    mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     spacing: 5,
                     children: List.generate(7, (day) => Expanded(child: CalendarDateItem(

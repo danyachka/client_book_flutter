@@ -14,6 +14,7 @@
 
   "settings_title": "Settings",
   "settings_remove_all": "Clear database (DON'T CLICK!)",
+  "settings_update_db": "Update database",
 
 
   "create_client": "Create client",
@@ -36,12 +37,18 @@
   "appointment_start_time": "Start time",
   "appointment_duration": "Duration",
 
-  "appointment_with_such_time_error": "You already have an appointment at this time period: %c, \"%t\", %s - %e",
+  "appointment_with_such_time_error": "You already have an appointment at this time period: %d",
 
   "required_filed_error": "*Required filed",
   "unknown_error": "Unknown error",
 
   "nothing_found": "Nothing found",
+
+
+  "appointment_dialog_to_client": "To client",
+  "appointment_dialog_edit": "Edit an appointment",
+  "appointment_dialog_remove": "Delete an appointment",
+  "appointment_dialog_remove_text": "Are you sure want to delete an appointment %d? It would be completely lost",
 
   "yes": "yes",
   "no": "no",

@@ -103,6 +103,7 @@ abstract class AppointmentListBloc
       if (list[i].data.appointment.startTime < time) continue;
 
       _scrollTo(max(0, i - 1));
+      break;
     }
   }
 
@@ -188,7 +189,6 @@ abstract class AppointmentListBloc
       final newItem = AppointmentListItem(
         data: AppointmentClient(appointment: appointment, client: ac.data.client)
       );
-      newItem.key = ac.key;
 
       list[i] = newItem;
       emit(ListAppointmentListBlocState(list: list));

@@ -14,7 +14,7 @@ class AppointmentDao extends DatabaseAccessor<AppDatabase> with _$AppointmentDao
   static const loadingItemsCount = 50;
 
   // Insert methods
-  Future<void> insertAll(List<Appointment> appointments) async {
+  Future<void> insertAll(List<AppointmentsCompanion> appointments) async {
     return await batch((batch) {
       batch.insertAll(this.appointments, appointments);
     });

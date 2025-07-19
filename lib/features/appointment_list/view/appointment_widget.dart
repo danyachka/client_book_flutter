@@ -14,21 +14,20 @@ class AppointmentWidget extends StatelessWidget {
 
   final AppointmentClient appointmentClient;
   final AppointmentClient? previousAppointmentClient;
+  final void Function() onTap;
 
   const AppointmentWidget({super.key,
+    required this.onTap, 
     required this.nowTime, 
     required this.appointmentClient,
     required this.previousAppointmentClient
   });
 
-  void onTap(BuildContext context) {
-    // TODO: open dialog
-  }
-
   @override
   Widget build(BuildContext context) {
 
     final date = DateTime.fromMillisecondsSinceEpoch(appointmentClient.appointment.startTime);
+    final end = DateTime.fromMillisecondsSinceEpoch(appointmentClient.appointment.endTime);
 
     String? titleText = getAppointmentText(date, context);
 
@@ -42,7 +41,7 @@ class AppointmentWidget extends StatelessWidget {
               titleText,
               maxLines: 1,
               style: const TextStyle(
-                fontSize: 16,
+                fontSize: 18,
                 overflow: TextOverflow.ellipsis,
                 fontFamily: AppFont.m,
                 fontWeight: FontWeight.bold,
@@ -51,10 +50,10 @@ class AppointmentWidget extends StatelessWidget {
             ),
 
             Text(
-              date.getTodayTimeInDuration().getFormattedTime(),
+              "${date.getTodayTimeInDuration().getFormattedTime()} - ${end.getTodayTimeInDuration().getFormattedTime()}",
               maxLines: 1,
               style: const TextStyle(
-                fontSize: 14,
+                fontSize: 16,
                 overflow: TextOverflow.ellipsis,
                 fontFamily: AppFont.m,
                 fontWeight: FontWeight.w600,
@@ -77,7 +76,7 @@ class AppointmentWidget extends StatelessWidget {
               child: Text(
                 appointmentClient.appointment.appointmentText,
                 style: const TextStyle(
-                  fontSize: 12,
+                  fontSize: 14,
                   overflow: TextOverflow.ellipsis,
                   fontFamily: AppFont.m,
                   fontWeight: FontWeight.w600,
@@ -85,14 +84,6 @@ class AppointmentWidget extends StatelessWidget {
                 )
               ),
             ),
-            // const Spacer(),
-
-            // Icon(
-            //   (appointmentClient.appointment.notificationStatus == NotificationStatus.enabled)
-            //   ? Icons.notifications_rounded: Icons.notifications_off_rounded, 
-            //   color: AppColors.accentTextDarker,
-            //   size: 16,
-            // )
           ]),
           Row(children: [
             Text(
@@ -102,7 +93,7 @@ class AppointmentWidget extends StatelessWidget {
                 fontSize: 12,
                 overflow: TextOverflow.ellipsis,
                 fontFamily: AppFont.m,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.bold,
                 color: AppColors.accentTextDarker
               )
             ),
@@ -134,7 +125,7 @@ class AppointmentWidget extends StatelessWidget {
     ]);
 
     return Clickable(
-      onClick: () => onTap(context),
+      onClick: () => onTap(),
       radius: 24,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),

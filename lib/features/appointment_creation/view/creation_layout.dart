@@ -11,6 +11,7 @@ import 'package:client_book_flutter/core/widgets/app_clickable/app_button.dart';
 import 'package:client_book_flutter/core/widgets/back_button/app_back_button.dart';
 import 'package:client_book_flutter/core/widgets/custom_dialog/app_dialog.dart';
 import 'package:client_book_flutter/core/widgets/edit_text/edit_text.dart';
+import 'package:client_book_flutter/core/widgets/text/appointment_text.dart';
 import 'package:client_book_flutter/core/widgets/text/error_text_widget.dart';
 import 'package:client_book_flutter/core/widgets/text/hint_text.dart';
 import 'package:client_book_flutter/features/appointment_creation/view/client_pick_widget.dart';
@@ -38,23 +39,25 @@ class _AppointmentCreationLayoutState extends State<AppointmentCreationLayout> {
     return Padding(padding: const EdgeInsets.symmetric(horizontal: 12), child: Column(children: [
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 8),
-        child: Row(children: [
+        child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const AppBackButton(),
 
           const SizedBox(width: 12),
 
-          Text(
-            (widget.initialAC == null)
-            ? S.of(context).new_appointment
-            : S.of(context).edit_appointment,
-            maxLines: 1,
-            style: const TextStyle(
-              fontSize: 24,
-              overflow: TextOverflow.ellipsis,
-              fontFamily: AppFont.m,
-              fontWeight: FontWeight.w600,
-              color: AppColors.accentTextLighter
-            )
+          Expanded(
+            child: Text(
+              (widget.initialAC == null)
+              ? S.of(context).new_appointment
+              : S.of(context).edit_appointment,
+              maxLines: 2,
+              style: const TextStyle(
+                fontSize: 24,
+                overflow: TextOverflow.ellipsis,
+                fontFamily: AppFont.m,
+                fontWeight: FontWeight.w600,
+                color: AppColors.accentTextLighter
+              )
+            ),
           ),
         ])
       ),
@@ -230,14 +233,9 @@ class __FieldsLayoutState extends State<_FieldsLayout> {
 
           final appointmentAtTime = state.timeRangeError?.appointmentAtTime;
           if (appointmentAtTime != null) {
-            final start = DateTime.fromMillisecondsSinceEpoch(appointmentAtTime.appointment.startTime);
-            final end = DateTime.fromMillisecondsSinceEpoch(appointmentAtTime.appointment.endTime);
             return ErrorTextWidget(
               text: S.of(context).appointment_with_such_time_error
-                .replaceFirst("%c", appointmentAtTime.client.name)
-                .replaceFirst("%t", appointmentAtTime.appointment.appointmentText)
-                .replaceFirst("%s", start.getFormattedDayTime())
-                .replaceFirst("%e", end.getFormattedDayTime())
+                .replaceFirst("%d", appointmentAtTime.getInfoText())
             );
           }
 

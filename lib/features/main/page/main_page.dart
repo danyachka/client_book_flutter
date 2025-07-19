@@ -5,8 +5,11 @@ import 'package:client_book_flutter/features/main/fragments/calendar_fragment.da
 import 'package:client_book_flutter/features/main/fragments/list_fragment.dart';
 import 'package:client_book_flutter/features/main/fragments/stats_fragment.dart';
 import 'package:client_book_flutter/core/utils/colors.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_list_view/flutter_list_view.dart';
 import 'package:get_it/get_it.dart';
+import 'package:logger/web.dart';
 
 class MainPage extends StatefulWidget {
   static const double mainPageNavigationBarHeight = 60;
@@ -19,6 +22,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
 
   late final PageController pageController;
+  late final FlutterListViewController scrollController;
 
   final currentFragment = ValueNotifier(MainPageFragment.list);
 
@@ -31,6 +35,8 @@ class _MainPageState extends State<MainPage> {
 
       currentFragment.value = MainPageFragment.values[page];
     });
+
+    scrollController = FlutterListViewController();
 
     final mainAppointmentListBlock = MainAppointmentListBloc(scrollToIndexInList);
     GetIt.I.registerSingleton(mainAppointmentListBlock);
@@ -56,66 +62,57 @@ class _MainPageState extends State<MainPage> {
     );
   }
   
-  void scrollToIndexInList(int index) {
+  void scrollToIndexInList(int index) async {
     final state = GetIt.I<MainAppointmentListBloc>().state;
     
     if (state is! ListAppointmentListBlocState) return;
 
-    final context = state.list[index].key?.currentContext;
-
-    if (context != null) {
-      Scrollable.ensureVisible(
-        context,
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.easeInOut,
-      );
+    if (kDebugMode) {
+      Logger().d("Scrolling to index $index");
     }
+
+    scrollToPage(MainPageFragment.list);
+    scrollController.sliverController.jumpToIndex(index, offset: 200);
   }
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.darkBackground,
-      extendBody: true,
-      body: PageView(
-        controller: pageController,
-        children: [
+        backgroundColor: AppColors.darkBackground,
+        extendBody: true,
+        body: PageView(controller: pageController, children: [
           CalendarFragment(changeFragmentCallBack: scrollToPage),
-
-          const ListFragment(),
-
+          ListFragment(scrollController: scrollController),
           const StatsFragment()
-        ]
-      ),
-      bottomNavigationBar: ClipRRect(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-        child: ValueListenableBuilder(
-          valueListenable: currentFragment, 
-          builder:(context, value, child) => NavigationBar(
-            height: MainPage.mainPageNavigationBarHeight,
-            labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-            indicatorColor: AppColors.primarySuperDarkTrans,
-            backgroundColor: AppColors.primarySuperDarkTrans,
-            shadowColor: Colors.transparent,
-            animationDuration: const Duration(),
-            // surfaceTintColor: AppColors.primary,к
-            selectedIndex: currentFragment.value.pageIndex,
-            onDestinationSelected: (int index) {
-              if (index == currentFragment.value.pageIndex) return;
+        ]),
+        bottomNavigationBar: ClipRRect(
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+            child: ValueListenableBuilder(
+              valueListenable: currentFragment,
+              builder: (context, value, child) => NavigationBar(
+                height: MainPage.mainPageNavigationBarHeight,
+                labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+                indicatorColor: AppColors.primarySuperDarkTrans,
+                backgroundColor: AppColors.primarySuperDarkTrans,
+                shadowColor: Colors.transparent,
+                animationDuration: const Duration(),
+                // surfaceTintColor: AppColors.primary,к
+                selectedIndex: currentFragment.value.pageIndex,
+                onDestinationSelected: (int index) {
+                  if (index == currentFragment.value.pageIndex) return;
 
-              final newFragment = MainPageFragment.values[index];
-              currentFragment.value = newFragment;
-              scrollToPage(newFragment);
-            },
-            destinations: const <Widget>[
-              _NavigationDestination(Icons.calendar_month_rounded),
-              _NavigationDestination(Icons.list_rounded),
-              _NavigationDestination(Icons.scatter_plot_rounded)
-            ],
-          ),
-        )
-      )
+                  final newFragment = MainPageFragment.values[index];
+                  currentFragment.value = newFragment;
+                  scrollToPage(newFragment);
+                },
+                destinations: const <Widget>[
+                  _NavigationDestination(Icons.calendar_month_rounded),
+                  _NavigationDestination(Icons.list_rounded),
+                  _NavigationDestination(Icons.scatter_plot_rounded)
+                ],
+              ),
+            ))
     );
   }
 }

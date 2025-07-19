@@ -7,12 +7,25 @@ import 'package:client_book_flutter/core/utils/colors.dart';
 import 'package:client_book_flutter/core/utils/s.dart';
 import 'package:client_book_flutter/features/settings_page/view/settings_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_list_view/flutter_list_view.dart';
 
-class ListFragment extends StatelessWidget {
 
-  static const listCordersRadius = 26.0; 
+class ListFragment extends StatefulWidget {
 
-  const ListFragment({super.key});
+  final FlutterListViewController scrollController;
+
+  const ListFragment({super.key, required this.scrollController});
+
+  @override
+  State<ListFragment> createState() => _ListFragmentState();
+}
+
+class _ListFragmentState extends State<ListFragment> with AutomaticKeepAliveClientMixin {
+
+  static const listCordersRadius = 24.0; 
+
+  @override
+  bool get wantKeepAlive => true;
 
   void onPlusTapped(BuildContext context) {
     showModalBottomSheet(
@@ -29,6 +42,7 @@ class ListFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return SafeArea(
       bottom: false, 
       child: Column(children: [
@@ -66,13 +80,13 @@ class ListFragment extends StatelessWidget {
           )
         ])),
 
-        const Expanded(
+        Expanded(
           child: ClipRRect(
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(listCordersRadius), 
               topRight: Radius.circular(listCordersRadius)
             ),
-            child: AppointmentListWidget(),
+            child: AppointmentListWidget(scrollController: widget.scrollController),
           ) 
         )
       ])

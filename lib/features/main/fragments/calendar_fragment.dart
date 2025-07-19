@@ -10,13 +10,20 @@ import 'package:client_book_flutter/features/calendar/view/calendar_widget.dart'
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-class CalendarFragment extends StatelessWidget {
+class CalendarFragment extends StatefulWidget {
 
   final ChangeFragmentCallback changeFragmentCallBack;
 
   const CalendarFragment({super.key, 
     required this.changeFragmentCallBack
   });
+
+
+  @override
+  State<CalendarFragment> createState() => _CalendarFragmentState();
+}
+
+class _CalendarFragmentState extends State<CalendarFragment> {
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +35,7 @@ class CalendarFragment extends StatelessWidget {
               GetIt.I<MainAppointmentListBloc>().add(
                 ScrollToDateAppointmentListBlocEvent(time: pickedDate.millisecondsSinceEpoch)
               );
-              changeFragmentCallBack(MainPageFragment.list);
+              widget.changeFragmentCallBack(MainPageFragment.list);
             },
           ),
 

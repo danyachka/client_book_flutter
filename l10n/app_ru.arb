@@ -13,6 +13,7 @@
 
   "settings_title": "Настройки",
   "settings_remove_all": "Отчистить базу данных",
+  "settings_update_db": "Добавить данные",
   
   "create_client": "Создать клиента",
   "new_client": "Новый клиент",
@@ -34,12 +35,18 @@
   "appointment_start_time": "Время начала",
   "appointment_duration": "Продолжительность",
   
-  "appointment_with_such_time_error": "У вас уже есть запись в это время: %c, \"%t\", %s - %e",
+  "appointment_with_such_time_error": "У вас уже есть запись в это время: %d",
 
   "required_filed_error": "*Обязательное поле",
   "unknown_error": "Неизвестная ошибка",
 
   "nothing_found": "Ничего не найдено",
+
+
+  "appointment_dialog_to_client": "К клиенту",
+  "appointment_dialog_edit": "Редактировать запись",
+  "appointment_dialog_remove": "Удалить запись",
+  "appointment_dialog_remove_text": "Вы действительно хотите удалить запись %d? Она будет полностью утрачена",
 
 
   "yes": "да",

@@ -1,6 +1,7 @@
 
 
 import 'package:client_book_flutter/core/model/app_database.dart';
+import 'package:client_book_flutter/core/model/entities_extensions/client_extensions.dart';
 import 'package:client_book_flutter/core/utils/app_font.dart';
 import 'package:client_book_flutter/core/utils/colors.dart';
 import 'package:client_book_flutter/core/widgets/app_clickable/clickable.dart';
@@ -39,7 +40,7 @@ class ClientItem extends StatelessWidget {
 
         const SizedBox(height: 3),
 
-        Text(client.phoneNumber,
+        Text(client.getFormattedPhoneNumber(),
             style: const TextStyle(
                 fontFamily: AppFont.m,
                 fontSize: 11,

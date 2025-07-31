@@ -1,10 +1,6 @@
 
-
-import 'dart:ui';
-
 import 'package:client_book_flutter/core/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 
 class _OverlayLayout extends StatefulWidget {
@@ -47,9 +43,7 @@ class __OverlayLayoutState extends State<_OverlayLayout> with SingleTickerProvid
   @override
   Widget build(BuildContext context) {
     context.read<AppOverlayCallBack>().close = () {
-      Logger().i("Penis");
       _controller.reverse().whenCompleteOrCancel(() {
-        Logger().i("Penis 2");
         context.read<AppOverlayCallBack>().remove();
       });
     };
@@ -72,7 +66,6 @@ class __OverlayLayoutState extends State<_OverlayLayout> with SingleTickerProvid
                     FadeTransition(
                       opacity: _animation, 
                       child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(24),
                           color: AppColors.primarySuperDarkTrans

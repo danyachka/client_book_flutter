@@ -13,6 +13,7 @@ import 'package:client_book_flutter/features/appointment_list/view/appointment_w
 import 'package:client_book_flutter/core/utils/app_font.dart';
 import 'package:client_book_flutter/core/utils/colors.dart';
 import 'package:client_book_flutter/core/utils/s.dart';
+import 'package:client_book_flutter/features/client_page/view/client_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,9 +34,15 @@ class AppointmentListWidget extends StatelessWidget {
   void toClient(BuildContext context, AppointmentClient appointmentClient) {
     if (isClientList) return;
 
-    // Navigator.of(context).push(
-    //   MaterialPageRoute(builder: (context) => )
-    // );
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => ClientPage(
+        client: appointmentClient.client, 
+        onClientUpdatedCallBack: (client) {
+          final event = ClientChangedAppointmentListBlocEvent(changedClient: client);
+          GetIt.I<MainAppointmentListBloc>().add(event);
+        }
+      ))
+    );
   }
 
   void toAppointmentEdit(BuildContext context, AppointmentClient appointmentClient) {

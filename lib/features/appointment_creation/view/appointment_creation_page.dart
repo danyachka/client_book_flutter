@@ -1,5 +1,6 @@
 
 
+import 'package:client_book_flutter/core/model/app_database.dart';
 import 'package:client_book_flutter/features/appointment_creation/viewmodel/appointment_creation_bloc.dart';
 import 'package:client_book_flutter/features/appointment_creation/viewmodel/states/appointments_creation_states.dart';
 import 'package:client_book_flutter/features/appointment_list/viewmodel/appointment_list_bloc.dart';
@@ -14,12 +15,16 @@ import 'package:get_it/get_it.dart';
 class AppointmentCreationPage extends StatefulWidget {
 
   final AppointmentClient? initialAppointment;
+  final Client? initialClient;
+  final void Function(AppointmentClient)? callback;
 
   final SpecialClientAppointmentListBloc? clientAppointmentListBloc;
 
   const AppointmentCreationPage({super.key, 
     this.clientAppointmentListBloc,
-    this.initialAppointment
+    this.initialAppointment, 
+    this.initialClient, 
+    this.callback
   });
 
   @override
@@ -58,11 +63,16 @@ class _AppointmentCreationPageState extends State<AppointmentCreationPage> {
           GetIt.I<MainAppointmentListBloc>().add(event);
           widget.clientAppointmentListBloc?.add(event);
 
+          if (widget.callback != null) widget.callback!(state.createdAC);
+
           Navigator.pop(context); // close page after created 
         },
         child: Scaffold(
           backgroundColor: AppColors.darkBackground,
-          body: SafeArea(child: AppointmentCreationLayout(initialAC: widget.initialAppointment))
+          body: SafeArea(child: AppointmentCreationLayout(
+            initialAC: widget.initialAppointment, 
+            initialClient: widget.initialClient
+          ))
         )
       )
     );

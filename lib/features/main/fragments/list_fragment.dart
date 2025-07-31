@@ -9,6 +9,7 @@ import 'package:client_book_flutter/features/settings_page/view/settings_page.da
 import 'package:flutter/material.dart';
 import 'package:flutter_list_view/flutter_list_view.dart';
 
+const listCordersRadius = 24.0; 
 
 class ListFragment extends StatefulWidget {
 
@@ -22,7 +23,6 @@ class ListFragment extends StatefulWidget {
 
 class _ListFragmentState extends State<ListFragment> with AutomaticKeepAliveClientMixin {
 
-  static const listCordersRadius = 24.0; 
 
   @override
   bool get wantKeepAlive => true;

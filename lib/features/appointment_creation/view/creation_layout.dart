@@ -26,8 +26,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AppointmentCreationLayout extends StatefulWidget {
 
   final AppointmentClient? initialAC;
+  final Client? initialClient;
   
-  const AppointmentCreationLayout({super.key, required this.initialAC});
+  const AppointmentCreationLayout({super.key, required this.initialAC, this.initialClient});
 
   @override
   State<AppointmentCreationLayout> createState() => _AppointmentCreationLayoutState();
@@ -62,7 +63,7 @@ class _AppointmentCreationLayoutState extends State<AppointmentCreationLayout> {
         ])
       ),
 
-      _FieldsLayout(initialAC: widget.initialAC)
+      _FieldsLayout(initialAC: widget.initialAC, initialClient: widget.initialClient)
     ]));
   }
 }
@@ -70,8 +71,9 @@ class _AppointmentCreationLayoutState extends State<AppointmentCreationLayout> {
 class _FieldsLayout extends StatefulWidget {
 
   final AppointmentClient? initialAC;
+  final Client? initialClient;
 
-  const _FieldsLayout({required this.initialAC});
+  const _FieldsLayout({required this.initialAC, this.initialClient});
 
   @override
   State<_FieldsLayout> createState() => __FieldsLayoutState();
@@ -93,7 +95,7 @@ class __FieldsLayoutState extends State<_FieldsLayout> {
     super.initState();
 
     final appointment = widget.initialAC?.appointment;
-    final client = widget.initialAC?.client;
+    final client = widget.initialAC?.client ?? widget.initialClient;
 
     textController = TextEditingController(text: appointment?.appointmentText);
     valueController = TextEditingController(text: appointment?.value.toString());

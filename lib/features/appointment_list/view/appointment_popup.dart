@@ -25,9 +25,9 @@ class AppointmentPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return IntrinsicWidth(child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           if (toClientCallBack != null) _Line(
             iconData: Icons.person_rounded, 
@@ -54,7 +54,7 @@ class AppointmentPopup extends StatelessWidget {
             }
           )
         ]
-    );
+    ));
   }
 }
 
@@ -70,6 +70,7 @@ class _Line extends StatelessWidget {
     final row = Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
         Icon(iconData, size: 24, color: AppColors.accentTextLighter),
 
@@ -84,12 +85,12 @@ class _Line extends StatelessWidget {
                   fontFamily: AppFont.m,
                   fontWeight: FontWeight.w600,
                   color: AppColors.accentTextLighter)
-        )
+        ),
       ]
     );
 
     return Clickable(onClick: onClick, child: Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
       child: row
     ));
   }

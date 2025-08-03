@@ -42,10 +42,10 @@ class CalendarWidget extends StatelessWidget {
               builder: (context, state) {
 
                 final todayYear = DateTime.now().year;
-                bool addYearText = todayYear != state.mouth.year;
+                bool addYearText = todayYear != state.month.year;
 
                 return Text(
-                  "${state.mouth.getMonthName(context)}${(addYearText)? " ${state.mouth.year % 100}": ''}",
+                  "${state.month.getMonthName(context)}${(addYearText)? " ${state.month.year % 100}": ''}",
                   style: const TextStyle(
                     fontSize: 20,
                     fontFamily: AppFont.m,

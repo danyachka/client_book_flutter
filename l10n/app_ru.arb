@@ -48,6 +48,8 @@
   "appointment_dialog_remove": "Удалить запись",
   "appointment_dialog_remove_text": "Вы действительно хотите удалить запись %d? Она будет полностью утрачена",
 
+  "stats_title": "Статистика",
+  "expenses_title": "Затраты",
   "expenses_past_value": "Уже заработано: %d",
   "expenses_future_value": "Запланированный заработок: %d",
   "expenses_total_value": "Всего заработано за месяц: %d",

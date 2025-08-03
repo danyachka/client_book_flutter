@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:client_book_flutter/core/model/app_database.steps.dart';
 import 'package:client_book_flutter/core/model/daos/appointment_dao.dart';
 import 'package:client_book_flutter/core/model/daos/client_dao.dart';
 import 'package:client_book_flutter/core/model/daos/expenses_dao.dart';
@@ -19,17 +20,29 @@ part 'app_database.g.dart';
   daos: [AppointmentDao, ClientDao, ExpensesDao]  
 )
 class AppDatabase extends _$AppDatabase {
-  AppDatabase._() : super(_openConnection());
+  AppDatabase._([DatabaseConnection? newConnection]) : super(newConnection ?? _openConnection());
 
   static AppDatabase? _instance;
 
-  factory AppDatabase() {
+  factory AppDatabase([DatabaseConnection? newConnection]) {
+    if (newConnection != null) return AppDatabase._(newConnection);
     _instance ??= AppDatabase._();
     return _instance!;
   }
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
+
+  @override
+  MigrationStrategy get migration {
+    return MigrationStrategy(
+      onUpgrade: stepByStep(
+        from1To2: (m, schema) async {
+          await m.createTable(schema.expenses);
+        },
+      ),
+    );
+  }
 }
 
 LazyDatabase _openConnection() {

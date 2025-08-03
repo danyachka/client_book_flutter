@@ -44,7 +44,7 @@ class ExpenseListCubit extends Cubit<ExpenseListState> {
     final start = newDate.getMonthStart();
 
     final from = start.millisecondsSinceEpoch;
-    final to = start.getNextMonthStart().microsecondsSinceEpoch;
+    final to = start.getNextMonthStart().millisecondsSinceEpoch;
 
     final expenses = await model.getExpensesBetween(from, to);
     final appointments = await model.getAppointmentsBetween(from, to);
@@ -76,6 +76,8 @@ class ExpenseListCubit extends Cubit<ExpenseListState> {
     ));
   }
 
-  
+  void onListUpdate() async {
+    goToNewMonth(state.startMonthTime);
+  }
   
 }

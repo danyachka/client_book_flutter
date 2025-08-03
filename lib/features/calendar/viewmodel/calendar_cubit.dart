@@ -19,7 +19,7 @@ class CalendarCubit extends Cubit<CalendarState> {
 
   void goToNextMonth() async {
     if (kDebugMode) Logger().i("goToNextMonth called");
-    final nextMonth = state.mouth.getNextMonthStart();
+    final nextMonth = state.month.getNextMonthStart();
 
     final nextState = CalendarState.generate(
       intYear: nextMonth.year, 
@@ -32,7 +32,7 @@ class CalendarCubit extends Cubit<CalendarState> {
 
   void goToPreviousMonth() async {
     if (kDebugMode) Logger().i("goToPreviousMonth called");
-    final nextMonth = state.mouth.getPreviousMonthStart();
+    final nextMonth = state.month.getPreviousMonthStart();
 
     final nextState = CalendarState.generate(
       intYear: nextMonth.year, 

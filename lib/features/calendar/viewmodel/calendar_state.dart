@@ -4,7 +4,7 @@ import 'package:client_book_flutter/core/utils/time_utils.dart';
 
 class CalendarState {
 
-  final DateTime mouth;
+  final DateTime month;
 
   final DateTime selectedDay;
 
@@ -14,17 +14,17 @@ class CalendarState {
     required int intYear, 
     required int intMonth, 
     required this.selectedDay
-  }) : mouth = DateTime(intYear, intMonth, 1) {
-    int fistDayInMonthWeekDay = mouth.weekday;
+  }) : month = DateTime(intYear, intMonth, 1) {
+    int fistDayInMonthWeekDay = month.weekday;
 
-    final firstInList = mouth.subtract(Duration(days: fistDayInMonthWeekDay - 1));
+    final firstInList = month.subtract(Duration(days: fistDayInMonthWeekDay - 1));
 
-    final lastMonthDay = mouth.getNextMonthStart().subtract(const Duration(days: 1));
+    final lastMonthDay = month.getNextMonthStart().subtract(const Duration(days: 1));
     final lastDayInMonthWeekDay = lastMonthDay.weekday;
 
     final lastInList = lastMonthDay.add(Duration(days: 7 - lastDayInMonthWeekDay));
 
-    int currentMonthInt = mouth.month;
+    int currentMonthInt = month.month;
     list = [CalendarItem(
       date: firstInList, 
       intMonth: currentMonthInt,

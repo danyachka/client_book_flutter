@@ -45,6 +45,8 @@
   "nothing_found": "Nothing found",
 
 
+  "stats_title": "Stats",
+  "expenses_title": "Expenses",
   "appointment_dialog_to_client": "To client",
   "appointment_dialog_edit": "Edit an appointment",
   "appointment_dialog_remove": "Delete an appointment",

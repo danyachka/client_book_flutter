@@ -16,9 +16,9 @@ class ExpenseStatsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 14),
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
         decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(16)),
+          borderRadius: BorderRadius.all(Radius.circular(24)),
           gradient: LinearGradient(
             colors: [AppColors.primaryDarkTrans, AppColors.grayTrans],
             begin: Alignment.topLeft,
@@ -32,26 +32,31 @@ class ExpenseStatsWidget extends StatelessWidget {
 
           final readyState = state as ReadyExpenseListState;
 
-          final maxVal = max(readyState.futureValue + readyState.pastValue, readyState.totalExpenses);
+          final realMaxValue = max(readyState.futureValue + readyState.pastValue, readyState.totalExpenses);
+          final maxVal = max(realMaxValue, 1.0);
 
           return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             if (readyState.futureValue == 0) _Line(
               count: readyState.pastValue, max: maxVal, 
-              text: S.of(context).expenses_total_expenses, color: AppColors.primary
+              text: S.of(context).expenses_total_value, color: AppColors.primary,
+              hasTopPadding: false
             ),
 
             if (readyState.futureValue != 0) _Line(
               count: readyState.futureValue + readyState.pastValue, max: maxVal, 
-              text: S.of(context).expenses_future_value, color: AppColors.primary
+              text: S.of(context).expenses_future_value, color: AppColors.primary,
+              hasTopPadding: false
             ),
             if (readyState.futureValue != 0) _Line(
               count: readyState.pastValue, max: maxVal, 
-              text: S.of(context).expenses_past_value, color: AppColors.orange
+              text: S.of(context).expenses_past_value, color: AppColors.orange,
+              hasTopPadding: true
             ),
 
             _Line(
               count: readyState.totalExpenses, max: maxVal, 
-              text: S.of(context).expenses_total_expenses, color: AppColors.red
+              text: S.of(context).expenses_total_expenses, color: AppColors.red,
+              hasTopPadding: true
             ),
           ]);
         })
@@ -64,8 +69,15 @@ class _Line extends StatelessWidget {
   final double count;
   final double max;
   final Color color;
+  final bool hasTopPadding;
 
-  const _Line({required this.count, required this.max, required this.text, required this.color});
+  const _Line({
+    required this.count, 
+    required this.max, 
+    required this.text, 
+    required this.color, 
+    required this.hasTopPadding
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +85,9 @@ class _Line extends StatelessWidget {
     final other = 100 - countInt;
 
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-      Text(text,
+      if (hasTopPadding) const SizedBox(height: 8),
+
+      Text(text.replaceFirst("%d", count.toString()),
           maxLines: 1,
           style: TextStyle(
               fontSize: 16,
@@ -87,10 +101,10 @@ class _Line extends StatelessWidget {
       ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(16)),
         child: Container(
-          height: 32,
+          height: 20,
           color: AppColors.grayDarker, 
           child: Row(children: [
-            Flexible(
+            if (countInt != 0) Flexible(
               flex: countInt,
               child: Container(
                 decoration: BoxDecoration(
@@ -99,7 +113,7 @@ class _Line extends StatelessWidget {
                 )
               )
             ),
-            Spacer(flex: other)
+            if (other != 0) Spacer(flex: other)
           ]
         ))
       )

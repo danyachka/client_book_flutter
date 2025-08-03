@@ -50,7 +50,7 @@ class _ListFragmentState extends State<ListFragment> with AutomaticKeepAliveClie
           Text(
             S.of(context).title,
             style: const TextStyle(
-              fontSize: 22,
+              fontSize: 20,
               fontFamily: AppFont.m,
               fontWeight: FontWeight.bold,
               color: AppColors.accentText

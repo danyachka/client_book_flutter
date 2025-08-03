@@ -50,6 +50,11 @@
   "appointment_dialog_remove": "Delete an appointment",
   "appointment_dialog_remove_text": "Are you sure want to delete an appointment %d? It would be completely lost",
 
+  "expenses_past_value": "Got value in month: %d",
+  "expenses_future_value": "Plan value in month: %d",
+  "expenses_total_value": "Total value in month: %d",
+  "expenses_total_expenses": "Expenses in month: %d",
+
   "yes": "yes",
   "no": "no",
 

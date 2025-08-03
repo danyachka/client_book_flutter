@@ -52,7 +52,7 @@ class _AppointmentCreationLayoutState extends State<AppointmentCreationLayout> {
               : S.of(context).edit_appointment,
               maxLines: 2,
               style: const TextStyle(
-                fontSize: 24,
+                fontSize: 20,
                 overflow: TextOverflow.ellipsis,
                 fontFamily: AppFont.m,
                 fontWeight: FontWeight.w600,

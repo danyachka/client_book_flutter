@@ -19,7 +19,7 @@ class SettingsPage extends StatelessWidget {
         child: const Scaffold(
             backgroundColor: AppColors.darkBackground,
             body: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                padding: EdgeInsets.only(left: 10, right: 10, top: 8, bottom: 8),
                 child: SafeArea(child: _SettingsPageLayout()))));
   }
 }
@@ -63,7 +63,7 @@ class __SettingsPageLayoutState extends State<_SettingsPageLayout> {
               Text(S.of(context).settings_title,
                   maxLines: 1,
                   style: const TextStyle(
-                      fontSize: 24,
+                      fontSize: 20,
                       overflow: TextOverflow.ellipsis,
                       fontFamily: AppFont.m,
                       fontWeight: FontWeight.bold,
@@ -71,7 +71,7 @@ class __SettingsPageLayoutState extends State<_SettingsPageLayout> {
             ],
           ),
                   
-          const SizedBox(height: 24),
+          const SizedBox(height: 8),
 
           AppTextButton(
               onClick: () {
@@ -90,7 +90,7 @@ class __SettingsPageLayoutState extends State<_SettingsPageLayout> {
           const SizedBox(height: 12),
 
           AppEditTextWidget(controller: dbEditText, hint: S.of(context).settings_update_db, fontSize: 12),
-          const SizedBox(height: 8),
+          const SizedBox(height: 12),
           AppTextButton(
               onClick: () {
                 if (dbEditText.text.isEmpty) return;

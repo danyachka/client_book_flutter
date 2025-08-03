@@ -37,32 +37,18 @@ class _ClientPageContentState extends State<ClientPageContent> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.darkBackground,
-      body: SafeArea(child: Column(children: [
+      body: SafeArea(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const ClientPageTitle(),
 
-        Expanded(child: NestedScrollView(
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
-            return [
-              SliverFloatingHeader(
-                snapMode: FloatingHeaderSnapMode.scroll,
-                animationStyle: AnimationStyle(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeInOut, 
-                  reverseCurve: Curves.easeInOut
-                ),
-                child: const _HeaderWidget()
-              )
-            ];
-          }, 
-          body: ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(listCordersRadius), 
-              topRight: Radius.circular(listCordersRadius)
-            ),
-            child: AppointmentListWidget(scrollController: scrollController, isClientList: true),
-          ) 
-        ))
+        const _HeaderWidget(),
 
+        Expanded(child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(listCordersRadius), 
+            topRight: Radius.circular(listCordersRadius)
+          ),
+          child: AppointmentListWidget(scrollController: scrollController, isClientList: true),
+        ))
       ]))
     );
   }

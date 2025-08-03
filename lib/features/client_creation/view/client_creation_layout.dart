@@ -79,18 +79,20 @@ class _ClientCreationLayoutState extends State<ClientCreationLayout> {
 
             const SizedBox(width: 6),
 
-            Text(
-              (widget.initialClient == null)
-              ? S.of(context).new_client
-              : S.of(context).edit_client,
-              maxLines: 1,
-              style: const TextStyle(
-                fontSize: 24,
-                overflow: TextOverflow.ellipsis,
-                fontFamily: AppFont.m,
-                fontWeight: FontWeight.w600,
-                color: AppColors.accentTextLighter
-              )
+            Expanded(
+              child: Text(
+                (widget.initialClient == null)
+                ? S.of(context).new_client
+                : S.of(context).edit_client,
+                maxLines: 2,
+                style: const TextStyle(
+                  fontSize: 20,
+                  overflow: TextOverflow.ellipsis,
+                  fontFamily: AppFont.m,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.accentTextLighter
+                )
+              ),
             ),
           ])
         ),

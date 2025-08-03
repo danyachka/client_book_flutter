@@ -51,7 +51,7 @@ class _DatePickWidgetState extends State<DatePickWidget> {
             Expanded(child: ValueListenableBuilder(
               valueListenable: widget.dateState, 
               builder: (context, date, child) {
-                return Text(date.getAppointmentDateText(context),
+                return Text(date.getDateText(context),
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     color: AppColors.accentTextDarker,

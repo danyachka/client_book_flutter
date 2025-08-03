@@ -15,7 +15,7 @@ class ClientPageTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(top: 8, bottom: 8, left: 12, right: 12),
+        padding: const EdgeInsets.only(top: 8, left: 12, right: 12),
         child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
           const AppBackButton(),
           const SizedBox(width: 6),
@@ -25,7 +25,7 @@ class ClientPageTitle extends StatelessWidget {
               return Text(state.client.name,
                   maxLines: 1,
                   style: const TextStyle(
-                      fontSize: 24,
+                      fontSize: 20,
                       overflow: TextOverflow.ellipsis,
                       fontFamily: AppFont.m,
                       fontWeight: FontWeight.w600,
@@ -55,11 +55,10 @@ class ClientPageTitle extends StatelessWidget {
           Clickable(
               onClick: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ClientCreationPage(
+                    builder: (newContext) => ClientCreationPage(
                         initialClient: context.read<ClientCubit>().state.client,
                         callback: (updatedClient) {
-                          context
-                              .read<ClientCubit>()
+                          context.read<ClientCubit>()
                               .onClientUpdated(updatedClient);
                         })));
               },

@@ -84,6 +84,18 @@ class AppointmentDao extends DatabaseAccessor<AppDatabase> with _$AppointmentDao
   }
 
   // Get AppointmentClient between two times
+  Future<List<Appointment>> getAppointmentsBetween(int startTime, int endTime) async {
+    final query = (select(appointments)
+      ..where((t) =>
+          t.startTime.isSmallerThanValue(endTime) & t.endTime.isBiggerThanValue(startTime))
+    );
+
+    final result = await query.get();
+
+    return result;
+  }
+
+  // Get AppointmentClient between two times
   Future<AppointmentClient?> getBetween(int startTime, int endTime) async {
     final query = (select(appointments)
       ..where((t) =>

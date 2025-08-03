@@ -47,7 +47,7 @@ class CalendarWidget extends StatelessWidget {
                 return Text(
                   "${state.mouth.getMonthName(context)}${(addYearText)? " ${state.mouth.year % 100}": ''}",
                   style: const TextStyle(
-                    fontSize: 22,
+                    fontSize: 20,
                     fontFamily: AppFont.m,
                     fontWeight: FontWeight.bold,
                     color: AppColors.accentTextDarker

@@ -13,6 +13,10 @@ extension AppDateTime on DateTime {
     return true;
   }
 
+  DateTime getMonthStart() {
+    return DateTime(year, month);
+  }
+
   DateTime getNextMonthStart() {
     if (month == 12) {
       return DateTime(year + 1, 1);
@@ -68,7 +72,7 @@ extension AppDateTime on DateTime {
     return Duration(hours: hour, minutes: minute, seconds: second);
   }
 
-  String getAppointmentDateText(BuildContext context) 
+  String getDateText(BuildContext context) 
     => "${getDayName(context)}, $day ${getMonthName(context)} $year";
   
   String getFormattedDayTime() => formatDuration(hour, minute);

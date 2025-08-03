@@ -24,6 +24,7 @@ class AppColors {
 
   static const white = Colors.white;
   static const red = Colors.red;
+  static const orange = Color.fromARGB(255, 244, 216, 54);
 
   static const darkBackground = Color(0xFF232323);
   static const darkLighter = Color(0xFF2A2A2A);

@@ -38,7 +38,7 @@ class _ClientCreationPageState extends State<ClientCreationPage> {
 
   @override
   void initState() {
-    clientCreationBloc = ClientCreationBloc();
+    clientCreationBloc = ClientCreationBloc(editClientId: widget.initialClient?.id);
     super.initState();
   }
 

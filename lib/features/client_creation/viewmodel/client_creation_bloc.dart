@@ -8,9 +8,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ClientCreationBloc extends Bloc<ClientCreationEvent, ClientCreationState> {
 
+  final int? editClientId;
   final dao = ClientDao(AppDatabase());
 
-  ClientCreationBloc(): super(CreationClientCreationState.nothing()) {
+  ClientCreationBloc({this.editClientId}): super(CreationClientCreationState.nothing()) {
     on<ClientCreationEvent>(_onCreationEvent);
   }
 
@@ -41,9 +42,9 @@ class ClientCreationBloc extends Bloc<ClientCreationEvent, ClientCreationState> 
       samePhoneClient = null;
     }
 
-    nameError = sameNameClient != null? ClientCreationErrorType.clientExists
+    nameError = (sameNameClient != null && sameNameClient.id != editClientId)? ClientCreationErrorType.clientExists
       : ClientCreationErrorType.nothing;
-    ClientCreationErrorType phoneError = samePhoneClient != null? ClientCreationErrorType.clientExists
+    ClientCreationErrorType phoneError = (samePhoneClient != null && samePhoneClient.id != editClientId)? ClientCreationErrorType.clientExists
       : ClientCreationErrorType.nothing;
 
     // if has errors
@@ -57,19 +58,12 @@ class ClientCreationBloc extends Bloc<ClientCreationEvent, ClientCreationState> 
     }
 
     try { // try to insert
-      final clientCompanion = ClientsCompanion.insert(
-        name: event.name,
-        phoneNumber: Value(event.phone)
-      );
-
-      int id = await dao.insertClient(clientCompanion);
-
-      final client = Client(
-        id: id, 
-        name: event.name,
-        phoneNumber: event.phone,
-        picturePath: ''
-      );
+      Client client;
+      if (editClientId != null) {
+        client = await _updateClient(event);
+      } else {
+        client = await _createClient(event);
+      }
 
       emit(DoneClientCreationState(
         createdClient: client
@@ -78,6 +72,34 @@ class ClientCreationBloc extends Bloc<ClientCreationEvent, ClientCreationState> 
       emit(UnknownErrorClientCreationState(errorText: e.toString()));
     }
     
+  }
+
+  Future<Client> _updateClient(ClientCreationEvent event) async {
+    final client = Client(
+        id: editClientId!,
+        name: event.name,
+        phoneNumber: event.phone,
+        picturePath: ''
+    );
+
+    await dao.updateClient(client);
+    return client;
+  }
+
+  Future<Client> _createClient(ClientCreationEvent event) async {
+    final clientCompanion = ClientsCompanion.insert(
+        id: editClientId == null? const Value.absent() : Value(editClientId!),
+        name: event.name,
+        phoneNumber: Value(event.phone)
+    );
+
+    final id = await dao.insertClient(clientCompanion);
+    return Client(
+        id: id,
+        name: event.name,
+        phoneNumber: event.phone,
+        picturePath: ''
+    );
   }
 
 }

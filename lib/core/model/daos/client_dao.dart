@@ -54,55 +54,57 @@ class ClientDao extends DatabaseAccessor<AppDatabase> with _$ClientDaoMixin {
 
   // Get latest clients by phone part
   Future<List<Client>> getLatestByPhone(String phonePart) async {
-    return await (select(clients)
-          ..where((t) => t.phoneNumber.like('%$phonePart%'))
-          ..orderBy([(t) => OrderingTerm.desc(t.id)])
-          ..limit(loadingCount))
-        .get();
+    final s = select(clients);
+
+    if (phonePart.isNotEmpty) s.where((t) => t.phoneNumber.like('%$phonePart%'));
+
+    s.orderBy([(t) => OrderingTerm.desc(t.id)]);
+    s.limit(loadingCount);
+
+    return await s.get();
   }
 
   // Get next clients by phone part
   Future<List<Client>> getNextByPhone(String phonePart, int id) async {
-    return await (select(clients)
-          ..where((t) => t.phoneNumber.like('%$phonePart%') & t.id.isSmallerThanValue(id))
-          ..orderBy([(t) => OrderingTerm.desc(t.id)])
-          ..limit(loadingCount))
-        .get();
-  }
+    final s = select(clients);
+    
+    if (phonePart.isNotEmpty) {
+      s.where((t) => t.phoneNumber.like('%$phonePart%') & t.id.isSmallerThanValue(id));
+    } else {
+      s.where((t) => t.id.isSmallerThanValue(id));
+    }
 
-  // Get previous clients by phone part
-  Future<List<Client>> getPreviousByPhone(String phonePart, int id) async {
-    return await (select(clients)
-          ..where((t) => t.phoneNumber.like('%$phonePart%') & t.id.isBiggerThanValue(id))
-          ..orderBy([(t) => OrderingTerm.asc(t.id)])
-          ..limit(loadingCount))
-        .get();
+    s.orderBy([(t) => OrderingTerm.desc(t.id)]);
+    s.limit(loadingCount);
+
+    return await s.get();
   }
 
   // Get latest clients by name
   Future<List<Client>> getLatestByName(String name) async {
-    return await (select(clients)
-          ..where((t) => t.name.like('%$name%'))
-          ..orderBy([(t) => OrderingTerm.desc(t.id)])
-          ..limit(loadingCount))
-        .get();
+    final s = select(clients);
+
+    if (name.isNotEmpty) s.where((t) => t.name.like('%$name%'));
+
+    s.orderBy([(t) => OrderingTerm.desc(t.id)]);
+    s.limit(loadingCount);
+
+    return await s.get();
   }
 
   // Get next clients by name
   Future<List<Client>> getNextByName(String name, int id) async {
-    return await (select(clients)
-          ..where((t) => t.name.like('%$name%') & t.id.isSmallerThanValue(id))
-          ..orderBy([(t) => OrderingTerm.desc(t.id)])
-          ..limit(loadingCount))
-        .get();
-  }
+    final s = select(clients);
+    
+    if (name.isNotEmpty) {
+      s.where((t) => t.name.like('%$name%') & t.id.isSmallerThanValue(id));
+    } else {
+      s.where((t) => t.id.isSmallerThanValue(id));
+    }
 
-  // Get previous clients by name
-  Future<List<Client>> getPreviousByName(String name, int id) async {
-    return await (select(clients)
-          ..where((t) => t.name.like('%$name%') & t.id.isBiggerThanValue(id))
-          ..orderBy([(t) => OrderingTerm.asc(t.id)])
-          ..limit(loadingCount))
-        .get();
+    s.orderBy([(t) => OrderingTerm.desc(t.id)]);
+    s.limit(loadingCount);
+
+    return await s.get();
   }
 }

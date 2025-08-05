@@ -8,7 +8,9 @@ import 'package:client_book_flutter/features/appointment_list/viewmodel/states/a
 import 'package:client_book_flutter/core/model/app_database.dart';
 import 'package:client_book_flutter/core/model/daos/appointment_dao.dart';
 import 'package:client_book_flutter/core/model/models/appointment_client.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/web.dart';
 
 
 abstract class AppointmentListBloc 
@@ -27,7 +29,7 @@ abstract class AppointmentListBloc
     super(LoadingAppointmentListBlockState()) {
 
     on<ScrollToDateAppointmentListBlocEvent>(
-      (event, emit) => _onScrollToEvent(event.time, emit)
+      (event, emit) => _onScrollToEvent(event.time, event.animate, emit)
     );
 
     on<OldestScrolledAppointmentListBlocEvent>(
@@ -55,13 +57,13 @@ abstract class AppointmentListBloc
     );
 
     add(
-      ScrollToDateAppointmentListBlocEvent(time: DateTime.now().millisecondsSinceEpoch)
+      ScrollToDateAppointmentListBlocEvent(time: DateTime.now().millisecondsSinceEpoch, animate: false)
     );
   }
 
   bool needToCheckEvent(int clientId);
 
-  void _onScrollToEvent(int time, Emitter<AppointmentListBlocState> emit) async {
+  void _onScrollToEvent(int time, bool animate, Emitter<AppointmentListBlocState> emit) async {
     final currentState = state;
     
     // in case scroll only
@@ -69,7 +71,7 @@ abstract class AppointmentListBloc
       final list = currentState.list;
       if (list.isNotEmpty) {
         if (list.first.data.appointment.startTime <= time && time <= list.last.data.appointment.startTime) {
-          _scrollToTime(time, list);
+          _scrollToTime(time, list, animate);
           return;
         }
       } 
@@ -83,26 +85,36 @@ abstract class AppointmentListBloc
       return;
     }
 
+    if (kDebugMode) {
+      Logger().i("center item ${DateTime.fromMillisecondsSinceEpoch(centerItem.appointment.startTime)}");
+    }
+
     // usual case
     int centerItemTime = centerItem.appointment.startTime;
     final [newer, older] = await Future.wait([_loader.loadNewer(centerItemTime), _loader.loadOlder(centerItemTime)]);
     
-    int centerItemIndex = older.length;
-    final itemsList = older.reversed.toList()
-      ..add(centerItem)
-      ..addAll(newer);
+    final itemsList = older.reversed.toList();
+    itemsList.add(centerItem);
+    itemsList.addAll(newer);
     
     emit(ListAppointmentListBlocState(
       list: itemsList.map((e) => AppointmentListItem(data: e)).toList()
     ));
-    _scrollTo(centerItemIndex);
+    
+    int centerItemIndex = older.length;
+    await Future.delayed(const Duration(milliseconds: 200));
+    _scrollTo(centerItemIndex, animate);
+
+    if (kDebugMode) {
+      Logger().i("Scrolling to centerItemIndex $centerItemIndex, older = ${older.length}, newer = ${newer.length}");
+    }
   }
 
-  void _scrollToTime(int time, List<AppointmentListItem> list) {
+  void _scrollToTime(int time, List<AppointmentListItem> list, bool animate) {
     for (int i = 0; i < list.length; i++) {
       if (list[i].data.appointment.startTime < time) continue;
 
-      _scrollTo(max(0, i - 1));
+      _scrollTo(max(0, i - 1), animate);
       break;
     }
   }
@@ -256,4 +268,4 @@ class SpecialClientAppointmentListBloc extends AppointmentListBloc {
 
 }
 
-typedef ScrollTo = void Function(int position);
+typedef ScrollTo = void Function(int position, bool animate);

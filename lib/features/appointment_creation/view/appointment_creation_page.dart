@@ -37,7 +37,7 @@ class _AppointmentCreationPageState extends State<AppointmentCreationPage> {
 
   @override
   void initState() {
-    appointmentCreationBloc = AppointmentCreationBloc();
+    appointmentCreationBloc = AppointmentCreationBloc(editAppointmentId: widget.initialAppointment?.appointment.id);
     super.initState();
   }
 

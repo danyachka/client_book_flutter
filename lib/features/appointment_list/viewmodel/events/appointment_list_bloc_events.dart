@@ -9,7 +9,9 @@ class ScrollToDateAppointmentListBlocEvent extends AppointmentListBlocEvent {
 
   final int time;
 
-  ScrollToDateAppointmentListBlocEvent({required this.time});
+  final bool animate;
+
+  ScrollToDateAppointmentListBlocEvent({required this.time, this.animate = true});
 }
 
 class OldestScrolledAppointmentListBlocEvent extends AppointmentListBlocEvent {

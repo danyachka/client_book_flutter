@@ -30,7 +30,7 @@ class ClientSearchBloc extends Bloc<ClientSearchBlocEvent, ClientSearchBlocState
     if (lastState.query == newQuery) return;
 
     final newList = await _loader.getLatest(newQuery);
-    emit(ClientSearchBlocState(list: newList, query: lastState.query, searchType: lastState.searchType));
+    emit(ClientSearchBlocState(list: newList, query: newQuery, searchType: lastState.searchType));
   }
 
   void _onClientAddedOrUpdated(Emitter<ClientSearchBlocState> emit) async {
@@ -52,7 +52,6 @@ class ClientSearchBloc extends Bloc<ClientSearchBlocEvent, ClientSearchBlocState
 
     final newList = await _loader.getLatest('');
     emit(ClientSearchBlocState(list: newList, query: '', searchType: newType));
-
   }
 
   void _onLastScrolled(int lastId, Emitter<ClientSearchBlocState> emit) async {

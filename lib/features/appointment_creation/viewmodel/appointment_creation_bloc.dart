@@ -10,9 +10,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AppointmentCreationBloc 
     extends Bloc<AppointmentCreationEvent, AppointmentCreationState> {
 
+  final int? editAppointmentId;
   final dao = AppointmentDao(AppDatabase());
   
-  AppointmentCreationBloc() : super(CreationAppointmentCreationState.empty()) {
+  AppointmentCreationBloc({this.editAppointmentId}) : super(CreationAppointmentCreationState.empty()) {
     on<AppointmentCreationEvent>(_handleEvent);
   }
 
@@ -26,10 +27,13 @@ class AppointmentCreationBloc
     final startTime = event.startTime.millisecondsSinceEpoch;
     final duration = event.duration.inMilliseconds;
 
-    final appointmentAtTime = await dao.getBetween(startTime, startTime + duration);
-    AppointmentCreationTimeError? timeError = appointmentAtTime == null
-    ? null 
-    : AppointmentCreationTimeError(appointmentAtTime: appointmentAtTime);
+    final appointmentsAtTime = await dao.getBetween(startTime, startTime + duration);
+    AppointmentCreationTimeError? timeError;
+    for (final ac in appointmentsAtTime) {
+      if (ac.appointment.id == editAppointmentId) continue;
+      timeError = AppointmentCreationTimeError(appointmentAtTime: ac);
+      break;
+    }
 
     bool hasNotCheckedClient = event.client == null;
     bool hasNotCheckedValue = event.value == null;
@@ -49,26 +53,12 @@ class AppointmentCreationBloc
     }
 
     try { // try to insert
-      final appointmentCompanion = AppointmentsCompanion.insert(
-        clientId: event.client!.id, 
-        startTime: startTime, 
-        endTime: startTime + duration, 
-        notificationStatus: Value(event.status), 
-        value: Value(event.value!), 
-        appointmentText: Value(event.text)
-      );
-
-      int id = await dao.insertAppointment(appointmentCompanion);
-
-      final appointment = Appointment(
-        id: id, 
-        clientId: event.client!.id, 
-        startTime: startTime, 
-        endTime: duration, 
-        notificationStatus: event.status, 
-        value: event.value!, 
-        appointmentText: event.text
-      );
+      Appointment appointment;
+      if (editAppointmentId != null) {
+        appointment = await _updateAppointment(event, startTime, duration);
+      } else {
+        appointment = await _createAppointment(event, startTime, duration);
+      }
 
       emit(DoneAppointmentCreationState(
         createdAC: AppointmentClient(
@@ -80,6 +70,48 @@ class AppointmentCreationBloc
       emit(CreationAppointmentCreationState.unknownError(e.toString()));
     }
     
-  } 
+  }
+
+  Future<Appointment> _createAppointment(
+      AppointmentCreationEvent event, int startTime, int duration) async {
+    final appointmentCompanion = AppointmentsCompanion.insert(
+        id: editAppointmentId == null
+            ? const Value.absent()
+            : Value(editAppointmentId!),
+        clientId: event.client!.id,
+        startTime: startTime,
+        endTime: startTime + duration,
+        notificationStatus: Value(event.status),
+        value: Value(event.value!),
+        appointmentText: Value(event.text)
+    );
+
+    final id = await dao.insertAppointment(appointmentCompanion);
+
+    return Appointment(
+        id: id,
+        clientId: event.client!.id,
+        startTime: startTime,
+        endTime: startTime + duration,
+        notificationStatus: event.status,
+        value: event.value!,
+        appointmentText: event.text);
+  }
+
+  Future<Appointment> _updateAppointment(
+      AppointmentCreationEvent event, int startTime, int duration) async {
+    final appointment = Appointment(
+        id: editAppointmentId!,
+        clientId: event.client!.id,
+        startTime: startTime,
+        endTime: startTime + duration,
+        notificationStatus: event.status,
+        value: event.value!,
+        appointmentText: event.text
+    );
+
+    await dao.updateAppointment(appointment);
+    return appointment;
+  }
   
 }

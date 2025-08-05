@@ -1,6 +1,7 @@
 
 
 import 'package:client_book_flutter/core/model/app_database.dart';
+import 'package:client_book_flutter/features/client_page/view/client_page.dart';
 import 'package:client_book_flutter/features/client_search/viewmodel/client_search_bloc.dart';
 import 'package:client_book_flutter/features/client_search/viewmodel/events/client_search_bloc_events.dart';
 import 'package:client_book_flutter/features/client_search/viewmodel/state/client_search_bloc_state.dart';
@@ -93,7 +94,15 @@ class ClientsListPage extends StatelessWidget {
 
 
   void _startClientPage(BuildContext context, Client client) {
-    // TODO
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (newContext) => ClientPage(
+        client: client, 
+        onClientUpdatedCallBack: (_) {
+          context.read<ClientSearchBloc>().add(
+            ClientUpdatedOrAddedClientSearchBlocEvent()
+          );
+        }
+    )));
   }
 }
 

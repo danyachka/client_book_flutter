@@ -67,9 +67,9 @@ class AppointmentDao extends DatabaseAccessor<AppDatabase> with _$AppointmentDao
   Future<AppointmentClient?> getClosestACByTime(int startTime) async {
     final query = (select(appointments)
       ..orderBy([
-        (appointment) => OrderingTerm.asc(appointment.startTime - Variable.withInt(startTime).abs())
+        (appointment) => OrderingTerm.asc((appointment.startTime - Variable.withInt(startTime)).abs())
       ])
-      ..limit(1) 
+      ..limit(1)
     ).join([
       innerJoin(clients, clients.id.equalsExp(appointments.clientId)),
     ]);
@@ -96,7 +96,7 @@ class AppointmentDao extends DatabaseAccessor<AppDatabase> with _$AppointmentDao
   }
 
   // Get AppointmentClient between two times
-  Future<AppointmentClient?> getBetween(int startTime, int endTime) async {
+  Future<List<AppointmentClient>> getBetween(int startTime, int endTime) async {
     final query = (select(appointments)
       ..where((t) =>
           t.startTime.isSmallerThanValue(endTime) & t.endTime.isBiggerThanValue(startTime))
@@ -104,13 +104,13 @@ class AppointmentDao extends DatabaseAccessor<AppDatabase> with _$AppointmentDao
       innerJoin(clients, clients.id.equalsExp(appointments.clientId)),
     ]);
 
-    final result = await query.getSingleOrNull();
-    if (result == null) return null;
-
-    return AppointmentClient(
-      appointment: result.readTable(appointments),
-      client: result.readTable(clients),
-    );
+    final results = await query.get();
+    return results
+        .map((row) => AppointmentClient(
+              appointment: row.readTable(appointments),
+              client: row.readTable(clients),
+            ))
+        .toList();
   }
 
   // Get AppointmentClient between two times where ID is not equal to a given ID

@@ -44,7 +44,7 @@ class _ClientPageState extends State<ClientPage> {
         create: (context) => SpecialClientAppointmentListBloc(
           clientId: widget.client.id, 
           getClient: () => clientCubit.state.client, 
-          scrollTo: (pos) => {}
+          scrollTo: (pos, animate) => {}
         )
       ),
     ], child: const _ClientPageLayout());

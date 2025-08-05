@@ -54,15 +54,15 @@ class _MainPageState extends State<MainPage> {
     super.dispose();
   }
 
-  void scrollToPage(MainPageFragment fragment) {
-    pageController.animateToPage(
+  Future<void> scrollToPage(MainPageFragment fragment) {
+    return pageController.animateToPage(
       fragment.pageIndex, 
       duration: const Duration(milliseconds: 200), 
       curve: Curves.decelerate
     );
   }
   
-  void scrollToIndexInList(int index) async {
+  void scrollToIndexInList(int index, bool animate) async {
     final state = GetIt.I<MainAppointmentListBloc>().state;
     
     if (state is! ListAppointmentListBlocState) return;
@@ -71,8 +71,13 @@ class _MainPageState extends State<MainPage> {
       Logger().d("Scrolling to index $index");
     }
 
-    scrollToPage(MainPageFragment.list);
-    scrollController.sliverController.jumpToIndex(index, offset: 200);
+    await scrollToPage(MainPageFragment.list);
+    if (animate) {
+      scrollController.sliverController
+        .animateToIndex(index, duration: const Duration(milliseconds: 200), curve: Curves.easeInOut);
+    } else {
+      scrollController.sliverController.jumpToIndex(index);
+    }
   }
   
   @override

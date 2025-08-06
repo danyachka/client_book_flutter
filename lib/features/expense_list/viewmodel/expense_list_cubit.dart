@@ -79,5 +79,11 @@ class ExpenseListCubit extends Cubit<ExpenseListState> {
   void onListUpdate() async {
     goToNewMonth(state.startMonthTime);
   }
+
+  void onExpenseRemove(Expense expense) async {
+    await model.removeExpense(expense);
+
+    onListUpdate();
+  }
   
 }

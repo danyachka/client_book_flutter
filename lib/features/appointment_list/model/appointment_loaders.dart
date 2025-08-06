@@ -6,29 +6,29 @@ import 'package:client_book_flutter/core/model/models/appointment_client.dart';
 
 abstract class AppointmentLoader {
 
+  final _dao = AppointmentDao(AppDatabase());
+
   Future<AppointmentClient?> loadNear(int time);
   Future<List<AppointmentClient>> loadOlder(int oldestTime);
   Future<List<AppointmentClient>> loadNewer(int newestTime);
+
+  Future<void> removeAppointment(Appointment appointment) => _dao.deleteAppointment(appointment);
 }
 
 class MainAppointmentLoader extends AppointmentLoader {
-
-  final dao = AppointmentDao(AppDatabase());
   
   @override
-  Future<AppointmentClient?> loadNear(int time) => dao.getClosestACByTime(time);
+  Future<AppointmentClient?> loadNear(int time) => _dao.getClosestACByTime(time);
   
   @override
-  Future<List<AppointmentClient>> loadNewer(int newestTime) => dao.getACNewer(newestTime);
+  Future<List<AppointmentClient>> loadNewer(int newestTime) => _dao.getACNewer(newestTime);
   
   @override
-  Future<List<AppointmentClient>> loadOlder(int oldestTime) => dao.getACOlder(oldestTime);
+  Future<List<AppointmentClient>> loadOlder(int oldestTime) => _dao.getACOlder(oldestTime);
 
 }
 
 class ClientAppointmentLoader extends AppointmentLoader {
-
-  final dao = AppointmentDao(AppDatabase());
 
   final Client Function() getClient;
 
@@ -37,13 +37,13 @@ class ClientAppointmentLoader extends AppointmentLoader {
   });
   
   @override
-  Future<AppointmentClient?> loadNear(int time) => dao.getClosestACByTimeAndClient(time, getClient().id);
+  Future<AppointmentClient?> loadNear(int time) => _dao.getClosestACByTimeAndClient(time, getClient().id);
   
   @override
   Future<List<AppointmentClient>> loadNewer(int newestTime) async {
     final client = getClient();
 
-    return (await dao.getNewerByClient(newestTime, client.id))
+    return (await _dao.getNewerByClient(newestTime, client.id))
       .map(
         (a) => AppointmentClient(appointment: a, client: client)
       ).toList();
@@ -53,7 +53,7 @@ class ClientAppointmentLoader extends AppointmentLoader {
   Future<List<AppointmentClient>> loadOlder(int oldestTime) async {
     final client = getClient();
 
-    return (await dao.getOlderByClient(oldestTime, client.id))
+    return (await _dao.getOlderByClient(oldestTime, client.id))
       .map(
         (a) => AppointmentClient(appointment: a, client: client)
       ).toList();

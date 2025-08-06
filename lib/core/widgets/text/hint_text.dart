@@ -14,12 +14,12 @@ class HintText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-      if (icon != null) Icon(icon, size: 24, color: AppColors.primaryLight),
+      if (icon != null) Icon(icon, size: 24, color: AppColors.primary),
       if (icon != null) const SizedBox(width: 8),
 
       Text(text,
         style: const TextStyle(
-          color: AppColors.accentTextLighter,
+          color: AppColors.accentTextLight,
           fontSize: 14,
           fontFamily: AppFont.m,
           fontWeight: FontWeight.bold

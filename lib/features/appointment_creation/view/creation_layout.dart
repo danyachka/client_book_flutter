@@ -15,7 +15,7 @@ import 'package:client_book_flutter/core/widgets/text/appointment_text.dart';
 import 'package:client_book_flutter/core/widgets/text/error_text_widget.dart';
 import 'package:client_book_flutter/core/widgets/text/hint_text.dart';
 import 'package:client_book_flutter/features/appointment_creation/view/client_pick_widget.dart';
-import 'package:client_book_flutter/features/appointment_creation/view/date_pick_widget.dart';
+import 'package:client_book_flutter/features/calendar/view/date_pick_widget.dart';
 import 'package:client_book_flutter/features/appointment_creation/viewmodel/appointment_creation_bloc.dart';
 import 'package:client_book_flutter/features/appointment_creation/viewmodel/events/appointment_creation_event.dart';
 import 'package:client_book_flutter/features/appointment_creation/viewmodel/states/appointments_creation_states.dart';
@@ -56,7 +56,7 @@ class _AppointmentCreationLayoutState extends State<AppointmentCreationLayout> {
                 overflow: TextOverflow.ellipsis,
                 fontFamily: AppFont.m,
                 fontWeight: FontWeight.w600,
-                color: AppColors.accentTextLighter
+                color: AppColors.accentTextLight
               )
             ),
           ),

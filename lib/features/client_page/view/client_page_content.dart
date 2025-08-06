@@ -73,7 +73,7 @@ class _HeaderWidget extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         fontFamily: AppFont.m,
                         fontWeight: FontWeight.w600,
-                        color: AppColors.accentTextLighter)),
+                        color: AppColors.accentTextLight)),
               ]));
     });
   }

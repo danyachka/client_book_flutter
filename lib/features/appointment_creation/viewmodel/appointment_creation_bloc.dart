@@ -37,6 +37,7 @@ class AppointmentCreationBloc
 
     bool hasNotCheckedClient = event.client == null;
     bool hasNotCheckedValue = event.value == null;
+    if (!hasNotCheckedValue) hasNotCheckedValue = event.value! >= 0;
     bool hasNotCheckedText= event.text.isEmpty;
 
     CreationAppointmentCreationState state = CreationAppointmentCreationState.error(

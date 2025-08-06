@@ -6,13 +6,15 @@ import 'package:client_book_flutter/core/model/daos/expenses_dao.dart';
 
 class ExpenseListModel {
 
-  final dao = ExpensesDao(AppDatabase());
+  final _dao = ExpensesDao(AppDatabase());
   final appointmentsDao = AppointmentDao(AppDatabase());
 
   Future<List<Expense>> getExpensesBetween(int from, int to) 
-    => dao.getBetween(from, to); 
+    => _dao.getBetween(from, to); 
 
   Future<List<Appointment>> getAppointmentsBetween(int from, int to) 
     => appointmentsDao.getAppointmentsBetween(from, to); 
+
+  Future<void> removeExpense(Expense expense) => _dao.deleteExpense(expense);
 
 }

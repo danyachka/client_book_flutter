@@ -11,7 +11,6 @@ class AppBackButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Clickable(
         onClick: () => Navigator.pop(context),
-        rippleColor: AppColors.primaryDark,
         radius: 32,
         child: const Padding(
             padding: EdgeInsets.all(6),

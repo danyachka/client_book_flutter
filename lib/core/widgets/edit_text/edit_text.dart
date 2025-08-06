@@ -71,12 +71,17 @@ class AppEditTextWidget extends StatelessWidget {
       obscureText: isPassword,
       controller: controller,
       expands: expands,
+      
       decoration: InputDecoration(
         suffixIcon: suffixIcon,
         prefixIcon: prefixIcon,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(radius), 
           borderSide: const BorderSide(color: AppColors.white)
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(radius), 
+          borderSide: const BorderSide(color: AppColors.accentTextLighter)
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(radius),
@@ -96,7 +101,7 @@ class AppEditTextWidget extends StatelessWidget {
       ),
       textAlign: textAlign,
       style: TextStyle(
-          color: AppColors.white,
+          color: AppColors.accentText,
           fontSize: fontSize,
           fontFamily: AppFont.m,
           fontWeight: FontWeight.bold),

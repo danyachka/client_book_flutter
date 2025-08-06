@@ -4,6 +4,7 @@ import 'package:client_book_flutter/core/utils/app_font.dart';
 import 'package:client_book_flutter/core/utils/colors.dart';
 import 'package:client_book_flutter/core/utils/time_utils.dart';
 import 'package:client_book_flutter/core/widgets/app_clickable/clickable.dart';
+import 'package:client_book_flutter/core/widgets/card_background/card_background.dart';
 import 'package:client_book_flutter/features/calendar/view/calendar_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -36,14 +37,8 @@ class _DatePickWidgetState extends State<DatePickWidget> {
   @override
   Widget build(BuildContext context) {
     const paddingVertical = 12.0;
-    const paddingHorizontal = 16.0;
 
-    return Container(
-      padding: const EdgeInsets.only(left: paddingHorizontal, top: paddingVertical, right: paddingHorizontal),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(32)),
-        color: AppColors.primaryLight
-      ),
+    return LargeCardBackground(
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),

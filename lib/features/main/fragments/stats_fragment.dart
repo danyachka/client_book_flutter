@@ -11,6 +11,7 @@ class StatsFragment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      bottom: false,
       child: BlocProvider(
         create: (context) => ExpenseListCubit(model: ExpenseListModel(), startDate: DateTime.now()),
         child: const ExpenseListView(),

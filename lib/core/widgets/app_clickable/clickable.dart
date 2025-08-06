@@ -13,7 +13,7 @@ class Clickable extends StatelessWidget {
   const Clickable({
     super.key, 
     required this.onClick,
-    this.rippleColor = AppColors.primaryDarkTrans, 
+    this.rippleColor = AppColors.primaryLightTrans, 
     this.radius = 32, 
     required this.child
   });
@@ -47,8 +47,8 @@ class BackgroundClickable extends StatelessWidget {
   const BackgroundClickable({
     super.key, 
     required this.onClick,
-    this.rippleColor = AppColors.primary, 
-    this.color = AppColors.primary, 
+    this.rippleColor = AppColors.cardBackground, 
+    this.color = AppColors.cardBackground, 
     this.radius = 32, 
     required this.child
   });

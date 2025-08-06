@@ -56,17 +56,17 @@ class _ClientCreationPageState extends State<ClientCreationPage> {
         bloc: clientCreationBloc,
         listener:(context, ClientCreationState state) {
           if (state is! DoneClientCreationState) return;
-
+    
           widget.clientSearchBloc?.add(ClientUpdatedOrAddedClientSearchBlocEvent());
           if (widget.initialClient != null) { // if client update
              final event = ClientChangedAppointmentListBlocEvent(changedClient: state.createdClient);
-
+    
              GetIt.I<MainAppointmentListBloc>().add(event);
              widget.clientAppointmentListBloc?.add(event);
           }
-
+    
           if (widget.callback != null) widget.callback!(state.createdClient);
-
+    
           Navigator.pop(context); // close page after created 
         },
         child: ClientCreationLayout(initialClient: widget.initialClient)

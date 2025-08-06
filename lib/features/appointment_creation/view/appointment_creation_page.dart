@@ -69,10 +69,12 @@ class _AppointmentCreationPageState extends State<AppointmentCreationPage> {
         },
         child: Scaffold(
           backgroundColor: AppColors.darkBackground,
-          body: SafeArea(child: AppointmentCreationLayout(
-            initialAC: widget.initialAppointment, 
-            initialClient: widget.initialClient
-          ))
+          body: SafeArea(
+            child: AppointmentCreationLayout(
+              initialAC: widget.initialAppointment, 
+              initialClient: widget.initialClient
+            ),
+          )
         )
       )
     );

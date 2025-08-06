@@ -35,7 +35,7 @@ class CalendarDateItem extends StatelessWidget {
         margin: const EdgeInsets.all(4),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: AppColors.primaryLighter
+          color: AppColors.primaryLight
         ),
         child: textWidget 
       )

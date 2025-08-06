@@ -22,7 +22,7 @@ class ClientItem extends StatelessWidget {
         child: AspectRatio(aspectRatio: 1, child: Container(
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            color: AppColors.grayDarker
+            color: AppColors.accentText
           ),
           child: const Icon(Icons.person_rounded, color: AppColors.white, size: 30),
         )

@@ -1,6 +1,7 @@
 
 
 import 'package:client_book_flutter/core/widgets/app_clickable/app_button.dart';
+import 'package:client_book_flutter/core/widgets/card_background/card_background.dart';
 import 'package:client_book_flutter/features/calendar/viewmodel/calendar_cubit.dart';
 import 'package:client_book_flutter/features/calendar/viewmodel/calendar_state.dart';
 import 'package:client_book_flutter/features/calendar/view/calendar_date_item.dart';
@@ -20,16 +21,7 @@ class CalendarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create:(context) => CalendarCubit(DateTime.now()),
-      lazy: false,
-      child: Container(
-        padding: withOutBackLayout? null : const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-        decoration: withOutBackLayout? null : BoxDecoration(
-          color: AppColors.primaryLight,
-          borderRadius: BorderRadius.circular(16)
-        ),
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
+    final column = Column(mainAxisSize: MainAxisSize.min, children: [
           Row(children: [
             _MonthButton(
               onTap: (BuildContext context) => BlocProvider.of<CalendarCubit>(context).goToPreviousMonth(),
@@ -103,8 +95,15 @@ class CalendarWidget extends StatelessWidget {
               }
             )
           )
-        ])
-      )
+    ]);
+
+    final widget = withOutBackLayout? column : LargeCardBackground(child: column);
+
+
+    return BlocProvider(
+      create:(context) => CalendarCubit(DateTime.now()),
+      lazy: false,
+      child: widget
     );
   }
 }

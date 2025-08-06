@@ -90,7 +90,7 @@ class _ClientCreationLayoutState extends State<ClientCreationLayout> {
                   overflow: TextOverflow.ellipsis,
                   fontFamily: AppFont.m,
                   fontWeight: FontWeight.w600,
-                  color: AppColors.accentTextLighter
+                  color: AppColors.accentTextLight
                 )
               ),
             ),
@@ -147,7 +147,8 @@ class _ClientCreationLayoutState extends State<ClientCreationLayout> {
           AppEditTextWidget(
             fontSize: 14,
             controller: phoneTextController, 
-            hint: S.of(context).client_phone
+            hint: S.of(context).client_phone,
+            digitsOnly: true,
           ),
 
           const SizedBox(height: 12),

@@ -30,7 +30,7 @@ class ClientsListPage extends StatelessWidget {
         BlocProvider(create: (context) => ClientSearchBloc())
       ], 
       child: Scaffold(
-        backgroundColor: AppColors.darkBackground.withAlpha((0.6*255).toInt()),
+        backgroundColor: AppColors.darkBackground,
         body: SafeArea(
           child: Column(children: [
             const Padding(

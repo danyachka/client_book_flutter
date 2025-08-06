@@ -85,11 +85,14 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
         backgroundColor: AppColors.darkBackground,
         extendBody: true,
-        body: PageView(controller: pageController, children: [
-          CalendarFragment(changeFragmentCallBack: scrollToPage),
-          ListFragment(scrollController: scrollController),
-          const StatsFragment()
-        ]),
+        body: SafeArea(
+          bottom: false,
+          child: PageView(controller: pageController, children: [
+            CalendarFragment(changeFragmentCallBack: scrollToPage),
+            ListFragment(scrollController: scrollController),
+            const StatsFragment()
+          ]),
+        ),
         bottomNavigationBar: ClipRRect(
             borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(30), topRight: Radius.circular(30)),
@@ -98,15 +101,15 @@ class _MainPageState extends State<MainPage> {
               builder: (context, value, child) => NavigationBar(
                 height: MainPage.mainPageNavigationBarHeight,
                 labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-                indicatorColor: AppColors.primarySuperDarkTrans,
-                backgroundColor: AppColors.primarySuperDarkTrans,
+                indicatorColor: AppColors.primary,
+                backgroundColor: AppColors.primaryDarkerLowTrans,
                 shadowColor: Colors.transparent,
                 animationDuration: const Duration(),
                 // surfaceTintColor: AppColors.primary,к
                 selectedIndex: currentFragment.value.pageIndex,
                 onDestinationSelected: (int index) {
                   if (index == currentFragment.value.pageIndex) return;
-
+    
                   final newFragment = MainPageFragment.values[index];
                   currentFragment.value = newFragment;
                   scrollToPage(newFragment);

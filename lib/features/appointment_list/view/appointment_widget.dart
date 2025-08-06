@@ -6,6 +6,7 @@ import 'package:client_book_flutter/core/utils/colors.dart';
 import 'package:client_book_flutter/core/utils/s.dart';
 import 'package:client_book_flutter/core/utils/time_utils.dart';
 import 'package:client_book_flutter/core/widgets/app_clickable/clickable.dart';
+import 'package:client_book_flutter/core/widgets/card_background/card_background.dart';
 import 'package:flutter/material.dart';
 
 class AppointmentWidget extends StatelessWidget {
@@ -31,11 +32,11 @@ class AppointmentWidget extends StatelessWidget {
 
     String? titleText = getAppointmentText(date, context);
 
-    final widget = Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    final widget = Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start, 
+          crossAxisAlignment: CrossAxisAlignment.stretch, 
           children: [
             if (titleText != null) Text(
               titleText,
@@ -57,19 +58,14 @@ class AppointmentWidget extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 fontFamily: AppFont.m,
                 fontWeight: FontWeight.w600,
-                color: AppColors.accentTextLighter
+                color: AppColors.accentTextLight
               )
             )
           ]
         )
       ),
 
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        decoration: BoxDecoration(
-          color: AppColors.primaryLight,
-          borderRadius: BorderRadius.circular(24)
-        ),
+      CardBackground(
         child: Column(children: [
           Row(children: [
             Expanded(
@@ -126,7 +122,7 @@ class AppointmentWidget extends StatelessWidget {
 
     return Clickable(
       onClick: () => onTap(),
-      radius: 24,
+      radius: 28,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
         child: widget,

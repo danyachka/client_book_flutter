@@ -61,7 +61,6 @@ class _ListFragmentState extends State<ListFragment> with AutomaticKeepAliveClie
 
           Clickable(
             onClick: () => onPlusTapped(context),
-            rippleColor: AppColors.primaryDark,
             child: const Padding(
               padding: EdgeInsets.all(4), 
               child: Icon(Icons.add_rounded, color: AppColors.primary, size: 26)
@@ -72,7 +71,6 @@ class _ListFragmentState extends State<ListFragment> with AutomaticKeepAliveClie
 
           Clickable(
             onClick: () => onSettingsTapped(context),
-            rippleColor: AppColors.primaryDark,
             child: const Padding(
               padding: EdgeInsets.all(4), 
               child: Icon(Icons.settings_rounded, color: AppColors.primary, size: 26)

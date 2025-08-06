@@ -53,5 +53,7 @@ class AppointmentRemovedAppointmentListBlocEvent extends AppointmentListBlocEven
 
   final Appointment removedAppointment;
 
-  AppointmentRemovedAppointmentListBlocEvent({required this.removedAppointment});
+  final bool processFromDbRemoving;
+
+  AppointmentRemovedAppointmentListBlocEvent({required this.removedAppointment, required this.processFromDbRemoving});
 }

@@ -53,7 +53,7 @@ abstract class AppointmentListBloc
     );
 
     on<AppointmentRemovedAppointmentListBlocEvent>(
-      (event, emit) => _onAppointmentRemoved(event.removedAppointment, emit)
+      (event, emit) => _onAppointmentRemoved(event.removedAppointment, event.processFromDbRemoving, emit)
     );
 
     add(
@@ -228,8 +228,13 @@ abstract class AppointmentListBloc
     emit(ListAppointmentListBlocState(list: list));
   }
 
-  void _onAppointmentRemoved(Appointment removedAppointment, Emitter<AppointmentListBlocState> emit) async {
+  void _onAppointmentRemoved(Appointment removedAppointment, bool processRemove, Emitter<AppointmentListBlocState> emit) async {
     if (!needToCheckEvent(removedAppointment.clientId)) return;
+
+    if (processRemove) {
+      _loader.removeAppointment(removedAppointment);
+    }
+
     bool isRemoved = false;
 
     _list.removeWhere((ac) {

@@ -68,7 +68,7 @@ class __OverlayLayoutState extends State<_OverlayLayout> with SingleTickerProvid
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(24),
-                          color: AppColors.primarySuperDarkTrans
+                          color: AppColors.overlayBackground,
                         ),
                         child: widget.child
                       )

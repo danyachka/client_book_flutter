@@ -18,7 +18,7 @@ class AppButton extends StatelessWidget {
   const AppButton({super.key, 
     required this.onClick, 
     this.radius = 32, 
-    this.color = AppColors.primaryLight, 
+    this.color = AppColors.cardBackground, 
     this.padding, 
     this.alignment = Alignment.centerLeft,
     required this.child
@@ -31,6 +31,7 @@ class AppButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: color, // Background color
         alignment: alignment,
+        shadowColor: AppColors.cardBackground,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radius), // Corner radius
         ),
@@ -63,7 +64,7 @@ class AppTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppButton(
         onClick: onClick,
-        color: AppColors.primaryLight,
+        color: AppColors.cardBackground,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,

@@ -29,7 +29,7 @@ class ClientPageTitle extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       fontFamily: AppFont.m,
                       fontWeight: FontWeight.w600,
-                      color: AppColors.accentTextLighter));
+                      color: AppColors.accentTextLight));
             }),
           ),
           const SizedBox(width: 6),
@@ -46,7 +46,6 @@ class ClientPageTitle extends StatelessWidget {
                           // TODO: Update appointments count
                         })));
               },
-              rippleColor: AppColors.primaryDark,
               radius: 32,
               child: const Padding(
                   padding: EdgeInsets.all(6),
@@ -62,7 +61,6 @@ class ClientPageTitle extends StatelessWidget {
                               .onClientUpdated(updatedClient);
                         })));
               },
-              rippleColor: AppColors.primaryDark,
               radius: 32,
               child: const Padding(
                   padding: EdgeInsets.all(6),

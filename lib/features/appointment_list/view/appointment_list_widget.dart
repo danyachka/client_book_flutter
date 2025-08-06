@@ -59,12 +59,16 @@ class AppointmentListWidget extends StatelessWidget {
       title: S.of(context).appointment_dialog_remove, 
       text: S.of(context).appointment_dialog_remove_text.replaceFirst("%d", appointmentClient.getInfoText()), 
       callBack: () {
-        final removeEvent = AppointmentRemovedAppointmentListBlocEvent(removedAppointment: appointmentClient.appointment);
-
-        GetIt.I<MainAppointmentListBloc>().add(removeEvent);
+        GetIt.I<MainAppointmentListBloc>().add(AppointmentRemovedAppointmentListBlocEvent(
+          removedAppointment: appointmentClient.appointment,
+          processFromDbRemoving: true
+        ));
         if (!isClientList) return;
 
-        BlocProvider.of<SpecialClientAppointmentListBloc>(context).add(removeEvent);
+        BlocProvider.of<SpecialClientAppointmentListBloc>(context).add(AppointmentRemovedAppointmentListBlocEvent(
+          removedAppointment: appointmentClient.appointment,
+          processFromDbRemoving: false
+        ));
       }
     );
   }

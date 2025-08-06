@@ -52,10 +52,20 @@
   "appointment_dialog_remove": "Delete an appointment",
   "appointment_dialog_remove_text": "Are you sure want to delete an appointment %d? It would be completely lost",
 
-  "expenses_past_value": "Got value in month: %d",
-  "expenses_future_value": "Plan value in month: %d",
-  "expenses_total_value": "Total value in month: %d",
-  "expenses_total_expenses": "Expenses in month: %d",
+  "expenses_past_value": "Month value: %d",
+  "expenses_future_value": "Plan: %d",
+  "expenses_total_value": "Total value: %d",
+  "expenses_total_expenses": "Expenses: %d",
+
+
+  "new_expenses": "New expense",
+  "edit_expenses": "Edit expense",
+  "delete_expenses": "Delete expense",
+  "expenses_dialog_remove": "Delete expenses",
+  "expenses_dialog_remove_text": "Are you sure want to delete expenses %d? It would be completely lost",
+  "expenses_text": "Name",
+  "expenses_time": "Date",
+  "expenses_value": "Value",
 
   "yes": "yes",
   "no": "no",

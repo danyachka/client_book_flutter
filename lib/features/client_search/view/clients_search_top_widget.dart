@@ -66,7 +66,7 @@ class _ClientsSearchTopWidgetState extends State<ClientsSearchTopWidget> {
                       ? S.of(context).client_name
                       : S.of(context).client_phone,
                   prefixIcon: const Icon(Icons.search_rounded,
-                      color: AppColors.white, size: 24),
+                      color: AppColors.accentText, size: 24),
                 );
               }
             ),
@@ -90,7 +90,7 @@ class _ClientsSearchTopWidgetState extends State<ClientsSearchTopWidget> {
               child: BlocBuilder<ClientSearchBloc, ClientSearchBlocState>(
                 builder:(context, state) => Icon(
                   (state.searchType == ClientSearchType.name)? Icons.person_rounded: Icons.phone_rounded,
-                  color: AppColors.primaryDark,
+                  color: AppColors.white,
                   size: 24
                 )
               )

@@ -49,11 +49,21 @@
   "appointment_dialog_remove_text": "Вы действительно хотите удалить запись %d? Она будет полностью утрачена",
 
   "stats_title": "Статистика",
-  "expenses_title": "Затраты",
-  "expenses_past_value": "Уже заработано: %d",
-  "expenses_future_value": "Запланированный заработок: %d",
-  "expenses_total_value": "Всего заработано за месяц: %d",
-  "expenses_total_expenses": "Затраты за месяц: %d",
+  "expenses_title": "Расходы",
+  "expenses_past_value": "Заработано: %d",
+  "expenses_future_value": "План: %d",
+  "expenses_total_value": "Заработано: %d",
+  "expenses_total_expenses": "Расходы: %d",
+
+
+  "new_expenses": "Создать расходы",
+  "edit_expenses": "Редактировать расходы",
+  "delete_expenses": "Удалить расходы",
+  "expenses_dialog_remove": "Удалить расходы",
+  "expenses_dialog_remove_text": "Вы действительно хотите удалить расходы %d? Она будет полностью утрачена",
+  "expenses_text": "Название",
+  "expenses_time": "Дата",
+  "expenses_value": "Стоимость",
 
   "yes": "да",
   "no": "нет",

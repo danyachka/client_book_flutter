@@ -134,8 +134,8 @@ class _NavigationDestination extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NavigationDestination(
-      icon: Icon(icon, color: AppColors.grayLight, size: 30),
-      selectedIcon: Icon(icon, color: AppColors.white, size: 30),
+      icon: Icon(icon, color: AppColors.darkBackground, size: 30),
+      selectedIcon: Icon(icon, color: AppColors.grayLight, size: 30),
       label: "",
     );
   }

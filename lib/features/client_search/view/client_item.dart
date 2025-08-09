@@ -16,6 +16,8 @@ class ClientItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hasNumber = client.phoneNumber.isNotEmpty;
+
     final row = Row(children: [
       SizedBox(
         height: 48,
@@ -24,7 +26,7 @@ class ClientItem extends StatelessWidget {
             shape: BoxShape.circle,
             color: AppColors.accentText
           ),
-          child: const Icon(Icons.person_rounded, color: AppColors.white, size: 30),
+          child: const Icon(Icons.person_rounded, color: AppColors.darkBackground, size: 30),
         )
       )),
 
@@ -38,9 +40,9 @@ class ClientItem extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 color: AppColors.accentText)),
 
-        const SizedBox(height: 3),
+        if (hasNumber) const SizedBox(height: 3),
 
-        Text(client.getFormattedPhoneNumber(),
+        if (hasNumber) Text(client.getFormattedPhoneNumber(),
             style: const TextStyle(
                 fontFamily: AppFont.m,
                 fontSize: 11,

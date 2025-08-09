@@ -14,7 +14,7 @@ class AppBackButton extends StatelessWidget {
         radius: 32,
         child: const Padding(
             padding: EdgeInsets.all(6),
-            child: Icon(Icons.arrow_back, color: AppColors.primary, size: 26)
+            child: Icon(Icons.arrow_back_rounded, color: AppColors.primary, size: 26)
         )
     );
   }

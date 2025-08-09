@@ -99,7 +99,6 @@ class CalendarWidget extends StatelessWidget {
 
     final widget = withOutBackLayout? column : LargeCardBackground(child: column);
 
-
     return BlocProvider(
       create:(context) => CalendarCubit(DateTime.now()),
       lazy: false,
@@ -122,7 +121,7 @@ class _MonthButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppButton(
       onClick: () => onTap(context),
-      color: AppColors.primaryDark,
+      color: AppColors.primaryDarker,
       padding: EdgeInsets.zero,
       radius: 10,
       child: Container(

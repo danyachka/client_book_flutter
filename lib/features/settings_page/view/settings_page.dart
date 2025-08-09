@@ -6,6 +6,7 @@ import 'package:client_book_flutter/core/widgets/back_button/app_back_button.dar
 import 'package:client_book_flutter/core/widgets/edit_text/edit_text.dart';
 import 'package:client_book_flutter/core/widgets/sure_dialog/sure_dialog.dart';
 import 'package:client_book_flutter/features/settings_page/viewmodel/settings_cubit.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -72,8 +73,8 @@ class __SettingsPageLayoutState extends State<_SettingsPageLayout> {
           ),
                   
           const SizedBox(height: 8),
-
-          AppTextButton(
+          
+          if (kDebugMode) AppTextButton( // on debug only
               onClick: () {
                 showAppAlertDialog(context,
                     text: S.of(context).settings_remove_all,
@@ -86,8 +87,7 @@ class __SettingsPageLayoutState extends State<_SettingsPageLayout> {
               },
               text: S.of(context).settings_remove_all
           ),
-          
-          const SizedBox(height: 12),
+          if (kDebugMode) const SizedBox(height: 12),
 
           AppEditTextWidget(controller: dbEditText, hint: S.of(context).settings_update_db, fontSize: 12),
           const SizedBox(height: 12),

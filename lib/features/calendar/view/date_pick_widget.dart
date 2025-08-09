@@ -65,15 +65,13 @@ class _DatePickWidgetState extends State<DatePickWidget> {
                 padding: EdgeInsets.all(4.0),
                 child: Icon(
                   Icons.calendar_month_rounded, 
-                  color: AppColors.primaryDark, 
+                  color: AppColors.primaryDarker, 
                   size: 24
                 )
               )
             )
           ])
         ),
-
-        const SizedBox(height: paddingVertical/2),
 
         ValueListenableBuilder(
           valueListenable: isCalendarVisible, 
@@ -102,8 +100,6 @@ class _DatePickWidgetState extends State<DatePickWidget> {
             );
           },
         ),
-        
-        const SizedBox(height: paddingVertical/2)
       ]),
     );
   }

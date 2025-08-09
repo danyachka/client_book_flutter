@@ -4,6 +4,7 @@ import 'package:client_book_flutter/features/main/page/main_page.dart';
 import 'package:client_book_flutter/core/utils/colors.dart';
 import 'package:client_book_flutter/core/utils/s.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Application extends StatefulWidget {
   const Application({super.key});
@@ -16,6 +17,12 @@ class _ApplicationState extends State<Application> {
 
   @override
   Widget build(BuildContext context) {
+
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        statusBarColor: AppColors.accentTextDarker,
+        systemNavigationBarColor: AppColors.accentTextDarker,
+    ));
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       supportedLocales: S.supportedLocales,

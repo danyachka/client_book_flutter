@@ -167,7 +167,7 @@ class _MonthButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppButton(
       onClick: () => onTap(context),
-      color: AppColors.primaryDark,
+      color: AppColors.primaryDarker,
       padding: EdgeInsets.zero,
       radius: 10,
       child: Container(

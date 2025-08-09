@@ -19,7 +19,7 @@ class HintText extends StatelessWidget {
 
       Text(text,
         style: const TextStyle(
-          color: AppColors.accentTextLight,
+          color: AppColors.accentText,
           fontSize: 14,
           fontFamily: AppFont.m,
           fontWeight: FontWeight.bold

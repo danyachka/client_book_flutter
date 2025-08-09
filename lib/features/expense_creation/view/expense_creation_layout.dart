@@ -29,7 +29,7 @@ class _ExpenseCreationLayoutState extends State<ExpenseCreationLayout> {
     return Padding(padding: const EdgeInsets.symmetric(horizontal: 12), child: Column(children: [
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 8),
-        child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
           const AppBackButton(),
 
           const SizedBox(width: 12),
@@ -44,8 +44,8 @@ class _ExpenseCreationLayoutState extends State<ExpenseCreationLayout> {
                 fontSize: 20,
                 overflow: TextOverflow.ellipsis,
                 fontFamily: AppFont.m,
-                fontWeight: FontWeight.w600,
-                color: AppColors.accentTextLight
+                fontWeight: FontWeight.bold,
+                color: AppColors.accentText
               )
             ),
           ),
@@ -178,7 +178,7 @@ class _ExpenseCreationContentState extends State<ExpenseCreationContent> {
               textController.text, double.tryParse(valueController.text), pickedDate.value
             );
           },
-          color: AppColors.primaryDark,
+          color: AppColors.primaryDarker,
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24), 
           child: const Icon(Icons.check_rounded, size: 32, color: AppColors.white)
         )

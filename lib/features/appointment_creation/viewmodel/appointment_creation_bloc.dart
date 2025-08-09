@@ -35,16 +35,16 @@ class AppointmentCreationBloc
       break;
     }
 
-    bool hasNotCheckedClient = event.client == null;
-    bool hasNotCheckedValue = event.value == null;
-    if (!hasNotCheckedValue) hasNotCheckedValue = event.value! >= 0;
-    bool hasNotCheckedText= event.text.isEmpty;
+    bool hasCheckedClient = event.client != null;
+    final value = event.value;
+    bool hasCheckedValue = value != null && value >= 0;
+    bool hasCheckedText= event.text.isNotEmpty;
 
     CreationAppointmentCreationState state = CreationAppointmentCreationState.error(
       timeRangeError: timeError,
-      hasNotCheckedClient: hasNotCheckedClient, 
-      hasNotCheckedValue: hasNotCheckedValue, 
-      hasNotCheckedText: hasNotCheckedText
+      hasNotCheckedClient: !hasCheckedClient, 
+      hasNotCheckedValue: !hasCheckedValue, 
+      hasNotCheckedText: !hasCheckedText
     );
 
     // if has errors

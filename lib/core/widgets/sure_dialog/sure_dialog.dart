@@ -27,7 +27,7 @@ class _AppAlertDialog extends StatelessWidget {
           title,
           style: const TextStyle(
               color: AppColors.accentTextDarker,
-              fontSize: 15,
+              fontSize: 18,
               fontFamily: AppFont.m,
               fontWeight: FontWeight.bold),
         ),
@@ -35,7 +35,7 @@ class _AppAlertDialog extends StatelessWidget {
           text,
           style: const TextStyle(
               color: AppColors.accentText,
-              fontSize: 13,
+              fontSize: 14,
               fontFamily: AppFont.m,
               fontWeight: FontWeight.bold),
         ),

@@ -89,8 +89,8 @@ class _ClientCreationLayoutState extends State<ClientCreationLayout> {
                   fontSize: 20,
                   overflow: TextOverflow.ellipsis,
                   fontFamily: AppFont.m,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.accentTextLight
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.accentText
                 )
               ),
             ),

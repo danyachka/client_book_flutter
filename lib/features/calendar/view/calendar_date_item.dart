@@ -35,13 +35,13 @@ class CalendarDateItem extends StatelessWidget {
         margin: const EdgeInsets.all(4),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: AppColors.primaryLight
+          color: AppColors.primaryLighter
         ),
         child: textWidget 
       )
     : textWidget;
 
-    final color = item.sameMonth && !item.isSelectedDay? AppColors.primary: AppColors.primaryDark;
+    final color = item.sameMonth && !item.isSelectedDay? AppColors.primary: AppColors.primaryDarker;
 
     return AppButton(
         onClick: () => onDatePicked(item.date),

@@ -19,7 +19,7 @@ class AppOverlayLine extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(iconData, size: 24, color: AppColors.accentTextDarker),
+        Icon(iconData, size: 24, color: AppColors.accentTextLight),
 
         const SizedBox(width: 12),
 
@@ -31,7 +31,7 @@ class AppOverlayLine extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   fontFamily: AppFont.m,
                   fontWeight: FontWeight.w600,
-                  color: AppColors.accentTextDarker)
+                  color: AppColors.accentTextLight)
         ),
       ]
     );

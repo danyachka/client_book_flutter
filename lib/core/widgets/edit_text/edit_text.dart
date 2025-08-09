@@ -81,7 +81,7 @@ class AppEditTextWidget extends StatelessWidget {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(radius), 
-          borderSide: const BorderSide(color: AppColors.accentTextLighter)
+          borderSide: const BorderSide(color: AppColors.editTextHint)
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(radius),

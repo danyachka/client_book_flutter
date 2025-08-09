@@ -3,7 +3,7 @@
     android:height="108dp"
     android:viewportWidth="960"
     android:viewportHeight="960"
-    android:tint="#AC3B61">
+    android:tint="#EDC7B7">
   <group android:scaleX="0.5394"
       android:scaleY="0.5394"
       android:translateX="221.088"

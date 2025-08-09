@@ -11,7 +11,7 @@ class AppColors {
   static const primaryDarker = Color(0xFF123C69);
   static const primaryDarkerLowTrans = Color.fromARGB(240, 18, 60, 105);
 
-  static const primaryLighter = Color.fromARGB(255, 173, 92, 119);
+  static const primaryLighter = Color(0xFFAD5C77);
   static const primaryLightTrans = Color.fromARGB(170, 173, 92, 119);
 
   static const gray = Color(0xFFBAB2B5);

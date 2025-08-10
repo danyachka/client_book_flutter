@@ -18,7 +18,7 @@ class AppColors {
   static const grayLight = Color(0xFFEEE2DC);
 
   static const cardBackground = gray;
-  static const overlayBackground = primaryDarker;
+  static const overlayBackground = grayLight;
 
 
   static const accentText = primary;

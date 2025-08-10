@@ -1,4 +1,5 @@
 
+import 'package:client_book_flutter/core/widgets/app_clickable/app_floating_button.dart';
 import 'package:client_book_flutter/core/widgets/back_button/app_back_button.dart';
 import 'package:client_book_flutter/core/widgets/text/hint_text.dart';
 import 'package:client_book_flutter/features/client_creation/viewmodel/client_creation_bloc.dart';
@@ -56,21 +57,7 @@ class _ClientCreationLayoutState extends State<ClientCreationLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.darkBackground,
-      floatingActionButton: InkWell(
-        onTap: _onButtonPressed, 
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 20),
-          decoration: BoxDecoration(
-            color: AppColors.primary,
-            borderRadius: BorderRadius.circular(20)
-          ),
-          child: const Icon(
-            Icons.check_rounded, 
-            color: AppColors.white,
-            size: 26
-          )
-        )
-      ),
+      floatingActionButton: AppFloatingButton(onClick: _onButtonPressed),
       body: SafeArea(child: Padding(padding: const EdgeInsets.symmetric(horizontal: 12), child: Column(children: [
         Padding(
           padding: const EdgeInsets.only(top: 8),

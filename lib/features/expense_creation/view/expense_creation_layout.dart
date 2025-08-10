@@ -4,7 +4,7 @@ import 'package:client_book_flutter/core/model/app_database.dart';
 import 'package:client_book_flutter/core/utils/app_font.dart';
 import 'package:client_book_flutter/core/utils/colors.dart';
 import 'package:client_book_flutter/core/utils/s.dart';
-import 'package:client_book_flutter/core/widgets/app_clickable/app_button.dart';
+import 'package:client_book_flutter/core/widgets/app_clickable/app_floating_button.dart';
 import 'package:client_book_flutter/core/widgets/back_button/app_back_button.dart';
 import 'package:client_book_flutter/core/widgets/edit_text/edit_text.dart';
 import 'package:client_book_flutter/core/widgets/text/error_text_widget.dart';
@@ -169,20 +169,11 @@ class _ExpenseCreationContentState extends State<ExpenseCreationContent> {
     return Expanded(child: Stack(children: [
       Positioned.fill(child: list),
 
-      Positioned(
-        right: 12,
-        bottom: 24,
-        child: AppButton(
-          onClick: () {
-            BlocProvider.of<ExpenseCreationCubit>(context).onCreateClicked(
-              textController.text, double.tryParse(valueController.text), pickedDate.value
-            );
-          },
-          color: AppColors.primaryDarker,
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24), 
-          child: const Icon(Icons.check_rounded, size: 32, color: AppColors.white)
-        )
-      )
+      PositionedAppFloatingButton(onClick: () {
+        BlocProvider.of<ExpenseCreationCubit>(context).onCreateClicked(
+          textController.text, double.tryParse(valueController.text), pickedDate.value
+        );
+      })
     ]));
   }
 }

@@ -8,6 +8,7 @@ import 'package:client_book_flutter/core/utils/colors.dart';
 import 'package:client_book_flutter/core/utils/s.dart';
 import 'package:client_book_flutter/core/utils/time_utils.dart';
 import 'package:client_book_flutter/core/widgets/app_clickable/app_button.dart';
+import 'package:client_book_flutter/core/widgets/app_clickable/app_floating_button.dart';
 import 'package:client_book_flutter/core/widgets/back_button/app_back_button.dart';
 import 'package:client_book_flutter/core/widgets/custom_dialog/app_dialog.dart';
 import 'package:client_book_flutter/core/widgets/edit_text/edit_text.dart';
@@ -258,11 +259,8 @@ class __FieldsLayoutState extends State<_FieldsLayout> {
     return Expanded(child: Stack(children: [
       Positioned.fill(child: list),
 
-      Positioned(
-        right: 12,
-        bottom: 24,
-        child: AppButton(
-          onClick: () {
+      PositionedAppFloatingButton(
+        onClick: () {
             final start = pickedDate.value.copyWith(
               hour: startTimeState.value.hour,
               minute: startTimeState.value.minute
@@ -276,11 +274,7 @@ class __FieldsLayoutState extends State<_FieldsLayout> {
               value: double.tryParse(valueController.text), 
               text: textController.text
             ));
-          },
-          color: AppColors.primaryDarker,
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24), 
-          child: const Icon(Icons.check_rounded, size: 32, color: AppColors.white)
-        )
+          }
       )
     ]));
   }
@@ -288,7 +282,7 @@ class __FieldsLayoutState extends State<_FieldsLayout> {
   void _startTimePick() async {
     final time = await showTimePicker(
       context: context, 
-      initialTime: startTimeState.value 
+      initialTime: startTimeState.value,
     );
 
     if (time != null) startTimeState.value = time;

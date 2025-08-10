@@ -32,20 +32,15 @@ class ClientsListPage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: AppColors.darkBackground,
         body: SafeArea(
-          child: Column(children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
-              child: ClientsSearchTopWidget(),
-            ),
-          
-            Expanded(
+          child: Stack(children: [
+            Positioned.fill(
               child: BlocBuilder<ClientSearchBloc, ClientSearchBlocState>(
                 builder:(context, state) {
                   if (state.list.isEmpty)  {
                     return ListView(children: [
                       Container(
                         alignment: Alignment.topCenter,
-                        padding: const EdgeInsets.only(top: 150),
+                        padding: const EdgeInsets.only(top: 150 + searchHeight),
                         child: Text(
                           S.of(context).nothing_found,
                           style: const TextStyle(
@@ -60,7 +55,7 @@ class ClientsListPage extends StatelessWidget {
                   }
           
                   return ListView.builder(
-                    padding: const EdgeInsets.only(top: 16, bottom: 40),
+                    padding: const EdgeInsets.only(top: 4 + searchHeight, bottom: 40),
                     itemCount: state.list.length,
                     itemBuilder: (context, index) {
                       final client = state.list[index];
@@ -85,6 +80,11 @@ class ClientsListPage extends StatelessWidget {
                   );
                 }
               )
+            ),
+
+            const Positioned(
+              right: 0, left: 0, top: 0,
+              child: ClientsSearchTopWidget(),
             )
           ]),
         ),

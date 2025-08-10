@@ -102,7 +102,7 @@ abstract class AppointmentListBloc
     ));
     
     int centerItemIndex = older.length;
-    await Future.delayed(const Duration(milliseconds: 200));
+    await Future.delayed(const Duration(milliseconds: 300));
     _scrollTo(centerItemIndex, animate);
 
     if (kDebugMode) {

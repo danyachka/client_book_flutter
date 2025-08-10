@@ -11,6 +11,8 @@ import 'package:client_book_flutter/core/utils/s.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+const searchHeight = 58.0;
+
 class ClientsSearchTopWidget extends StatefulWidget {
   const ClientsSearchTopWidget({super.key});
 
@@ -47,7 +49,7 @@ class _ClientsSearchTopWidgetState extends State<ClientsSearchTopWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    final box = SizedBox(
       height: 46,
       child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
         Expanded(
@@ -98,6 +100,23 @@ class _ClientsSearchTopWidgetState extends State<ClientsSearchTopWidget> {
           ),
         )
       ]),
+    );
+
+    return Container(
+      height: searchHeight,
+      padding: const EdgeInsets.only(left: 8, right: 8, top: 4),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [AppColors.darkBackground, AppColors.darkBackground.withAlpha(0)],
+          stops: const [0.9, 1]
+        )
+      ),
+      child: Column(children: [
+        box,
+        const Spacer()
+      ])
     );
   }
 }

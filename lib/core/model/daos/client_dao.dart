@@ -55,8 +55,10 @@ class ClientDao extends DatabaseAccessor<AppDatabase> with _$ClientDaoMixin {
   // Get latest clients by phone part
   Future<List<Client>> getLatestByPhone(String phonePart) async {
     final s = select(clients);
+    
+    final lower = phonePart.toLowerCase();
 
-    if (phonePart.isNotEmpty) s.where((t) => t.phoneNumber.like('%$phonePart%'));
+    if (phonePart.isNotEmpty) s.where((t) => t.phoneNumber.lower().like('%$lower%'));
 
     s.orderBy([(t) => OrderingTerm.desc(t.id)]);
     s.limit(loadingCount);
@@ -68,8 +70,10 @@ class ClientDao extends DatabaseAccessor<AppDatabase> with _$ClientDaoMixin {
   Future<List<Client>> getNextByPhone(String phonePart, int id) async {
     final s = select(clients);
     
+    final lower = phonePart.toLowerCase();
+    
     if (phonePart.isNotEmpty) {
-      s.where((t) => t.phoneNumber.like('%$phonePart%') & t.id.isSmallerThanValue(id));
+      s.where((t) => t.phoneNumber.lower().like('%$lower%') & t.id.isSmallerThanValue(id));
     } else {
       s.where((t) => t.id.isSmallerThanValue(id));
     }
@@ -83,8 +87,10 @@ class ClientDao extends DatabaseAccessor<AppDatabase> with _$ClientDaoMixin {
   // Get latest clients by name
   Future<List<Client>> getLatestByName(String name) async {
     final s = select(clients);
+    
+    final lower = name.toLowerCase();
 
-    if (name.isNotEmpty) s.where((t) => t.name.like('%$name%'));
+    if (name.isNotEmpty) s.where((t) => t.name.lower().like('%$lower%'));
 
     s.orderBy([(t) => OrderingTerm.desc(t.id)]);
     s.limit(loadingCount);
@@ -96,8 +102,10 @@ class ClientDao extends DatabaseAccessor<AppDatabase> with _$ClientDaoMixin {
   Future<List<Client>> getNextByName(String name, int id) async {
     final s = select(clients);
     
+    final lower = name.toLowerCase();
+
     if (name.isNotEmpty) {
-      s.where((t) => t.name.like('%$name%') & t.id.isSmallerThanValue(id));
+      s.where((t) => t.name.lower().like('%$lower%') & t.id.isSmallerThanValue(id));
     } else {
       s.where((t) => t.id.isSmallerThanValue(id));
     }

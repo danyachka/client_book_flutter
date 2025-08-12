@@ -59,7 +59,6 @@ class _ClientsSearchTopWidgetState extends State<ClientsSearchTopWidget> {
             child: BlocBuilder<ClientSearchBloc, ClientSearchBlocState>(
               builder: (context, state) {
                 return AppEditTextWidget(
-                  fontSize: 12,
                   radius: 80,
                   expands: true,
                   controller: controller,

@@ -14,7 +14,7 @@ class ErrorTextWidget extends StatelessWidget {
     return Text(text,
       style: const TextStyle(
         color: AppColors.red,
-        fontSize: 12,
+        fontSize: 13,
         fontFamily: AppFont.m,
         fontWeight: FontWeight.bold
       ),

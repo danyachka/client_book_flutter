@@ -98,7 +98,7 @@ class _PickedWidget extends StatelessWidget {
         Text(client.name,
           maxLines: 1,
           style: const TextStyle(
-              fontSize: 12,
+              fontSize: 13,
               overflow: TextOverflow.ellipsis,
               fontFamily: AppFont.m,
               fontWeight: FontWeight.bold,
@@ -107,7 +107,7 @@ class _PickedWidget extends StatelessWidget {
         Text(client.getFormattedPhoneNumber(),
           maxLines: 1,
           style: const TextStyle(
-              fontSize: 12,
+              fontSize: 13,
               overflow: TextOverflow.ellipsis,
               fontFamily: AppFont.m,
               fontWeight: FontWeight.bold,

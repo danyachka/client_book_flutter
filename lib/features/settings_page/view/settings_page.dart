@@ -89,7 +89,7 @@ class __SettingsPageLayoutState extends State<_SettingsPageLayout> {
           ),
           if (kDebugMode) const SizedBox(height: 12),
 
-          AppEditTextWidget(controller: dbEditText, hint: S.of(context).settings_update_db, fontSize: 12),
+          AppEditTextWidget(controller: dbEditText, hint: S.of(context).settings_update_db),
           const SizedBox(height: 12),
           AppTextButton(
               onClick: () {

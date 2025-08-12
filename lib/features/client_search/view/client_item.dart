@@ -32,11 +32,11 @@ class ClientItem extends StatelessWidget {
 
       const SizedBox(width: 12),
 
-      Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(client.name,
             style: const TextStyle(
                 fontFamily: AppFont.m,
-                fontSize: 11,
+                fontSize: 13,
                 fontWeight: FontWeight.bold,
                 color: AppColors.accentText)),
 
@@ -45,7 +45,7 @@ class ClientItem extends StatelessWidget {
         if (hasNumber) Text(client.getFormattedPhoneNumber(),
             style: const TextStyle(
                 fontFamily: AppFont.m,
-                fontSize: 11,
+                fontSize: 13,
                 fontWeight: FontWeight.w600,
                 color: AppColors.accentTextDarker))
       ])

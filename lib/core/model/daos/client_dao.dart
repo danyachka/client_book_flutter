@@ -1,6 +1,7 @@
 import 'package:client_book_flutter/core/model/app_database.dart';
 import 'package:client_book_flutter/core/model/models/client/clients.dart';
 import 'package:drift/drift.dart';
+import 'package:drift/extensions/native.dart';
 
 part 'client_dao.g.dart'; // Generated code
 
@@ -43,8 +44,11 @@ class ClientDao extends DatabaseAccessor<AppDatabase> with _$ClientDaoMixin {
   }
 
   // Get by name
-  Future<Client?> getByName(String name) async {
-    return await (select(clients)..where((t) => t.name.equals(name))).getSingleOrNull();
+  Future<Client?> getByNameIgnoreCase(String name) async {
+    final len = name.length;
+    return await (select(clients)..where(
+      (t) => t.name.containsCase(name, caseSensitive: false) & t.name.length.equals(len)
+    )).getSingleOrNull();
   }
 
   // Get by phone
@@ -56,9 +60,9 @@ class ClientDao extends DatabaseAccessor<AppDatabase> with _$ClientDaoMixin {
   Future<List<Client>> getLatestByPhone(String phonePart) async {
     final s = select(clients);
     
-    final lower = phonePart.toLowerCase();
-
-    if (phonePart.isNotEmpty) s.where((t) => t.phoneNumber.lower().like('%$lower%'));
+    if (phonePart.isNotEmpty) {
+      s.where((t) => t.phoneNumber.like('%$phonePart%'));
+    }
 
     s.orderBy([(t) => OrderingTerm.desc(t.id)]);
     s.limit(loadingCount);
@@ -70,10 +74,8 @@ class ClientDao extends DatabaseAccessor<AppDatabase> with _$ClientDaoMixin {
   Future<List<Client>> getNextByPhone(String phonePart, int id) async {
     final s = select(clients);
     
-    final lower = phonePart.toLowerCase();
-    
     if (phonePart.isNotEmpty) {
-      s.where((t) => t.phoneNumber.lower().like('%$lower%') & t.id.isSmallerThanValue(id));
+      s.where((t) => t.phoneNumber.like('%$phonePart%') & t.id.isSmallerThanValue(id));
     } else {
       s.where((t) => t.id.isSmallerThanValue(id));
     }
@@ -90,7 +92,7 @@ class ClientDao extends DatabaseAccessor<AppDatabase> with _$ClientDaoMixin {
     
     final lower = name.toLowerCase();
 
-    if (name.isNotEmpty) s.where((t) => t.name.lower().like('%$lower%'));
+    if (name.isNotEmpty) s.where((t) => t.name.containsCase(lower, caseSensitive: false));
 
     s.orderBy([(t) => OrderingTerm.desc(t.id)]);
     s.limit(loadingCount);
@@ -105,7 +107,9 @@ class ClientDao extends DatabaseAccessor<AppDatabase> with _$ClientDaoMixin {
     final lower = name.toLowerCase();
 
     if (name.isNotEmpty) {
-      s.where((t) => t.name.lower().like('%$lower%') & t.id.isSmallerThanValue(id));
+      s.where((t) => t.name.containsCase(lower, caseSensitive: false)
+        & t.id.isSmallerThanValue(id)
+      );
     } else {
       s.where((t) => t.id.isSmallerThanValue(id));
     }

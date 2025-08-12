@@ -42,7 +42,7 @@ class AppointmentWidget extends StatelessWidget {
               titleText,
               maxLines: 1,
               style: const TextStyle(
-                fontSize: 18,
+                fontSize: 19,
                 overflow: TextOverflow.ellipsis,
                 fontFamily: AppFont.m,
                 fontWeight: FontWeight.bold,
@@ -72,7 +72,7 @@ class AppointmentWidget extends StatelessWidget {
               child: Text(
                 appointmentClient.appointment.appointmentText,
                 style: const TextStyle(
-                  fontSize: 14,
+                  fontSize: 16,
                   overflow: TextOverflow.ellipsis,
                   fontFamily: AppFont.m,
                   fontWeight: FontWeight.w600,
@@ -86,7 +86,7 @@ class AppointmentWidget extends StatelessWidget {
               appointmentClient.client.name,
               maxLines: 1,
               style: const TextStyle(
-                fontSize: 12,
+                fontSize: 13,
                 overflow: TextOverflow.ellipsis,
                 fontFamily: AppFont.m,
                 fontWeight: FontWeight.bold,
@@ -99,7 +99,7 @@ class AppointmentWidget extends StatelessWidget {
               appointmentClient.appointment.value.toString(),
               maxLines: 1,
               style: const TextStyle(
-                fontSize: 12,
+                fontSize: 13,
                 overflow: TextOverflow.ellipsis,
                 fontFamily: AppFont.m,
                 fontWeight: FontWeight.w600,

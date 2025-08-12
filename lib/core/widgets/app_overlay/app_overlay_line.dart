@@ -27,7 +27,7 @@ class AppOverlayLine extends StatelessWidget {
           text,
           maxLines: 1,
           style: const TextStyle(
-                  fontSize: 12,
+                  fontSize: 13,
                   overflow: TextOverflow.ellipsis,
                   fontFamily: AppFont.m,
                   fontWeight: FontWeight.w600,
